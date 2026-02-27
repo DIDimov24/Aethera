@@ -3,9 +3,7 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class Home;
-}
+namespace Ui { class Home; }
 QT_END_NAMESPACE
 
 class Home : public QMainWindow {
@@ -15,6 +13,10 @@ public:
     Home(QWidget *parent = nullptr);
     ~Home();
 
+private slots:
+    void toggleSidebar();
+
 private:
     Ui::Home *ui;
+    bool sidebarExpanded;
 };
