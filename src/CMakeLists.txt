@@ -13,9 +13,17 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
+    main.cpp
 
-        home.cpp home.h home.ui
+    core/database.cpp
+    core/database.h
+
+    core/usersession.cpp
+    core/usersession.h
+
+    ui/home/home.cpp 
+    ui/home/home.h 
+    ui/home/home.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,6 +46,13 @@ else()
 endif()
 
 target_link_libraries(Aethera PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+# Ensure the compiler can find headers in the source tree
+target_include_directories(Aethera PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
+)
 
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Aethera)
