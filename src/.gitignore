@@ -1,4 +1,3 @@
-# C++ objects and libs
 *.slo
 *.lo
 *.o
@@ -10,7 +9,6 @@
 *.dll
 *.dylib
 
-# Qt generated files
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
@@ -32,28 +30,20 @@ Makefile*
 *.qm
 *.prl
 
-# Qt unit tests
 target_wrapper.*
 
-# QtCreator autosaves
 *.autosave
 
-# QtCreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
 
-# QtCreator CMake
 CMakeLists.txt.user*
 
-# QtCreator 4.8< compilation database
 compile_commands.json
 
-# QtCreator local machine specific files for imported projects
 *creator.user*
 
-# QML cache
 *_qmlcache.qrc
 
-# Build folders
 /build/
 /build-*/

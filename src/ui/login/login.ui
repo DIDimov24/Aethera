@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Login</class>
+ <widget class="QMainWindow" name="Login">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>750</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Aethera — Login</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">
+QWidget#centralwidget {
+    background-color: #03012D;
+}
+
+QWidget#card {
+    background-color: #272541;
+    border-radius: 16px;
+}
+
+QLabel#labelTitle {
+    color: #FFFFFF;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+QLabel#labelSubtitle {
+    color: #FF7C0A;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QLabel#labelUsername,
+QLabel#labelPassword {
+    color: #AEAEB7;
+    font-size: 13px;
+}
+
+QLineEdit#inputUsername,
+QLineEdit#inputPassword {
+    background-color: #1A1836;
+    color: #EAEAEA;
+    font-size: 14px;
+    border: 1px solid #3D3B5E;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+QLineEdit#inputUsername:focus,
+QLineEdit#inputPassword:focus {
+    border: 1px solid #FF7C0A;
+}
+
+QPushButton#buttonLogin {
+    background-color: #FF7C0A;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+QPushButton#buttonLogin:hover {
+    background-color: #e06e08;
+}
+
+QPushButton#buttonLogin:pressed {
+    background-color: #c46007;
+}
+
+QPushButton#buttonRegister {
+    background-color: transparent;
+    color: #AEAEB7;
+    font-size: 13px;
+    border: 1px solid #3D3B5E;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+QPushButton#buttonRegister:hover {
+    background-color: #302F4B;
+    color: #FFFFFF;
+}
+
+QLabel#labelError {
+    color: #FF6B6B;
+    font-size: 12px;
+}
+    </string>
+   </property>
+
+   <widget class="QWidget" name="card">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>150</y>
+      <width>400</width>
+      <height>450</height>
+     </rect>
+    </property>
+
+    <widget class="QLabel" name="labelTitle">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>400</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Aethera</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+
+    <widget class="QLabel" name="labelSubtitle">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>92</y>
+       <width>400</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>History Learning Platform</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+
+    <widget class="QLabel" name="labelUsername">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>150</y>
+       <width>320</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Username</string>
+     </property>
+    </widget>
+
+    <widget class="QLineEdit" name="inputUsername">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>174</y>
+       <width>320</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your username...</string>
+     </property>
+    </widget>
+
+    <widget class="QLabel" name="labelPassword">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>232</y>
+       <width>320</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+
+    <widget class="QLineEdit" name="inputPassword">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>256</y>
+       <width>320</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your password...</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+    </widget>
+
+    <widget class="QLabel" name="labelError">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>310</y>
+       <width>320</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string></string>
+     </property>
+    </widget>
+
+    <widget class="QPushButton" name="buttonLogin">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>340</y>
+       <width>320</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Log In</string>
+     </property>
+    </widget>
+
+    <widget class="QPushButton" name="buttonRegister">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>400</y>
+       <width>320</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Create Account</string>
+     </property>
+    </widget>
+
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
