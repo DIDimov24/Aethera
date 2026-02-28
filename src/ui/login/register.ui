@@ -99,8 +99,7 @@ QLabel#labelSuccess {
 }
     </string>
    </property>
-
-   <widget class="QWidget" name="card">
+   <widget class="QWidget" name="card" native="true">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -109,7 +108,6 @@ QLabel#labelSuccess {
       <height>540</height>
      </rect>
     </property>
-
     <widget class="QLabel" name="labelTitle">
      <property name="geometry">
       <rect>
@@ -123,10 +121,9 @@ QLabel#labelSuccess {
       <string>Create Account</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelSubtitle">
      <property name="geometry">
       <rect>
@@ -140,10 +137,9 @@ QLabel#labelSuccess {
       <string>Join Aethera and start learning</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelUsername">
      <property name="geometry">
       <rect>
@@ -170,7 +166,6 @@ QLabel#labelSuccess {
       <string>Choose a username...</string>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelPassword">
      <property name="geometry">
       <rect>
@@ -193,14 +188,13 @@ QLabel#labelSuccess {
        <height>44</height>
       </rect>
      </property>
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
      <property name="placeholderText">
       <string>Choose a password...</string>
      </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
     </widget>
-
     <widget class="QLabel" name="labelConfirm">
      <property name="geometry">
       <rect>
@@ -223,14 +217,13 @@ QLabel#labelSuccess {
        <height>44</height>
       </rect>
      </property>
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
      <property name="placeholderText">
       <string>Repeat your password...</string>
      </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
     </widget>
-
     <widget class="QLabel" name="labelError">
      <property name="geometry">
       <rect>
@@ -241,23 +234,9 @@ QLabel#labelSuccess {
       </rect>
      </property>
      <property name="text">
-      <string></string>
+      <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="labelSuccess">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>362</y>
-       <width>320</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string></string>
-     </property>
-    </widget>
-
     <widget class="QPushButton" name="buttonCreate">
      <property name="geometry">
       <rect>
@@ -271,7 +250,6 @@ QLabel#labelSuccess {
       <string>Create Account</string>
      </property>
     </widget>
-
     <widget class="QPushButton" name="buttonBack">
      <property name="geometry">
       <rect>
@@ -285,7 +263,6 @@ QLabel#labelSuccess {
       <string>Back to Login</string>
      </property>
     </widget>
-
    </widget>
   </widget>
  </widget>

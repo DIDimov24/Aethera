@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Login</class>
- <widget class="QMainWindow" name="Login">
+<class>Login</class>
+<widget class="QMainWindow" name="Login">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -31,30 +31,30 @@
 QWidget#centralwidget {
     background-color: #03012D;
 }
-
+ 
 QWidget#card {
     background-color: #272541;
     border-radius: 16px;
 }
-
+ 
 QLabel#labelTitle {
     color: #FFFFFF;
     font-size: 42px;
     font-weight: bold;
 }
-
+ 
 QLabel#labelSubtitle {
     color: #FF7C0A;
     font-size: 16px;
     font-weight: bold;
 }
-
+ 
 QLabel#labelUsername,
 QLabel#labelPassword {
     color: #AEAEB7;
     font-size: 13px;
 }
-
+ 
 QLineEdit#inputUsername,
 QLineEdit#inputPassword {
     background-color: #1A1836;
@@ -64,12 +64,12 @@ QLineEdit#inputPassword {
     border-radius: 8px;
     padding: 10px 14px;
 }
-
+ 
 QLineEdit#inputUsername:focus,
 QLineEdit#inputPassword:focus {
     border: 1px solid #FF7C0A;
 }
-
+ 
 QPushButton#buttonLogin {
     background-color: #FF7C0A;
     color: #FFFFFF;
@@ -79,15 +79,15 @@ QPushButton#buttonLogin {
     border-radius: 8px;
     padding: 12px;
 }
-
+ 
 QPushButton#buttonLogin:hover {
     background-color: #e06e08;
 }
-
+ 
 QPushButton#buttonLogin:pressed {
     background-color: #c46007;
 }
-
+ 
 QPushButton#buttonRegister {
     background-color: transparent;
     color: #AEAEB7;
@@ -96,29 +96,27 @@ QPushButton#buttonRegister {
     border-radius: 8px;
     padding: 12px;
 }
-
+ 
 QPushButton#buttonRegister:hover {
     background-color: #302F4B;
     color: #FFFFFF;
 }
-
+ 
 QLabel#labelError {
     color: #FF6B6B;
     font-size: 12px;
 }
     </string>
    </property>
-
-   <widget class="QWidget" name="card">
+   <widget class="QWidget" name="card" native="true">
     <property name="geometry">
      <rect>
       <x>300</x>
       <y>150</y>
       <width>400</width>
-      <height>450</height>
+      <height>491</height>
      </rect>
     </property>
-
     <widget class="QLabel" name="labelTitle">
      <property name="geometry">
       <rect>
@@ -132,10 +130,9 @@ QLabel#labelError {
       <string>Aethera</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelSubtitle">
      <property name="geometry">
       <rect>
@@ -149,10 +146,9 @@ QLabel#labelError {
       <string>History Learning Platform</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelUsername">
      <property name="geometry">
       <rect>
@@ -166,7 +162,6 @@ QLabel#labelError {
       <string>Username</string>
      </property>
     </widget>
-
     <widget class="QLineEdit" name="inputUsername">
      <property name="geometry">
       <rect>
@@ -180,7 +175,6 @@ QLabel#labelError {
       <string>Enter your username...</string>
      </property>
     </widget>
-
     <widget class="QLabel" name="labelPassword">
      <property name="geometry">
       <rect>
@@ -194,7 +188,6 @@ QLabel#labelError {
       <string>Password</string>
      </property>
     </widget>
-
     <widget class="QLineEdit" name="inputPassword">
      <property name="geometry">
       <rect>
@@ -204,14 +197,13 @@ QLabel#labelError {
        <height>44</height>
       </rect>
      </property>
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
      <property name="placeholderText">
       <string>Enter your password...</string>
      </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
     </widget>
-
     <widget class="QLabel" name="labelError">
      <property name="geometry">
       <rect>
@@ -222,10 +214,9 @@ QLabel#labelError {
       </rect>
      </property>
      <property name="text">
-      <string></string>
+      <string/>
      </property>
     </widget>
-
     <widget class="QPushButton" name="buttonLogin">
      <property name="geometry">
       <rect>
@@ -239,7 +230,6 @@ QLabel#labelError {
       <string>Log In</string>
      </property>
     </widget>
-
     <widget class="QPushButton" name="buttonRegister">
      <property name="geometry">
       <rect>
@@ -253,10 +243,9 @@ QLabel#labelError {
       <string>Create Account</string>
      </property>
     </widget>
-
    </widget>
   </widget>
- </widget>
- <resources/>
- <connections/>
+</widget>
+<resources/>
+<connections/>
 </ui>

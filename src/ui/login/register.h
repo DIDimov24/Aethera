@@ -13,10 +13,6 @@ public:
     Register(QWidget *parent = nullptr);
     ~Register();
 
-signals:
-    void registerSuccessful(const QString &username);
-    void backToLoginRequested();
-
 private slots:
     void onCreateClicked();
     void onBackClicked();
