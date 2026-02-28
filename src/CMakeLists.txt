@@ -23,9 +23,10 @@ set(PROJECT_SOURCES
     ui/login/login.cpp
     ui/login/login.h
     ui/login/login.ui
-    ui/login/register.cpp
-    ui/login/register.h
-    ui/login/register.ui
+
+    ui/register/register.cpp
+    ui/register/register.h
+    ui/register/register.ui
 
     ui/home/home.cpp
     ui/home/home.h

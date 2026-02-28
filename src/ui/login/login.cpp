@@ -1,7 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include "database.h"
-#include "register.h"
+#include "../register/register.h"
 #include "home.h"
 #include "usersession.h"
  

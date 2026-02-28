@@ -1,7 +1,7 @@
 #include "register.h"
 #include "ui_register.h"
 #include "database.h"
-#include "login.h"
+#include "../login/login.h"
  
 Register::Register(QWidget *parent)
     : QMainWindow(parent)
