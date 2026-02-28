@@ -25,7 +25,7 @@ Home::Home(QWidget *parent)
  
     connect(ui->buttonToggleSidebar, &QPushButton::clicked, this, &Home::toggleSidebar);
  
-    connect(ui->buttonNavDashboard, &QPushButton::clicked, this, [this]() {
+    connect(ui->buttonNavHome, &QPushButton::clicked, this, [this]() {
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(ui->buttonNavExams, &QPushButton::clicked, this, [this]() {
@@ -76,7 +76,7 @@ void Home::toggleSidebar() {
     ui->sidebar->setGeometry(0, 0, sidebarWidth, 750);
     ui->stackedWidget->setGeometry(contentX, 0, contentWidth, 750);
  
-    ui->buttonNavDashboard->setVisible(sidebarExpanded);
+    ui->buttonNavHome->setVisible(sidebarExpanded);
     ui->buttonNavExams->setVisible(sidebarExpanded);
     ui->buttonLoginRegister->setVisible(sidebarExpanded);
     ui->buttonSettings->setVisible(sidebarExpanded);

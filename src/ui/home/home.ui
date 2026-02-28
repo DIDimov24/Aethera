@@ -36,7 +36,7 @@ QWidget#sidebar {
     background-color: #272541;
 }
  
-QPushButton#buttonNavDashboard,
+QPushButton#buttonNavHome,
 QPushButton#buttonNavExams,
 QPushButton#buttonSettings {
     background-color: transparent;
@@ -48,13 +48,13 @@ QPushButton#buttonSettings {
     padding: 10px 16px;
     text-align: left;
 }
-QPushButton#buttonNavDashboard:hover,
+QPushButton#buttonNavHome:hover,
 QPushButton#buttonNavExams:hover,
 QPushButton#buttonSettings:hover {
     background-color: #302F4B;
     color: #FFFFFF;
 }
-QPushButton#buttonNavDashboard:pressed,
+QPushButton#buttonNavHome:pressed,
 QPushButton#buttonNavExams:pressed,
 QPushButton#buttonSettings:pressed {
     background-color: #03012D;
@@ -264,35 +264,65 @@ QPushButton#buttonBackHome:hover {
     <property name="geometry">
      <rect><x>8</x><y>10</y><width>36</width><height>36</height></rect>
     </property>
-    <property name="text"><string>☰</string></property>
+    <property name="text"><string></string></property>
+    <property name="icon">
+     <iconset resource="../../assets/icons.qrc">
+      <normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg
+     </iconset>
+    </property>
+    <property name="iconSize"><size><width>20</width><height>20</height></size></property>
    </widget>
  
-   <widget class="QPushButton" name="buttonNavDashboard">
+    <widget class="QPushButton" name="buttonNavHome">
     <property name="geometry">
      <rect><x>20</x><y>60</y><width>160</width><height>44</height></rect>
     </property>
-    <property name="text"><string>📊  Dashboard</string></property>
+    <property name="text"><string>  Home</string></property>
+    <property name="icon">
+     <iconset resource="../../assets/icons.qrc">
+      <normaloff>:/icons/home.svg</normaloff>:/icons/home.svg
+     </iconset>
+    </property>
+    <property name="iconSize"><size><width>18</width><height>18</height></size></property>
    </widget>
  
    <widget class="QPushButton" name="buttonNavExams">
     <property name="geometry">
      <rect><x>20</x><y>114</y><width>160</width><height>44</height></rect>
     </property>
-    <property name="text"><string>📝  Exams</string></property>
+    <property name="text"><string>  Exams</string></property>
+    <property name="icon">
+     <iconset resource="../../assets/icons.qrc">
+      <normaloff>:/icons/exam.svg</normaloff>:/icons/exam.svg
+     </iconset>
+    </property>
+    <property name="iconSize"><size><width>18</width><height>18</height></size></property>
    </widget>
  
    <widget class="QPushButton" name="buttonLoginRegister">
     <property name="geometry">
      <rect><x>20</x><y>642</y><width>160</width><height>44</height></rect>
     </property>
-    <property name="text"><string>👤  Login / Register</string></property>
+    <property name="text"><string>  Login / Register</string></property>
+    <property name="icon">
+     <iconset resource="../../assets/icons.qrc">
+      <normaloff>:/icons/user.svg</normaloff>:/icons/user.svg
+     </iconset>
+    </property>
+    <property name="iconSize"><size><width>18</width><height>18</height></size></property>
    </widget>
  
    <widget class="QPushButton" name="buttonSettings">
     <property name="geometry">
      <rect><x>20</x><y>694</y><width>160</width><height>44</height></rect>
     </property>
-    <property name="text"><string>⚙️  Settings</string></property>
+    <property name="text"><string>  Settings</string></property>
+    <property name="icon">
+     <iconset resource="../../assets/icons.qrc">
+      <normaloff>:/icons/settings.svg</normaloff>:/icons/settings.svg
+     </iconset>
+    </property>
+    <property name="iconSize"><size><width>18</width><height>18</height></size></property>
    </widget>
  
    <widget class="QStackedWidget" name="stackedWidget">
@@ -301,7 +331,7 @@ QPushButton#buttonBackHome:hover {
     </property>
     <property name="currentIndex"><number>0</number></property>
  
-    <widget class="QWidget" name="pageDashboard">
+    <widget class="QWidget" name="pageHome">
  
      <widget class="QLabel" name="labelTitle">
       <property name="geometry"><rect><x>50</x><y>40</y><width>400</width><height>44</height></rect></property>
@@ -368,7 +398,13 @@ QPushButton#buttonBackHome:hover {
  
      <widget class="QPushButton" name="buttonStartExam">
       <property name="geometry"><rect><x>50</x><y>340</y><width>220</width><height>52</height></rect></property>
-      <property name="text"><string>▶  Start Exam</string></property>
+      <property name="text"><string>  Start Exam</string></property>
+      <property name="icon">
+       <iconset resource="../../assets/icons.qrc">
+        <normaloff>:/icons/play.svg</normaloff>:/icons/play.svg
+       </iconset>
+      </property>
+      <property name="iconSize"><size><width>18</width><height>18</height></size></property>
      </widget>
  
      <widget class="QPushButton" name="buttonLogOut">
@@ -387,7 +423,7 @@ QPushButton#buttonBackHome:hover {
  
      <widget class="QLabel" name="labelTimer">
       <property name="geometry"><rect><x>620</x><y>30</y><width>130</width><height>40</height></rect></property>
-      <property name="text"><string>⏱ 10:00</string></property>
+      <property name="text"><string>10:00</string></property>
       <property name="alignment"><set>Qt::AlignRight</set></property>
      </widget>
  
@@ -466,12 +502,24 @@ QPushButton#buttonBackHome:hover {
  
      <widget class="QPushButton" name="buttonRetry">
       <property name="geometry"><rect><x>230</x><y>400</y><width>150</width><height>48</height></rect></property>
-      <property name="text"><string>↺  Try Again</string></property>
+      <property name="text"><string>  Try Again</string></property>
+      <property name="icon">
+       <iconset resource="../../assets/icons.qrc">
+        <normaloff>:/icons/retry.svg</normaloff>:/icons/retry.svg
+       </iconset>
+      </property>
+      <property name="iconSize"><size><width>18</width><height>18</height></size></property>
      </widget>
  
-     <widget class="QPushButton" name="buttonBackHome">
+    <widget class="QPushButton" name="buttonBackHome">
       <property name="geometry"><rect><x>420</x><y>400</y><width>150</width><height>48</height></rect></property>
-      <property name="text"><string>🏠  Dashboard</string></property>
+    <property name="text"><string>  Home</string></property>
+      <property name="icon">
+       <iconset resource="../../assets/icons.qrc">
+        <normaloff>:/icons/home.svg</normaloff>:/icons/home.svg
+       </iconset>
+      </property>
+      <property name="iconSize"><size><width>18</width><height>18</height></size></property>
      </widget>
  
     </widget>

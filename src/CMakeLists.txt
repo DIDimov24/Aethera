@@ -13,7 +13,8 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
     main.cpp
-
+    assets/icons.qrc
+    
     core/database.cpp
     core/database.h
     core/usersession.cpp
