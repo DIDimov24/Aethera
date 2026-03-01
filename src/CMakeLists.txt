@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
     ui/home/home.cpp
     ui/home/home.h
     ui/home/home.ui
+    ui/home/home_styles.h
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})

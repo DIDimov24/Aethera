@@ -2,6 +2,7 @@
 #include "ui_register.h"
 #include "database.h"
 #include "../login/login.h"
+#include "home.h"
  
 Register::Register(QWidget *parent)
     : QMainWindow(parent)
@@ -10,10 +11,10 @@ Register::Register(QWidget *parent)
  
     connect(ui->buttonCreate, &QPushButton::clicked, this, &Register::onCreateClicked);
     connect(ui->buttonBack, &QPushButton::clicked, this, &Register::onBackClicked);
+    connect(ui->buttonBackHome, &QPushButton::clicked, this, &Register::onBackHomeClicked);
     connect(ui->inputUsername, &QLineEdit::returnPressed, this, [this]() { ui->inputPassword->setFocus(); });
     connect(ui->inputPassword, &QLineEdit::returnPressed, this, [this]() { ui->inputConfirm->setFocus(); });
     connect(ui->inputConfirm, &QLineEdit::returnPressed, this, [this]() { ui->comboGrade->setFocus(); });
-    connect(ui->comboGrade, QOverload<int>::of(&QComboBox::activated), this, &Register::onCreateClicked);
 }
  
 Register::~Register() {
@@ -66,5 +67,11 @@ void Register::onBackClicked() {
     Login *loginPage = new Login();
     this->hide();
     loginPage->show();
+}
+ 
+void Register::onBackHomeClicked() {
+    Home *homePage = new Home();
+    this->hide();
+    homePage->show();
 }
  

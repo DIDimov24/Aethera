@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Aethera — Login</string>
+   <string>Aethera - Login</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -98,6 +98,20 @@ QPushButton#buttonRegister {
 }
  
 QPushButton#buttonRegister:hover {
+    background-color: #302F4B;
+    color: #FFFFFF;
+}
+ 
+QPushButton#buttonBackHome {
+    background-color: transparent;
+    color: #AEAEB7;
+    font-size: 13px;
+    border: 1px solid #3D3B5E;
+    border-radius: 8px;
+    padding: 12px;
+}
+ 
+QPushButton#buttonBackHome:hover {
     background-color: #302F4B;
     color: #FFFFFF;
 }
@@ -235,12 +249,25 @@ QLabel#labelError {
       <rect>
        <x>40</x>
        <y>400</y>
-       <width>320</width>
+       <width>154</width>
        <height>48</height>
       </rect>
      </property>
      <property name="text">
       <string>Create Account</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="buttonBackHome">
+     <property name="geometry">
+      <rect>
+       <x>206</x>
+       <y>400</y>
+       <width>154</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Back to Home</string>
      </property>
     </widget>
    </widget>

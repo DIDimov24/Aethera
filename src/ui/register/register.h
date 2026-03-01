@@ -16,6 +16,7 @@ public:
 private slots:
     void onCreateClicked();
     void onBackClicked();
+    void onBackHomeClicked();
 
 private:
     Ui::Register *ui;

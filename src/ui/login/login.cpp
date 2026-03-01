@@ -13,6 +13,8 @@ Login::Login(QWidget *parent)
     connect(ui->buttonLogin, &QPushButton::clicked, this, &Login::onLoginClicked);
  
     connect(ui->buttonRegister, &QPushButton::clicked, this, &Login::onRegisterClicked);
+
+    connect(ui->buttonBackHome, &QPushButton::clicked, this, &Login::onBackHomeClicked);
  
     connect(ui->inputPassword, &QLineEdit::returnPressed, this, &Login::onLoginClicked);
  
@@ -38,7 +40,7 @@ void Login::onLoginClicked() {
         User user;
         if (username == "admin" && password == "admin") {
             user.username = username;
-            user.grade = "";
+            user.grade = "IX";
             user.password = password;
         } else {
             UserStore::instance().getUser(username, user);
@@ -58,5 +60,11 @@ void Login::onRegisterClicked() {
     Register *registerPage = new Register();
     this->hide();
     registerPage->show();
+}
+ 
+void Login::onBackHomeClicked() {
+    Home *homePage = new Home();
+    this->hide();
+    homePage->show();
 }
  

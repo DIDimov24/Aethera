@@ -1,5 +1,6 @@
 #include "./home.h"
 #include "./ui_home.h"
+#include "./home_styles.h"
 #include "login.h"
 #include "usersession.h"
 #include <QRandomGenerator>
@@ -7,292 +8,6 @@
 #include <QPropertyAnimation>
 #include <QApplication>
 #include <algorithm>
-
-namespace Style {
-
-static const char* navExpanded = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #7a7a9a;
-        font-size: 13px;
-        font-weight: 500;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 16px;
-        text-align: left;
-        icon-size: 18px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        color: #E8E8F0;
-    }
-)";
-
-static const char* navExpandedActive = R"(
-    QPushButton {
-        background-color: #1a1836;
-        color: #00D4AA;
-        font-size: 13px;
-        font-weight: 600;
-        border: none;
-        border-left: 3px solid #00D4AA;
-        border-radius: 0px 8px 8px 0px;
-        padding: 10px 16px;
-        text-align: left;
-        icon-size: 18px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        color: #00D4AA;
-    }
-)";
-
-static const char* navCollapsed = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #7a7a9a;
-        font-size: 13px;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 0px;
-        text-align: center;
-        icon-size: 18px;
-        min-height: 0px;
-        max-height: 40px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        color: #E8E8F0;
-    }
-)";
-
-static const char* navCollapsedActive = R"(
-    QPushButton {
-        background-color: #1a1836;
-        color: #00D4AA;
-        font-size: 13px;
-        border: none;
-        border-left: 3px solid #00D4AA;
-        border-radius: 0px 8px 8px 0px;
-        padding: 10px 0px;
-        text-align: center;
-        icon-size: 18px;
-        min-height: 0px;
-        max-height: 40px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-    }
-)";
-
-static const char* logoutExpanded = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #FF6B6B;
-        font-size: 13px;
-        font-weight: 500;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 16px;
-        text-align: left;
-        icon-size: 18px;
-    }
-    QPushButton:hover {
-        background-color: #2e1520;
-        color: #FF8F8F;
-    }
-)";
-
-static const char* logoutCollapsed = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #FF6B6B;
-        font-size: 13px;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 0px;
-        text-align: center;
-        icon-size: 18px;
-        min-height: 0px;
-        max-height: 40px;
-    }
-    QPushButton:hover {
-        background-color: #2e1520;
-        color: #FF8F8F;
-    }
-)";
-
-static const char* loginExpanded = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #7a7a9a;
-        font-size: 13px;
-        font-weight: 500;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 16px;
-        text-align: left;
-        icon-size: 18px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        color: #E8E8F0;
-    }
-)";
-
-static const char* loginCollapsed = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #7a7a9a;
-        font-size: 13px;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 0px;
-        text-align: center;
-        icon-size: 18px;
-        min-height: 0px;
-        max-height: 40px;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        color: #E8E8F0;
-    }
-)";
-
-static const char* answerNormal = R"(
-    QPushButton {
-        background-color: #1e1c35;
-        color: #C0C0D8;
-        font-size: 14px;
-        border: 1px solid #2e2c50;
-        border-radius: 10px;
-        padding: 14px 20px;
-        text-align: left;
-    }
-    QPushButton:hover {
-        background-color: #252340;
-        border-color: #7C5CFC;
-        color: #E8E8F0;
-    }
-)";
-
-static const char* answerCorrect = R"(
-    QPushButton {
-        background-color: #0d2e22;
-        color: #00D4AA;
-        font-size: 14px;
-        border: 1px solid #00D4AA;
-        border-radius: 10px;
-        padding: 14px 20px;
-        text-align: left;
-    }
-)";
-
-static const char* answerWrong = R"(
-    QPushButton {
-        background-color: #2e0d0d;
-        color: #FF6B6B;
-        font-size: 14px;
-        border: 1px solid #FF6B6B;
-        border-radius: 10px;
-        padding: 14px 20px;
-        text-align: left;
-    }
-)";
-
-static const char* progressBar = R"(
-    QProgressBar {
-        background-color: #1e1c35;
-        border: none;
-        border-radius: 4px;
-        max-height: 6px;
-    }
-    QProgressBar::chunk {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        border-radius: 4px;
-    }
-)";
-
-static const char* timerNormal  = "color: #E8E8F0; font-size: 20px; font-weight: bold;";
-static const char* timerWarnOn  = "color: #FF6B6B; font-size: 20px; font-weight: bold;";
-static const char* timerWarnOff = "color: #7a3535; font-size: 20px; font-weight: bold;";
-
-static const char* startExamBtn = R"(
-    QPushButton {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        color: #FFFFFF;
-        font-size: 15px;
-        font-weight: 700;
-        border: none;
-        border-radius: 12px;
-        padding: 14px 36px;
-    }
-    QPushButton:hover {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #9575FF, stop:1 #00EFC0);
-    }
-    QPushButton:pressed {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #6040e0, stop:1 #00b890);
-    }
-)";
-
-static const char* primaryBtn = R"(
-    QPushButton {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        color: #FFFFFF;
-        font-size: 14px;
-        font-weight: 700;
-        border: none;
-        border-radius: 10px;
-        padding: 12px 28px;
-    }
-    QPushButton:hover {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #9575FF, stop:1 #00EFC0);
-    }
-    QPushButton:disabled {
-        background-color: #252340;
-        color: #4a4a6a;
-    }
-)";
-
-static const char* secondaryBtn = R"(
-    QPushButton {
-        background-color: transparent;
-        color: #7a7a9a;
-        font-size: 14px;
-        font-weight: 500;
-        border: 1px solid #2e2c50;
-        border-radius: 10px;
-        padding: 12px 28px;
-    }
-    QPushButton:hover {
-        background-color: #1e1c35;
-        color: #E8E8F0;
-        border-color: #7C5CFC;
-    }
-)";
-
-static const char* welcomeLabel = R"(
-    QLabel {
-        color: #7a7a9a;
-        font-size: 14px;
-    }
-)";
-
-static const char* statValue = R"(
-    QLabel {
-        color: #7C5CFC;
-        font-size: 28px;
-        font-weight: 700;
-    }
-)";
-
-}
 
 Home::Home(QWidget *parent)
     : QMainWindow(parent)
@@ -359,8 +74,8 @@ Home::Home(QWidget *parent)
     connect(ui->buttonC, &QPushButton::clicked, this, [this]() { onAnswerSelected(2); });
     connect(ui->buttonD, &QPushButton::clicked, this, [this]() { onAnswerSelected(3); });
 
-    connect(ui->buttonNext,     &QPushButton::clicked, this, &Home::onNextClicked);
-    connect(ui->buttonRetry,    &QPushButton::clicked, this, &Home::onRetryClicked);
+    connect(ui->buttonNext, &QPushButton::clicked, this, &Home::onNextClicked);
+    connect(ui->buttonRetry, &QPushButton::clicked, this, &Home::onRetryClicked);
     connect(ui->buttonBackHome, &QPushButton::clicked, this, &Home::onBackHomeClicked);
 
     loadQuestions();
@@ -368,9 +83,13 @@ Home::Home(QWidget *parent)
     updateSidebarButtons();
     setNavActive(0);
 
-    ui->labelWelcome->setText(
-        "Welcome back, " + UserSession::instance().username() + "!  Ready to test your knowledge?"
-        );
+    if (UserSession::instance().isLoggedIn()) {
+        QString name = UserSession::instance().username();
+        QString grade = UserSession::instance().grade();
+        ui->labelWelcome->setText("Welcome back, " + name + " (Grade " + grade + ")! Ready to test your knowledge?");
+    } else {
+        ui->labelWelcome->setText("Login or create an account.");
+    }
 }
 
 Home::~Home() { delete ui; }
@@ -387,8 +106,8 @@ void Home::toggleSidebar() {
 
     const int expandedW  = 200;
     const int collapsedW = 52;
-    const int totalH     = 750;
-    const int totalW     = 1000;
+    const int totalH = 750;
+    const int totalW = 1000;
 
     int targetSW = sidebarExpanded ? expandedW : collapsedW;
     int targetCW = totalW - targetSW;
@@ -419,17 +138,15 @@ void Home::repositionSidebarButtons() {
     ui->buttonNavHome ->setGeometry(btnX,  60, btnW, btnH);
     ui->buttonNavExams->setGeometry(btnX, 108, btnW, btnH);
     ui->buttonSettings->setGeometry(btnX, 696, btnW, btnH);
-    ui->buttonLogOut       ->setGeometry(btnX, 648, btnW, btnH);
+    ui->buttonLogOut->setGeometry(btnX, 648, btnW, btnH);
     ui->buttonLoginRegister->setGeometry(btnX, 648, btnW, btnH);
 }
 
 void Home::updateSidebarButtons() {
-    bool loggedIn = UserSession::instance().isLoggedIn();
-
-    const char* navNorm   = sidebarExpanded ? Style::navExpanded        : Style::navCollapsed;
-    const char* navAct    = sidebarExpanded ? Style::navExpandedActive   : Style::navCollapsedActive;
-    const char* logoutSS  = sidebarExpanded ? Style::logoutExpanded      : Style::logoutCollapsed;
-    const char* loginSS   = sidebarExpanded ? Style::loginExpanded       : Style::loginCollapsed;
+    const char* navNorm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
+    const char* navAct = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
+    const char* logoutSS = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
+    const char* loginSS = sidebarExpanded ? Style::loginExpanded : Style::loginCollapsed;
 
     auto setup = [&](QPushButton *btn, const QString &label,
                      const QString &iconPath, const char *ss)
@@ -446,13 +163,13 @@ void Home::updateSidebarButtons() {
         }
     };
 
-    setup(ui->buttonNavHome,  "Home",     ":/icons/home.svg",     navNorm);
-    setup(ui->buttonNavExams, "Exams",    ":/icons/exam.svg",     navNorm);
+    setup(ui->buttonNavHome,  "Home", ":/icons/home.svg", navNorm);
+    setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navNorm);
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
 
     setNavActive(activeNavIndex);
 
-    if (loggedIn) {
+    if (UserSession::instance().isLoggedIn()) {
         setup(ui->buttonLogOut, "Log Out", ":/icons/user.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
         ui->buttonLoginRegister->setVisible(false);
@@ -466,8 +183,8 @@ void Home::updateSidebarButtons() {
 void Home::setNavActive(int index) {
     activeNavIndex = index;
 
-    const char* norm = sidebarExpanded ? Style::navExpanded      : Style::navCollapsed;
-    const char* act  = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
+    const char* norm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
+    const char* act = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
 
     ui->buttonNavHome ->setStyleSheet(index == 0 ? act : norm);
     ui->buttonNavExams->setStyleSheet(index == 1 ? act : norm);
@@ -554,8 +271,8 @@ void Home::startExam() {
 
     currentQuestionIndex = 0;
     selectedAnswer  = -1;
-    correctCount    = 0;
-    timeLeft        = 600;
+    correctCount = 0;
+    timeLeft = 600;
     timerBlinkState = true;
     ui->labelTimer->setStyleSheet(Style::timerNormal);
 
@@ -603,9 +320,9 @@ void Home::highlightAnswer(int answer) {
 
     QPushButton *btns[4] = { ui->buttonA, ui->buttonB, ui->buttonC, ui->buttonD };
     for (int i = 0; i < 4; i++) {
-        if      (i == correct)                  btns[i]->setStyleSheet(Style::answerCorrect);
+        if (i == correct) btns[i]->setStyleSheet(Style::answerCorrect);
         else if (i == answer && answer != correct) btns[i]->setStyleSheet(Style::answerWrong);
-        else                                    btns[i]->setStyleSheet(Style::answerNormal);
+        else btns[i]->setStyleSheet(Style::answerNormal);
     }
 
     if (answer == correct) correctCount++;
@@ -613,10 +330,11 @@ void Home::highlightAnswer(int answer) {
 
 void Home::onNextClicked() {
     currentQuestionIndex++;
-    if (currentQuestionIndex >= examQuestions.size())
+    if (currentQuestionIndex >= examQuestions.size()) {
         showResults();
-    else
+    } else {
         showQuestion(currentQuestionIndex);
+    }
 }
 
 void Home::onTimerTick() {
@@ -684,17 +402,17 @@ void Home::showResults() {
 
 void Home::updateStatsCards() {
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
-    ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "—");
+    ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "-");
 
     if (totalExamsTaken > 0) {
         double avg = (double)totalCorrect / totalExamsTaken;
         ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
     } else {
-        ui->labelCardValue3->setText("—");
+        ui->labelCardValue3->setText("-");
     }
 }
 
-void Home::onRetryClicked()    { startExam(); }
+void Home::onRetryClicked() { startExam(); }
 
 void Home::onBackHomeClicked() {
     setNavActive(0);

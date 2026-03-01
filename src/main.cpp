@@ -1,9 +1,9 @@
 #include <QApplication>
-#include "ui/login/login.h"
+#include "ui/home/home.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    Login loginWindow;
-    loginWindow.show();
+    Home window;
+    window.show();
     return app.exec();
 }
