@@ -35,7 +35,15 @@ void Login::onLoginClicked() {
     if (UserStore::instance().validateUser(username, password) ||
         (username == "admin" && password == "admin")) {
         ui->labelError->setText("");
-        UserSession::instance().setUser(username);
+        User user;
+        if (username == "admin" && password == "admin") {
+            user.username = username;
+            user.grade = "";
+            user.password = password;
+        } else {
+            UserStore::instance().getUser(username, user);
+        }
+        UserSession::instance().setUser(user);
         Home *homePage = new Home();
         this->hide();
         homePage->show();
@@ -51,3 +59,4 @@ void Login::onRegisterClicked() {
     this->hide();
     registerPage->show();
 }
+ 

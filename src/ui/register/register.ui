@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Register</class>
- <widget class="QMainWindow" name="Register">
+<class>Register</class>
+<widget class="QMainWindow" name="Register">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -64,6 +64,29 @@ QLineEdit#inputUsername:focus,
 QLineEdit#inputPassword:focus,
 QLineEdit#inputConfirm:focus {
     border: 1px solid #FF7C0A;
+}
+QComboBox#comboGrade {
+     background-color: #1A1836;
+     color: #EAEAEA;
+     font-size: 14px;
+     border: 1px solid #3D3B5E;
+     border-radius: 8px;
+     padding: 10px 14px;
+}
+QComboBox#comboGrade:focus {
+     border: 1px solid #FF7C0A;
+}
+QComboBox#comboGrade::drop-down {
+     subcontrol-origin: padding;
+     subcontrol-position: top right;
+     width: 30px;
+     border-left: 1px solid rgba(255,255,255,0.03);
+}
+QComboBox QAbstractItemView {
+     background-color: #272541;
+     color: #EAEAEA;
+     selection-background-color: #FF7C0A;
+     selection-color: #FFFFFF;
 }
 QPushButton#buttonCreate {
     background-color: #FF7C0A;
@@ -224,11 +247,49 @@ QLabel#labelSuccess {
       <string>Repeat your password...</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelError">
+    <widget class="QLabel" name="labelGrade">
      <property name="geometry">
       <rect>
        <x>40</x>
        <y>362</y>
+       <width>320</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Grade</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboGrade">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>386</y>
+       <width>320</width>
+       <height>44</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>VIII</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>IX</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="labelError">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>440</y>
        <width>320</width>
        <height>20</height>
       </rect>
@@ -241,7 +302,7 @@ QLabel#labelSuccess {
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>392</y>
+       <y>470</y>
        <width>320</width>
        <height>48</height>
       </rect>
@@ -254,7 +315,7 @@ QLabel#labelSuccess {
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>452</y>
+       <y>530</y>
        <width>320</width>
        <height>48</height>
       </rect>
@@ -265,7 +326,8 @@ QLabel#labelSuccess {
     </widget>
    </widget>
   </widget>
- </widget>
- <resources/>
- <connections/>
+</widget>
+<resources/>
+<connections/>
 </ui>
+ 

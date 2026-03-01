@@ -10,6 +10,10 @@ Register::Register(QWidget *parent)
  
     connect(ui->buttonCreate, &QPushButton::clicked, this, &Register::onCreateClicked);
     connect(ui->buttonBack, &QPushButton::clicked, this, &Register::onBackClicked);
+    connect(ui->inputUsername, &QLineEdit::returnPressed, this, [this]() { ui->inputPassword->setFocus(); });
+    connect(ui->inputPassword, &QLineEdit::returnPressed, this, [this]() { ui->inputConfirm->setFocus(); });
+    connect(ui->inputConfirm, &QLineEdit::returnPressed, this, [this]() { ui->comboGrade->setFocus(); });
+    connect(ui->comboGrade, QOverload<int>::of(&QComboBox::activated), this, &Register::onCreateClicked);
 }
  
 Register::~Register() {
@@ -20,11 +24,17 @@ void Register::onCreateClicked() {
     QString username = ui->inputUsername->text().trimmed();
     QString password = ui->inputPassword->text().trimmed();
     QString confirm = ui->inputConfirm->text().trimmed();
+    QString grade = ui->comboGrade->currentText().trimmed();
  
     ui->labelError->setText("");
  
     if (username.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
         ui->labelError->setText("Please fill in all fields.");
+        return;
+    }
+ 
+    if (grade.isEmpty()) {
+        ui->labelError->setText("Please select your grade.");
         return;
     }
  
@@ -39,7 +49,13 @@ void Register::onCreateClicked() {
         return;
     }
  
-    UserStore::instance().registerUser(username, password);
+    if (password != confirm) {
+        ui->labelError->setText("Passwords do not match.");
+        ui->inputConfirm->setFocus();
+        return;
+    }
+ 
+    UserStore::instance().registerUser(username, password, grade);
  
     Login *loginPage = new Login();
     this->hide();
@@ -51,3 +67,4 @@ void Register::onBackClicked() {
     this->hide();
     loginPage->show();
 }
+ 
