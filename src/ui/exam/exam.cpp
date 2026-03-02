@@ -3,16 +3,11 @@
 #include <algorithm>
 
 Exam::Exam(QObject *parent)
-    : QObject(parent)
-    , currentQuestionIndex(0)
-    , selectedAnswer(-1)
-    , correctCount(0)
-    , timeLeft(600)
-    , timerBlinkState(true)
-    , totalExamsTaken(0)
-    , bestScore(-1)
-    , totalCorrect(0)
-{
+    : QObject(parent) {
+    totalExamsTaken = 0;
+    bestScore = -1;
+    totalCorrect = 0;
+
     examTimer = new QTimer(this);
     examTimer->setInterval(1000);
     connect(examTimer, &QTimer::timeout, this, &Exam::onTimerTick);
@@ -281,8 +276,13 @@ void Exam::recordExamResult() {
 
 void Exam::initializeExamQuestions() {
     examQuestions = allQuestions;
+
+    // seed a default_random_engine with a 32-bit value from
+    // Qt's global QRandomGenerator. This gives an independent
+    // seed value so that shuffle produces a randomized order each run.
     std::shuffle(examQuestions.begin(), examQuestions.end(),
                  std::default_random_engine(QRandomGenerator::global()->generate()));
+
     while (examQuestions.size() > 20) {
         examQuestions.removeLast();
     }

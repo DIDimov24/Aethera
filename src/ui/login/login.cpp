@@ -1,7 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include "database.h"
-#include "../register/register.h"
+#include "register.h"
 #include "home.h"
 #include "usersession.h"
  
@@ -11,13 +11,9 @@ Login::Login(QWidget *parent)
     ui->setupUi(this);
  
     connect(ui->buttonLogin, &QPushButton::clicked, this, &Login::onLoginClicked);
- 
     connect(ui->buttonRegister, &QPushButton::clicked, this, &Login::onRegisterClicked);
-
     connect(ui->buttonBackHome, &QPushButton::clicked, this, &Login::onBackHomeClicked);
- 
     connect(ui->inputPassword, &QLineEdit::returnPressed, this, &Login::onLoginClicked);
- 
     connect(ui->inputUsername, &QLineEdit::returnPressed, this, [this](){ ui->inputPassword->setFocus(); });
 }
  

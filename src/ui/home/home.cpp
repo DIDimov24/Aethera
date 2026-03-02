@@ -10,12 +10,12 @@
 Home::Home(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Home)
-    , sidebarExpanded(true)
-    , activeNavIndex(0)
 {
     ui->setupUi(this);
 
     examLogic = new Exam(this);
+    sidebarExpanded = true;
+    activeNavIndex = 0;
 
     qApp->setStyleSheet(qApp->styleSheet() + R"(QToolTip { background-color: #1e1c35; color: #E8E8F0; border: 1px solid #7C5CFC; border-radius: 6px; padding: 4px 8px; font-size: 12px; })");
 
@@ -139,7 +139,7 @@ void Home::updateSidebarButtons() {
     const char* logoutSS = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
     const char* loginSS = sidebarExpanded ? Style::loginExpanded : Style::loginCollapsed;
 
-    auto setup = [&](QPushButton *btn, const QString &label,
+    auto setup = [this](QPushButton *btn, const QString &label,
                      const QString &iconPath, const char *ss)
     {
         btn->setIcon(QIcon(iconPath));
@@ -154,7 +154,7 @@ void Home::updateSidebarButtons() {
         }
     };
 
-    setup(ui->buttonNavHome,  "Home", ":/icons/home.svg", navNorm);
+    setup(ui->buttonNavHome, "Home", ":/icons/home.svg", navNorm);
     setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navNorm);
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
 

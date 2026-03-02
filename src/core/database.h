@@ -26,16 +26,16 @@ public:
         return true;
     }
  
-    bool validateUser(const QString &username, const QString &password) const {
+    bool validateUser(const QString &username, const QString &password) {
         if (!m_users.contains(username)) return false;
         return m_users.value(username).password == password;
     }
  
-    bool userExists(const QString &username) const {
+    bool userExists(const QString &username) {
         return m_users.contains(username);
     }
  
-    bool getUser(const QString &username, User &out) const {
+    bool getUser(const QString &username, User &out) {
         if (!m_users.contains(username)) return false;
         out = m_users.value(username);
         return true;

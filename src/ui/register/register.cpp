@@ -1,7 +1,7 @@
 #include "register.h"
 #include "ui_register.h"
 #include "database.h"
-#include "../login/login.h"
+#include "login.h"
 #include "home.h"
  
 Register::Register(QWidget *parent)

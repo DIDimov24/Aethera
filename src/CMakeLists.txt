@@ -45,6 +45,7 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/core
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
 )

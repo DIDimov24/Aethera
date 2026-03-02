@@ -32,7 +32,6 @@ private:
     Ui::Home *ui;
     Exam *examLogic;
     bool sidebarExpanded;
-
     int activeNavIndex;
 
     void showQuestion(int index);
