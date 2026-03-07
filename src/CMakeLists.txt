@@ -14,12 +14,13 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
     main.cpp
     assets/icons.qrc
-    
+
+    assets/aethera.db
     core/database.cpp
     core/database.h
     core/usersession.cpp
@@ -47,7 +48,7 @@ set(PROJECT_SOURCES
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
 
-target_link_libraries(Aethera PRIVATE Qt6::Widgets)
+target_link_libraries(Aethera PRIVATE Qt6::Widgets Qt6::Sql)
 
 target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}

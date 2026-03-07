@@ -76,8 +76,8 @@ Home::Home(QWidget *parent)
     setNavActive(0);
 
     if (UserSession::instance().isLoggedIn()) {
-        QString name = UserSession::instance().username();
-        QString grade = UserSession::instance().grade();
+        QString name = UserSession::instance().getUsername();
+        QString grade = UserSession::instance().getGrade();
         ui->labelWelcome->setText("Welcome back, " + name + " (Grade " + grade + ")! Ready to test your knowledge?");
     } else {
         ui->labelWelcome->setText("Login or create an account.");

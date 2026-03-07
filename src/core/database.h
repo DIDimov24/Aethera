@@ -1,48 +1,29 @@
 #pragma once
- 
+
 #include <QString>
-#include <QMap>
- 
+#include <QSqlDatabase>
+
 struct User {
     QString username;
     QString password;
     QString grade;
 };
- 
-class UserStore {
+
+class Database {
 public:
-    static UserStore& instance() {
-        static UserStore store;
-        return store;
-    }
- 
-    bool registerUser(const QString &username, const QString &password, const QString &grade) {
-        if (m_users.contains(username)) return false;
-        User u;
-        u.username = username;
-        u.password = password;
-        u.grade = grade;
-        m_users.insert(username, u);
-        return true;
-    }
- 
-    bool validateUser(const QString &username, const QString &password) {
-        if (!m_users.contains(username)) return false;
-        return m_users.value(username).password == password;
-    }
- 
-    bool userExists(const QString &username) {
-        return m_users.contains(username);
-    }
- 
-    bool getUser(const QString &username, User &out) {
-        if (!m_users.contains(username)) return false;
-        out = m_users.value(username);
-        return true;
-    }
- 
+    static Database& instance();
+
+    bool openDatabase();
+    bool registerUser(const QString &username, const QString &password, const QString &grade);
+    bool validateUser(const QString &username, const QString &password);
+    bool userExists(const QString &username);
+    bool getUser(const QString &username, User &out);
+
 private:
-    UserStore() {}
-    QMap<QString, User> m_users;
+    Database();
+
+    Database(const Database&) = delete;
+    Database& operator=(const Database&) = delete;
+
+    QSqlDatabase database;
 };
- 
