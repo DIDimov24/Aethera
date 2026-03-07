@@ -4,28 +4,28 @@ namespace Style {
 
 static const char *answerNormal = R"(
     QPushButton {
-        background-color: #1e1c35;
-        color: #C0C0D8;
+        background-color: #1c1c1f;
+        color: #a0a0aa;
         font-size: 14px;
-        border: 1px solid #2e2c50;
-        border-radius: 10px;
+        border: 1px solid #2a2a2d;
+        border-radius: 8px;
         padding: 14px 20px;
         text-align: left;
     }
     QPushButton:hover {
-        background-color: #252340;
-        border-color: #7C5CFC;
-        color: #E8E8F0;
+        background-color: #222224;
+        border-color: #3a3a3e;
+        color: #ffffff;
     }
 )";
 
 static const char *answerCorrect = R"(
     QPushButton {
-        background-color: #0d2e22;
-        color: #00D4AA;
+        background-color: #0d2318;
+        color: #3dd68c;
         font-size: 14px;
-        border: 1px solid #00D4AA;
-        border-radius: 10px;
+        border: 1px solid #1a5c38;
+        border-radius: 8px;
         padding: 14px 20px;
         text-align: left;
     }
@@ -33,11 +33,11 @@ static const char *answerCorrect = R"(
 
 static const char *answerWrong = R"(
     QPushButton {
-        background-color: #2e0d0d;
-        color: #FF6B6B;
+        background-color: #230d0d;
+        color: #e05555;
         font-size: 14px;
-        border: 1px solid #FF6B6B;
-        border-radius: 10px;
+        border: 1px solid #5c1a1a;
+        border-radius: 8px;
         padding: 14px 20px;
         text-align: left;
     }
@@ -45,93 +45,89 @@ static const char *answerWrong = R"(
 
 static const char *progressBar = R"(
     QProgressBar {
-        background-color: #1e1c35;
+        background-color: #222224;
         border: none;
-        border-radius: 4px;
-        max-height: 6px;
+        border-radius: 2px;
+        max-height: 3px;
     }
     QProgressBar::chunk {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        border-radius: 4px;
+        background-color: #ffffff;
+        border-radius: 2px;
     }
 )";
 
-static const char *timerNormal = "color: #E8E8F0; font-size: 20px; font-weight: bold;";
-static const char *timerWarnOn = "color: #FF6B6B; font-size: 20px; font-weight: bold;";
-static const char *timerWarnOff = "color: #7a3535; font-size: 20px; font-weight: bold;";
+static const char *timerNormal = "color: #6b6b76; font-size: 17px; font-weight: 600;";
+static const char *timerWarnOn = "color: #e05555; font-size: 17px; font-weight: 600;";
+static const char *timerWarnOff = "color: #5c1a1a; font-size: 17px; font-weight: 600;";
 
 static const char *startExamBtn = R"(
     QPushButton {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        color: #FFFFFF;
-        font-size: 15px;
-        font-weight: 700;
+        background-color: #ffffff;
+        color: #111113;
+        font-size: 13px;
+        font-weight: 600;
         border: none;
-        border-radius: 12px;
-        padding: 14px 36px;
+        border-radius: 8px;
+        padding: 10px 22px;
     }
     QPushButton:hover {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #9575FF, stop:1 #00EFC0);
+        background-color: #e8e8e8;
     }
     QPushButton:pressed {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #6040e0, stop:1 #00b890);
+        background-color: #d0d0d0;
     }
 )";
 
 static const char *primaryBtn = R"(
     QPushButton {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #7C5CFC, stop:1 #00D4AA);
-        color: #FFFFFF;
+        background-color: #ffffff;
+        color: #111113;
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 600;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         padding: 12px 28px;
     }
     QPushButton:hover {
-        background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                        stop:0 #9575FF, stop:1 #00EFC0);
+        background-color: #e8e8e8;
     }
     QPushButton:disabled {
-        background-color: #252340;
-        color: #4a4a6a;
+        background-color: #1c1c1f;
+        color: #3a3a3e;
+        border: 1px solid #2a2a2d;
     }
 )";
 
 static const char *secondaryBtn = R"(
     QPushButton {
         background-color: transparent;
-        color: #7a7a9a;
+        color: #6b6b76;
         font-size: 14px;
         font-weight: 500;
-        border: 1px solid #2e2c50;
-        border-radius: 10px;
+        border: 1px solid #2a2a2d;
+        border-radius: 8px;
         padding: 12px 28px;
     }
     QPushButton:hover {
-        background-color: #1e1c35;
-        color: #E8E8F0;
-        border-color: #7C5CFC;
+        background-color: #1c1c1f;
+        color: #ffffff;
+        border-color: #3a3a3e;
     }
 )";
 
 static const char *welcomeLabel = R"(
     QLabel {
-        color: #7a7a9a;
-        font-size: 14px;
+        color: #6b6b76;
+        font-size: 13px;
     }
 )";
 
 static const char *statValue = R"(
     QLabel {
-        color: #7C5CFC;
-        font-size: 28px;
+        color: #ffffff;
+        font-size: 32px;
         font-weight: 700;
+        letter-spacing: -1px;
     }
 )";
 

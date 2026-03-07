@@ -23,169 +23,207 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Aethera - History</string>
+   <string>Aethera</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">
 QWidget#centralwidget {
-    background-color: #0f0e1a;
+    background-color: #161618;
 }
 QWidget#sidebar {
-    background-color: #161428;
-    border-right: 1px solid #1e1c35;
+    background-color: #111113;
+    border-right: 1px solid #222224;
 }
 QLabel#labelTitle {
-    color: #FFFFFF;
-    font-size: 32px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 QLabel#labelSubtitle {
-    color: #FF7C0A;
-    font-size: 16px;
-    font-weight: bold;
+    color: #4a4a52;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 QLabel#labelWelcome {
-    color: #7a7a9a;
-    font-size: 14px;
+    color: #6b6b76;
+    font-size: 13px;
 }
 QWidget#cardExams,
 QWidget#cardBest,
 QWidget#cardAvg {
-    background-color: #161428;
+    background-color: #1c1c1f;
     border-radius: 12px;
-    border: 1px solid #1e1c35;
+    border: 1px solid #2a2a2d;
+}
+QWidget#cardExams:hover,
+QWidget#cardBest:hover,
+QWidget#cardAvg:hover {
+    background-color: #202023;
+    border-color: #3a3a3e;
 }
 QLabel#labelCardTitle1,
 QLabel#labelCardTitle2,
 QLabel#labelCardTitle3 {
-    color: #7a7a9a;
-    font-size: 12px;
+    color: #4a4a52;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
 }
 QLabel#labelCardValue1,
-QLabel#labelCardValue2,
 QLabel#labelCardValue3 {
-    color: #7C5CFC;
-    font-size: 28px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+QLabel#labelCardValue2 {
+    color: #3dd68c;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+QLabel#labelCardUnit1,
+QLabel#labelCardUnit3 {
+    color: #4a4a52;
+    font-size: 11px;
+}
+QLabel#labelCardUnit2 {
+    color: #2a9e68;
+    font-size: 11px;
+}
+QWidget#divider {
+    background-color: #222224;
+}
+QLabel#labelSectionTitle {
+    color: #3a3a3e;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+QWidget#heroPanel {
+    background-color: #1c1c1f;
+    border-radius: 12px;
+    border: 1px solid #2a2a2d;
+}
+QLabel#labelHeroHeading {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+QLabel#labelHeroDesc {
+    color: #4a4a52;
+    font-size: 12px;
 }
 QPushButton#buttonStartExam {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #7C5CFC, stop:1 #00D4AA);
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 700;
+    background-color: #ffffff;
+    color: #111113;
+    font-size: 13px;
+    font-weight: 600;
     border: none;
-    border-radius: 12px;
-    padding: 14px 36px;
+    border-radius: 8px;
+    padding: 10px 22px;
 }
 QPushButton#buttonStartExam:hover {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #9575FF, stop:1 #00EFC0);
+    background-color: #e8e8e8;
 }
 QPushButton#buttonStartExam:pressed {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #6040e0, stop:1 #00b890);
+    background-color: #d0d0d0;
 }
 QPushButton#buttonNext,
 QPushButton#buttonRetry {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #7C5CFC, stop:1 #00D4AA);
-    color: #FFFFFF;
+    background-color: #ffffff;
+    color: #111113;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 12px 28px;
 }
 QPushButton#buttonNext:hover,
 QPushButton#buttonRetry:hover {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #9575FF, stop:1 #00EFC0);
+    background-color: #e8e8e8;
 }
-QPushButton#buttonNext:disabled,
-QPushButton#buttonRetry:disabled {
-    background-color: #252340;
-    color: #4a4a6a;
+QPushButton#buttonNext:disabled {
+    background-color: #1c1c1f;
+    color: #3a3a3e;
+    border: 1px solid #2a2a2d;
 }
 QPushButton#buttonBackHome {
     background-color: transparent;
-    color: #7a7a9a;
+    color: #6b6b76;
     font-size: 14px;
     font-weight: 500;
-    border: 1px solid #2e2c50;
-    border-radius: 10px;
+    border: 1px solid #2a2a2d;
+    border-radius: 8px;
     padding: 12px 28px;
 }
 QPushButton#buttonBackHome:hover {
-    background-color: #1e1c35;
-    color: #E8E8F0;
-    border-color: #7C5CFC;
+    background-color: #1c1c1f;
+    color: #ffffff;
+    border-color: #3a3a3e;
 }
 QProgressBar#progressBar {
-    background-color: #1e1c35;
+    background-color: #222224;
     border: none;
-    border-radius: 4px;
-    max-height: 6px;
+    border-radius: 2px;
+    max-height: 3px;
 }
 QProgressBar#progressBar::chunk {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #7C5CFC, stop:1 #00D4AA);
-    border-radius: 4px;
-}
-QLabel#labelCardUnit1 {
-    color: #FF7C0A;
-    font-size: 13px;
-}
-QLabel#labelCardUnit2 {
-    color: #00D4AA;
-    font-size: 13px;
-}
-QLabel#labelCardUnit3 {
-    color: #7C5CFC;
-    font-size: 13px;
+    background-color: #ffffff;
+    border-radius: 2px;
 }
 QLabel#labelExamTitle {
-    color: #FFFFFF;
-    font-size: 28px;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 QLabel#labelTimer {
-    color: #E8E8F0;
-    font-size: 20px;
-    font-weight: bold;
+    color: #6b6b76;
+    font-size: 17px;
+    font-weight: 600;
 }
 QLabel#labelQuestion {
-    color: #E8E8F0;
+    color: #e0e0e4;
     font-size: 16px;
 }
 QLabel#labelProgress {
-    color: #7a7a9a;
-    font-size: 13px;
+    color: #3a3a3e;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 QLabel#labelResultTitle {
-    color: #FFFFFF;
-    font-size: 28px;
-    font-weight: bold;
+    color: #4a4a52;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 QLabel#labelScore {
-    color: #00D4AA;
-    font-size: 64px;
-    font-weight: bold;
+    color: #3dd68c;
+    font-size: 80px;
+    font-weight: 700;
+    letter-spacing: -4px;
 }
 QLabel#labelScoreLabel {
-    color: #7a7a9a;
-    font-size: 14px;
+    color: #3a3a3e;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 QLabel#labelGrade {
-    color: #00D4AA;
-    font-size: 24px;
-    font-weight: bold;
+    color: #6b6b76;
+    font-size: 15px;
+    font-weight: 500;
 }
 QToolTip {
-    background-color: #1e1c35;
-    color: #E8E8F0;
-    border: 1px solid #7C5CFC;
+    background-color: #2a2a2d;
+    color: #e0e0e4;
+    border: 1px solid #3a3a3e;
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 12px;
@@ -219,7 +257,7 @@ QPushButton {
     padding: 6px;
 }
 QPushButton:hover {
-    background-color: #252340;
+    background-color: #1c1c1f;
 }
       </string>
      </property>
@@ -369,74 +407,97 @@ QPushButton:hover {
      <number>0</number>
     </property>
     <widget class="QWidget" name="pageHome">
-     <widget class="QLabel" name="labelTitle">
+     <widget class="QLabel" name="labelSubtitle">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>40</y>
+        <y>52</y>
+        <width>300</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>HISTORY PLATFORM</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelTitle">
+      <property name="geometry">
+       <rect>
+        <x>46</x>
+        <y>66</y>
         <width>400</width>
-        <height>44</height>
+        <height>48</height>
        </rect>
       </property>
       <property name="text">
        <string>Aethera</string>
       </property>
      </widget>
-     <widget class="QLabel" name="labelSubtitle">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>86</y>
-        <width>300</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>History</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="labelWelcome">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>128</y>
-        <width>600</width>
-        <height>24</height>
+        <y>118</y>
+        <width>580</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
        <string>Welcome back! Ready to test your knowledge?</string>
       </property>
      </widget>
+     <widget class="QWidget" name="divider" native="true">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>154</y>
+        <width>700</width>
+        <height>1</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelSectionTitle">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>168</y>
+        <width>200</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>YOUR STATS</string>
+      </property>
+     </widget>
      <widget class="QWidget" name="cardExams" native="true">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>180</y>
+        <y>192</y>
         <width>210</width>
-        <height>110</height>
+        <height>112</height>
        </rect>
       </property>
       <widget class="QLabel" name="labelCardTitle1">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>14</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>18</y>
+         <width>174</width>
+         <height>14</height>
         </rect>
        </property>
        <property name="text">
-        <string>Exams Taken</string>
+        <string>EXAMS TAKEN</string>
        </property>
       </widget>
       <widget class="QLabel" name="labelCardValue1">
        <property name="geometry">
         <rect>
          <x>16</x>
-         <y>40</y>
-         <width>100</width>
-         <height>40</height>
+         <y>36</y>
+         <width>140</width>
+         <height>42</height>
         </rect>
        </property>
        <property name="text">
@@ -446,10 +507,10 @@ QPushButton:hover {
       <widget class="QLabel" name="labelCardUnit1">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>82</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>84</y>
+         <width>174</width>
+         <height>16</height>
         </rect>
        </property>
        <property name="text">
@@ -460,32 +521,32 @@ QPushButton:hover {
      <widget class="QWidget" name="cardBest" native="true">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>180</y>
+        <x>283</x>
+        <y>192</y>
         <width>210</width>
-        <height>110</height>
+        <height>112</height>
        </rect>
       </property>
       <widget class="QLabel" name="labelCardTitle2">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>14</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>18</y>
+         <width>174</width>
+         <height>14</height>
         </rect>
        </property>
        <property name="text">
-        <string>Best Score</string>
+        <string>BEST SCORE</string>
        </property>
       </widget>
       <widget class="QLabel" name="labelCardValue2">
        <property name="geometry">
         <rect>
          <x>16</x>
-         <y>40</y>
-         <width>100</width>
-         <height>40</height>
+         <y>36</y>
+         <width>140</width>
+         <height>42</height>
         </rect>
        </property>
        <property name="text">
@@ -495,10 +556,10 @@ QPushButton:hover {
       <widget class="QLabel" name="labelCardUnit2">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>82</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>84</y>
+         <width>174</width>
+         <height>16</height>
         </rect>
        </property>
        <property name="text">
@@ -509,32 +570,32 @@ QPushButton:hover {
      <widget class="QWidget" name="cardAvg" native="true">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>180</y>
+        <x>536</x>
+        <y>192</y>
         <width>210</width>
-        <height>110</height>
+        <height>112</height>
        </rect>
       </property>
       <widget class="QLabel" name="labelCardTitle3">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>14</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>18</y>
+         <width>174</width>
+         <height>14</height>
         </rect>
        </property>
        <property name="text">
-        <string>Average Score</string>
+        <string>AVERAGE SCORE</string>
        </property>
       </widget>
       <widget class="QLabel" name="labelCardValue3">
        <property name="geometry">
         <rect>
          <x>16</x>
-         <y>40</y>
-         <width>100</width>
-         <height>40</height>
+         <y>36</y>
+         <width>140</width>
+         <height>42</height>
         </rect>
        </property>
        <property name="text">
@@ -544,10 +605,10 @@ QPushButton:hover {
       <widget class="QLabel" name="labelCardUnit3">
        <property name="geometry">
         <rect>
-         <x>16</x>
-         <y>82</y>
-         <width>180</width>
-         <height>20</height>
+         <x>18</x>
+         <y>84</y>
+         <width>174</width>
+         <height>16</height>
         </rect>
        </property>
        <property name="text">
@@ -555,28 +616,54 @@ QPushButton:hover {
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="buttonStartExam">
+     <widget class="QWidget" name="heroPanel" native="true">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>340</y>
-        <width>220</width>
-        <height>52</height>
+        <y>334</y>
+        <width>700</width>
+        <height>152</height>
        </rect>
       </property>
-      <property name="text">
-       <string>  Start Exam</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../../assets/icons.qrc">
-        <normaloff>:/icons/play.svg</normaloff>:/icons/play.svg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>18</width>
-        <height>18</height>
-       </size>
-      </property>
+      <widget class="QLabel" name="labelHeroHeading">
+       <property name="geometry">
+        <rect>
+         <x>28</x>
+         <y>28</y>
+         <width>480</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ready to challenge yourself?</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelHeroDesc">
+       <property name="geometry">
+        <rect>
+         <x>28</x>
+         <y>62</y>
+         <width>500</width>
+         <height>18</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>20 questions  ·  10 minutes  ·  Ancient, Medieval &amp; Modern history</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonStartExam">
+       <property name="geometry">
+        <rect>
+         <x>28</x>
+         <y>98</y>
+         <width>170</width>
+         <height>38</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Start Exam</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="pageExam">
@@ -603,7 +690,7 @@ QPushButton:hover {
        </rect>
       </property>
       <property name="text">
-       <string>10:00</string>
+       <string>⏱ 10:00</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
@@ -615,7 +702,7 @@ QPushButton:hover {
         <x>50</x>
         <y>82</y>
         <width>700</width>
-        <height>8</height>
+        <height>3</height>
        </rect>
       </property>
       <property name="maximum">
@@ -632,13 +719,13 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>98</y>
+        <y>94</y>
         <width>700</width>
-        <height>20</height>
+        <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Question 1 of 20</string>
+       <string>1 / 20</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -648,7 +735,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>136</y>
+        <y>132</y>
         <width>700</width>
         <height>80</height>
        </rect>
@@ -664,7 +751,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>236</y>
+        <y>232</y>
         <width>700</width>
         <height>54</height>
        </rect>
@@ -677,7 +764,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>300</y>
+        <y>296</y>
         <width>700</width>
         <height>54</height>
        </rect>
@@ -690,7 +777,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>364</y>
+        <y>360</y>
         <width>700</width>
         <height>54</height>
        </rect>
@@ -703,7 +790,7 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>428</y>
+        <y>424</y>
         <width>700</width>
         <height>54</height>
        </rect>
@@ -734,13 +821,13 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>80</y>
+        <y>100</y>
         <width>800</width>
-        <height>44</height>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>Exam Complete!</string>
+       <string>EXAM COMPLETE</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -750,9 +837,9 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>150</y>
+        <y>132</y>
         <width>800</width>
-        <height>80</height>
+        <height>96</height>
        </rect>
       </property>
       <property name="text">
@@ -768,11 +855,11 @@ QPushButton:hover {
         <x>0</x>
         <y>232</y>
         <width>800</width>
-        <height>24</height>
+        <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>correct answers</string>
+       <string>CORRECT ANSWERS</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -782,9 +869,9 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>290</y>
+        <y>272</y>
         <width>800</width>
-        <height>40</height>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
@@ -798,46 +885,26 @@ QPushButton:hover {
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>400</y>
-        <width>150</width>
-        <height>48</height>
+        <y>370</y>
+        <width>160</width>
+        <height>44</height>
        </rect>
       </property>
       <property name="text">
-       <string>  Try Again</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../../assets/icons.qrc">
-        <normaloff>:/icons/retry.svg</normaloff>:/icons/retry.svg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>18</width>
-        <height>18</height>
-       </size>
+       <string>Try Again</string>
       </property>
      </widget>
      <widget class="QPushButton" name="buttonBackHome">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>400</y>
-        <width>150</width>
-        <height>48</height>
+        <x>410</x>
+        <y>370</y>
+        <width>160</width>
+        <height>44</height>
        </rect>
       </property>
       <property name="text">
-       <string>  Home</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../../assets/icons.qrc">
-        <normaloff>:/icons/home.svg</normaloff>:/icons/home.svg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>18</width>
-        <height>18</height>
-       </size>
+       <string>Home</string>
       </property>
      </widget>
     </widget>
