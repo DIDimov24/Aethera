@@ -228,6 +228,153 @@ QToolTip {
     padding: 4px 8px;
     font-size: 12px;
 }
+QWidget#pageSettings, QWidget#pageTerms, QWidget#pagePrivacy {
+    background-color: #161618;
+}
+QWidget#scrollContentSettings, QWidget#scrollContentTerms, QWidget#scrollContentPrivacy {
+    background: transparent;
+}
+QLabel#labelSettingsTitle, QLabel#labelTermsPageTitle, QLabel#labelPrivacyPageTitle {
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: bold;
+}
+QFrame#cardUsername, QFrame#cardPassword,
+QFrame#cardBio, QFrame#cardTermsNav, QFrame#cardPrivacyNav,
+QFrame#cardTermsContent, QFrame#cardPrivacyContent {
+    background-color: #1c1c1f;
+    border-radius: 12px;
+    border: 1px solid #2a2a2d;
+}
+QFrame#cardDeleteAccount {
+    background-color: #1a1212;
+    border-radius: 12px;
+    border: 1px solid #2d1515;
+}
+QLineEdit#inputSettingsUsername,
+QLineEdit#inputSettingsCurrentPassword,
+QLineEdit#inputSettingsNewPassword,
+QLineEdit#inputSettingsConfirmPassword {
+    background-color: #222224;
+    color: #e0e0e4;
+    font-size: 14px;
+    border: 1px solid #2a2a2d;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+QLineEdit#inputSettingsUsername:focus,
+QLineEdit#inputSettingsCurrentPassword:focus,
+QLineEdit#inputSettingsNewPassword:focus,
+QLineEdit#inputSettingsConfirmPassword:focus {
+    border: 1px solid #3a3a3e;
+}
+QTextEdit#textSettingsBio {
+    background-color: #222224;
+    color: #e0e0e4;
+    font-size: 14px;
+    border: 1px solid #2a2a2d;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+QTextEdit#textSettingsBio:focus {
+    border: 1px solid #3a3a3e;
+}
+QPushButton#buttonSaveUsername,
+QPushButton#buttonSavePassword,
+QPushButton#buttonSaveBio {
+    background-color: #ffffff;
+    color: #111113;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+}
+QPushButton#buttonSaveUsername:hover,
+QPushButton#buttonSavePassword:hover,
+QPushButton#buttonSaveBio:hover {
+    background-color: #e8e8e8;
+}
+QPushButton#buttonViewTerms,
+QPushButton#buttonViewPrivacy {
+    background-color: #1c1c1f;
+    color: #e0e0e4;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #2a2a2d;
+    border-radius: 10px;
+    padding: 12px 24px;
+    text-align: left;
+}
+QPushButton#buttonViewTerms:hover,
+QPushButton#buttonViewPrivacy:hover {
+    background-color: #222224;
+    border-color: #3a3a3e;
+    color: #ffffff;
+}
+QPushButton#buttonBackFromTerms,
+QPushButton#buttonBackFromPrivacy {
+    background-color: transparent;
+    color: #6b6b76;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #2a2a2d;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+QPushButton#buttonBackFromTerms:hover,
+QPushButton#buttonBackFromPrivacy:hover {
+    background-color: #1c1c1f;
+    color: #ffffff;
+    border-color: #3a3a3e;
+}
+QPushButton#buttonDeleteAccount {
+    background-color: #8b2020;
+    color: #e0c0c0;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+}
+QPushButton#buttonDeleteAccount:hover {
+    background-color: #a52a2a;
+    color: #ffffff;
+}
+
+QLabel#labelSectionUsername, QLabel#labelSectionPassword,
+QLabel#labelSectionBio,
+QLabel#labelSectionTermsNav, QLabel#labelSectionPrivacyNav {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+QLabel#labelSectionDelete {
+    color: #cc4444;
+    font-size: 16px;
+    font-weight: 600;
+}
+QLabel#labelFieldNewUsername, QLabel#labelFieldCurrentPw,
+QLabel#labelFieldNewPw, QLabel#labelFieldConfirmPw,
+QLabel#labelFieldBioDesc, QLabel#labelFieldTermsDesc,
+QLabel#labelFieldPrivacyDesc {
+    color: #6b6b76;
+    font-size: 13px;
+}
+QLabel#labelSettingsUsernameStatus,
+QLabel#labelSettingsPasswordStatus,
+QLabel#labelSettingsBioStatus {
+    font-size: 12px;
+}
+QLabel#labelTermsBody, QLabel#labelPrivacyBody {
+    color: #e0e0e4;
+    font-size: 13px;
+}
+QLabel#labelDeleteWarning {
+    color: #995555;
+    font-size: 13px;
+}
+
     </string>
    </property>
    <widget class="QWidget" name="sidebar" native="true">
@@ -907,6 +1054,860 @@ QPushButton:hover {
        <string>Home</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="pageSettings">
+     <layout class="QVBoxLayout" name="pageSettingsLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QScrollArea" name="scrollAreaSettings">
+        <property name="styleSheet">
+         <string notr="true">
+QScrollArea { background: transparent; border: none; }
+QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+        </string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::NoFrame</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollContentSettings">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>-659</y>
+           <width>792</width>
+           <height>1566</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="layoutSettingsContent">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="topMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <property name="bottomMargin">
+           <number>40</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="labelSettingsTitle">
+            <property name="text">
+             <string>Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardUsername">
+            <layout class="QVBoxLayout" name="layoutCardUsername">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionUsername">
+               <property name="text">
+                <string>Change Username</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldNewUsername">
+               <property name="text">
+                <string>New Username</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="inputSettingsUsername">
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="placeholderText">
+                <string>Enter new username</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelSettingsUsernameStatus">
+               <property name="visible">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSaveUsername">
+               <property name="minimumSize">
+                <size>
+                 <width>160</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>160</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Save Username</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardPassword">
+            <layout class="QVBoxLayout" name="layoutCardPassword">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionPassword">
+               <property name="text">
+                <string>Change Password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldCurrentPw">
+               <property name="text">
+                <string>Current Password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="inputSettingsCurrentPassword">
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Enter current password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldNewPw">
+               <property name="text">
+                <string>New Password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="inputSettingsNewPassword">
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Enter new password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldConfirmPw">
+               <property name="text">
+                <string>Confirm New Password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="inputSettingsConfirmPassword">
+               <property name="maximumSize">
+                <size>
+                 <width>400</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Confirm new password</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelSettingsPasswordStatus">
+               <property name="visible">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSavePassword">
+               <property name="minimumSize">
+                <size>
+                 <width>160</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>160</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Save Password</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardBio">
+            <layout class="QVBoxLayout" name="layoutCardBio">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionBio">
+               <property name="text">
+                <string>Profile Bio</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldBioDesc">
+               <property name="text">
+                <string>Tell others about yourself</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTextEdit" name="textSettingsBio">
+               <property name="maximumSize">
+                <size>
+                 <width>500</width>
+                 <height>120</height>
+                </size>
+               </property>
+               <property name="placeholderText">
+                <string>Write something about yourself...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelSettingsBioStatus">
+               <property name="visible">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSaveBio">
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Save Bio</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardTermsNav">
+            <layout class="QVBoxLayout" name="layoutCardTermsNav">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionTermsNav">
+               <property name="text">
+                <string>Terms &amp; Conditions</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldTermsDesc">
+               <property name="text">
+                <string>Read the full Terms and Conditions for using Aethera.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonViewTerms">
+               <property name="minimumSize">
+                <size>
+                 <width>280</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>280</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>View →</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardPrivacyNav">
+            <layout class="QVBoxLayout" name="layoutCardPrivacyNav">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionPrivacyNav">
+               <property name="text">
+                <string>Privacy Policy</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelFieldPrivacyDesc">
+               <property name="text">
+                <string>Read how Aethera collects and protects your data.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonViewPrivacy">
+               <property name="minimumSize">
+                <size>
+                 <width>280</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>280</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>View →</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardDeleteAccount">
+            <layout class="QVBoxLayout" name="layoutCardDelete">
+             <property name="spacing">
+              <number>12</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelSectionDelete">
+               <property name="text">
+                <string>Delete Account</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelDeleteWarning">
+               <property name="text">
+                <string>⚠ Warning: This action is irreversible. Deleting your account will permanently remove all your data, including your profile, exam history, and settings. This cannot be undone.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonDeleteAccount">
+               <property name="minimumSize">
+                <size>
+                 <width>220</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>220</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>DELETE MY ACCOUNT</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="settingsSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="pageTerms">
+     <layout class="QVBoxLayout" name="pageTermsLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QScrollArea" name="scrollAreaTerms">
+        <property name="styleSheet">
+         <string notr="true">
+QScrollArea { background: transparent; border: none; }
+QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+        </string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::NoFrame</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollContentTerms">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>359</width>
+           <height>1574</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="layoutTermsContent">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="topMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <property name="bottomMargin">
+           <number>40</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="buttonBackFromTerms">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>←  Back to Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelTermsPageTitle">
+            <property name="text">
+             <string>Terms &amp; Conditions</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardTermsContent">
+            <layout class="QVBoxLayout" name="layoutCardTermsBody">
+             <property name="spacing">
+              <number>12</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelTermsBody">
+               <property name="text">
+                <string>Last updated: March 2026
+
+Welcome to Aethera. By accessing or using our application, you agree to be bound by these Terms and Conditions.
+
+1. Acceptance of Terms
+By creating an account or using Aethera, you acknowledge that you have read, understood, and agree to be bound by these terms.
+
+2. Use of the Application
+Aethera is an educational platform designed for learning and examination purposes. You agree to use the application only for lawful purposes and in compliance with all applicable laws and regulations.
+
+3. User Accounts
+You are responsible for maintaining the confidentiality of your account credentials. You agree to notify Aethera immediately of any unauthorized use of your account.
+
+4. Intellectual Property
+All content, features, and functionality of Aethera, including but not limited to text, graphics, logos, and software, are the property of Aethera and are protected by intellectual property laws.
+
+5. User Content
+Any content you submit through Aethera, including profile information and exam responses, remains your property. However, you grant Aethera a non-exclusive license to use this content for the purpose of providing and improving our services.
+
+6. Limitation of Liability
+Aethera is provided &quot;as is&quot; without warranties of any kind. Aethera shall not be liable for any indirect, incidental, or consequential damages arising from your use of the application.
+
+7. Termination
+Aethera reserves the right to suspend or terminate your account at any time for violation of these terms. You may also delete your account at any time through the Settings page.
+
+8. Changes to Terms
+Aethera reserves the right to modify these terms at any time. Continued use of the application after changes constitutes acceptance of the new terms.
+
+9. Contact
+If you have questions about these Terms and Conditions, please contact the Aethera support team.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="termsSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="pagePrivacy">
+     <layout class="QVBoxLayout" name="pagePrivacyLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QScrollArea" name="scrollAreaPrivacy">
+        <property name="styleSheet">
+         <string notr="true">
+QScrollArea { background: transparent; border: none; }
+QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+        </string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::NoFrame</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollContentPrivacy">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>280</width>
+           <height>1965</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="layoutPrivacyContent">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="leftMargin">
+           <number>50</number>
+          </property>
+          <property name="topMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>50</number>
+          </property>
+          <property name="bottomMargin">
+           <number>40</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="buttonBackFromPrivacy">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>180</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>←  Back to Settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelPrivacyPageTitle">
+            <property name="text">
+             <string>Privacy Policy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="cardPrivacyContent">
+            <layout class="QVBoxLayout" name="layoutCardPrivacyBody">
+             <property name="spacing">
+              <number>12</number>
+             </property>
+             <property name="leftMargin">
+              <number>24</number>
+             </property>
+             <property name="topMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>24</number>
+             </property>
+             <property name="bottomMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="labelPrivacyBody">
+               <property name="text">
+                <string>Last updated: March 2026
+
+Aethera is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.
+
+1. Information We Collect
+Aethera collects the following information when you create an account:
+  • Username and password
+  • Grade level
+  • Profile information (bio and profile picture)
+  • Exam results and performance data
+
+2. How We Use Your Information
+Your information is used to:
+  • Provide and maintain your Aethera account
+  • Track your learning progress and exam performance
+  • Improve our educational content and services
+  • Personalize your Aethera experience
+
+3. Data Storage
+All data is stored locally on your device. Aethera does not transmit your personal information to external servers.
+
+4. Data Security
+Aethera implements appropriate security measures to protect your personal information. However, no method of electronic storage is 100% secure.
+
+5. Your Rights
+You have the right to:
+  • Access your personal information
+  • Update or correct your profile data
+  • Delete your Aethera account and all associated data
+
+6. Children's Privacy
+Aethera is designed for educational purposes and may be used by minors. We do not knowingly collect personal information beyond what is necessary for the educational experience.
+
+7. Changes to This Policy
+Aethera may update this Privacy Policy from time to time. We will notify you of any significant changes through the application.
+
+8. Contact
+If you have questions about this Privacy Policy, please contact the Aethera support team.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="privacySpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>

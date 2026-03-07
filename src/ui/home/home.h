@@ -61,4 +61,11 @@ private:
     void resetAnswerButtons();
     QString calculateGrade();
     QString getGradeColor();
+
+    // Settings
+    void initSettingsPage();
+    void onSaveUsername();
+    void onSavePassword();
+    void onSaveBio();
+    void onDeleteAccountClicked();
 };

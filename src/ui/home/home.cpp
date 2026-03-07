@@ -21,7 +21,6 @@ Home::Home(QWidget *parent)
     totalExamsTaken = 0;
     bestScore = -1;
     totalCorrect = 0;
-
     examTimer = new QTimer(this);
     examTimer->setInterval(1000);
     connect(examTimer, &QTimer::timeout, this, &Home::onExamTimerTick);
@@ -71,6 +70,12 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentIndex(0);
     });
 
+    connect(ui->buttonSettings, &QPushButton::clicked, this, [this]() {
+        setNavActive(2);
+        ui->stackedWidget->setCurrentIndex(3);
+    });
+
+    initSettingsPage();
     updateStatsCards();
     updateSidebarButtons();
     setNavActive(0);

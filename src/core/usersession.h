@@ -11,6 +11,10 @@ public:
     bool isLoggedIn();
     QString getUsername();
     QString getGrade();
+    QString getBio();
+
+    void setUsername(const QString &username);
+    void setBio(const QString &bio);
 
 private:
     User _user;

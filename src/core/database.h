@@ -7,6 +7,7 @@ struct User {
     QString username;
     QString password;
     QString grade;
+    QString bio;
 };
 
 class Database {
@@ -18,6 +19,10 @@ public:
     bool validateUser(const QString &username, const QString &password);
     bool userExists(const QString &username);
     bool getUser(const QString &username, User &out);
+    bool updateUsername(const QString &oldUsername, const QString &newUsername);
+    bool updatePassword(const QString &username, const QString &newPassword);
+    bool updateBio(const QString &username, const QString &bio);
+    bool deleteUser(const QString &username);
 
 private:
     Database();

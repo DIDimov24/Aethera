@@ -92,7 +92,7 @@ bool Database::getUser(const QString &username, User &user) {
     }
 
     QSqlQuery query(database);
-    query.prepare("SELECT username, password, grade FROM users WHERE username = ?");
+    query.prepare("SELECT username, password, grade, bio FROM users WHERE username = ?");
     query.addBindValue(username);
     if (!query.exec() || !query.next()) {
         return false;
@@ -101,5 +101,45 @@ bool Database::getUser(const QString &username, User &user) {
     user.username = query.value(0).toString();
     user.password = query.value(1).toString();
     user.grade = query.value(2).toString();
+    user.bio = query.value(3).toString();
     return true;
+}
+
+bool Database::updateUsername(const QString &oldUsername, const QString &newUsername) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("UPDATE users SET username = ? WHERE username = ?");
+    query.addBindValue(newUsername);
+    query.addBindValue(oldUsername);
+    return query.exec();
+}
+
+bool Database::updatePassword(const QString &username, const QString &newPassword) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("UPDATE users SET password = ? WHERE username = ?");
+    query.addBindValue(newPassword);
+    query.addBindValue(username);
+    return query.exec();
+}
+
+bool Database::updateBio(const QString &username, const QString &bio) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("UPDATE users SET bio = ? WHERE username = ?");
+    query.addBindValue(bio);
+    query.addBindValue(username);
+    return query.exec();
+}
+
+bool Database::deleteUser(const QString &username) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("DELETE FROM users WHERE username = ?");
+    query.addBindValue(username);
+    return query.exec();
 }

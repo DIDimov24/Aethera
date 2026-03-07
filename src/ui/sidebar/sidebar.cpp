@@ -9,8 +9,43 @@
 #include <QRect>
 #include <QSize>
 #include <QEasingCurve>
+#include <QMessageBox>
 
 void Home::onLogoutClicked() {
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("Log Out");
+    msgBox.setText("Are you sure you want to log out?");
+    msgBox.setIcon(QMessageBox::Question);
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    msgBox.setStyleSheet(R"(
+        QMessageBox {
+            background-color: #161618;
+            color: #e0e0e4;
+        }
+        QMessageBox QLabel {
+            color: #e0e0e4;
+            font-size: 13px;
+        }
+        QPushButton {
+            background-color: #222224;
+            color: #e0e0e4;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #2a2a2d;
+            border-radius: 6px;
+            padding: 8px 20px;
+            min-width: 80px;
+        }
+        QPushButton:hover {
+            background-color: #2a2a2d;
+            color: #ffffff;
+            border-color: #3a3a3e;
+        }
+    )");
+
+    if (msgBox.exec() != QMessageBox::Yes) return;
+
     UserSession::instance().clear();
     Login *loginPage = new Login();
     this->hide();
@@ -101,4 +136,5 @@ void Home::setNavActive(int index) {
 
     ui->buttonNavHome ->setStyleSheet(index == 0 ? act : norm);
     ui->buttonNavExams->setStyleSheet(index == 1 ? act : norm);
+    ui->buttonSettings->setStyleSheet(index == 2 ? act : norm);
 }

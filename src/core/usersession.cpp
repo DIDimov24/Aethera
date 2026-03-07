@@ -24,3 +24,17 @@ QString UserSession::getUsername() {
 QString UserSession::getGrade() {
     return _user.grade;
 }
+
+QString UserSession::getBio() {
+    return _user.bio;
+}
+
+void UserSession::setUsername(const QString &username) {
+    _user.username = username;
+}
+
+void UserSession::setBio(const QString &bio) {
+    _user.bio = bio;
+}
+
+

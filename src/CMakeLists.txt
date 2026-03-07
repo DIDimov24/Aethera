@@ -44,6 +44,8 @@ set(PROJECT_SOURCES
     ui/exam/exam.cpp
     ui/exam/question.h
     ui/exam/style.h
+
+    ui/settings/settings.cpp
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
@@ -58,4 +60,5 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/sidebar
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
 )
