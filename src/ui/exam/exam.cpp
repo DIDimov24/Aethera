@@ -2,7 +2,7 @@
 #include "ui_home.h"
 #include "style.h"
 #include <QRandomGenerator>
-
+ 
 void Home::loadQuestions() {
     auto addQ = [this](QString text, QString a, QString b, QString c, QString d, int correct, QString cat) {
         Question q;
@@ -15,7 +15,7 @@ void Home::loadQuestions() {
         q.category = cat;
         allQuestions.append(q);
     };
-
+ 
     addQ("When was the city of Rome traditionally founded?",
          "753 BC", "509 BC", "264 BC", "44 BC", 0, "Ancient");
     addQ("Who was the first Emperor of China?",
@@ -80,52 +80,55 @@ void Home::loadQuestions() {
     addQ("Which country suffered the most military deaths in WWII?",
          "USA", "Germany", "China", "Soviet Union", 3, "WWII");
 }
-
+ 
 void Home::startExam() {
+    ui->labelTimer->setStyleSheet(Style::timerNormal);
+    toggleSidebar(true);
+ 
     blinkTimer->stop();
     examTimer->stop();
-
+ 
     currentQuestionIndex = 0;
     selectedAnswer = -1;
     correctCount = 0;
     timeLeft = 600;
     timerBlinkState = true;
-
+ 
     initializeExamQuestions();
     showQuestion(currentQuestionIndex);
     updateProgress();
     updateTimerLabel(QString("⏱ 10:00"), false);
-
+ 
     examTimer->start();
 }
-
+ 
 void Home::initializeExamQuestions() {
     examQuestions = allQuestions;
-
+ 
     std::shuffle(examQuestions.begin(), examQuestions.end(), std::default_random_engine(QRandomGenerator::global()->generate()));
-
+ 
     while (examQuestions.size() > 20) {
         examQuestions.removeLast();
     }
 }
-
+ 
 void Home::submitAnswer(int answerIndex) {
     if (selectedAnswer != -1) return;
-
+ 
     selectedAnswer = answerIndex;
     if (answerIndex == examQuestions[currentQuestionIndex].correctAnswer) {
         correctCount++;
     }
-
+ 
     int correct = examQuestions[currentQuestionIndex].correctAnswer;
     highlightAnswer(answerIndex, correct);
     ui->buttonNext->setEnabled(true);
 }
-
+ 
 void Home::nextQuestion() {
     currentQuestionIndex++;
     selectedAnswer = -1;
-
+ 
     if (currentQuestionIndex >= examQuestions.size()) {
         finishExam();
     } else {
@@ -133,30 +136,32 @@ void Home::nextQuestion() {
         updateProgress();
     }
 }
-
+ 
 void Home::retryExam() {
+    ui->stackedWidget->setCurrentIndex(1);
     startExam();
 }
-
+ 
 void Home::finishExam() {
     blinkTimer->stop();
     examTimer->stop();
     recordExamResult();
-
+    if (!sidebarExpanded) toggleSidebar();
+ 
     QString color = getGradeColor();
     QString grade = calculateGrade();
-
+ 
     ui->labelScore->setText(QString("%1 / %2").arg(correctCount).arg(examQuestions.size()));
     ui->labelScore->setStyleSheet(
         QString("color: %1; font-size: 42px; font-weight: 800;").arg(color));
     ui->labelGrade->setText("Grade: " + grade);
     ui->labelGrade->setStyleSheet(
         QString("color: %1; font-size: 16px; font-weight: 600;").arg(color));
-
+ 
     updateStatsCards();
     ui->stackedWidget->setCurrentIndex(2);
 }
-
+ 
 void Home::recordExamResult() {
     totalExamsTaken++;
     if (bestScore == -1 || correctCount > bestScore) {
@@ -164,22 +169,22 @@ void Home::recordExamResult() {
     }
     totalCorrect += correctCount;
 }
-
+ 
 void Home::showQuestion(int index) {
     if (index < 0 || index >= examQuestions.size()) return;
-
+ 
     Question question = examQuestions[currentQuestionIndex];
-
+ 
     ui->labelQuestion->setText(question.text);
     ui->buttonA->setText("A)  " + question.optionA);
     ui->buttonB->setText("B)  " + question.optionB);
     ui->buttonC->setText("C)  " + question.optionC);
     ui->buttonD->setText("D)  " + question.optionD);
-
+ 
     ui->buttonNext->setEnabled(false);
     resetAnswerButtons();
 }
-
+ 
 void Home::updateProgress() {
     int current = currentQuestionIndex + 1;
     int total = examQuestions.size();
@@ -187,7 +192,7 @@ void Home::updateProgress() {
     ui->progressBar->setMaximum(total);
     ui->progressBar->setValue(current);
 }
-
+ 
 void Home::highlightAnswer(int answer, int correct) {
     QPushButton *btns[4] = { ui->buttonA, ui->buttonB, ui->buttonC, ui->buttonD };
     for (int i = 0; i < 4; i++) {
@@ -196,7 +201,7 @@ void Home::highlightAnswer(int answer, int correct) {
         else btns[i]->setStyleSheet(Style::answerNormal);
     }
 }
-
+ 
 void Home::updateTimerLabel(QString timeStr, bool isWarning) {
     ui->labelTimer->setText(timeStr);
     if (isWarning) {
@@ -205,25 +210,25 @@ void Home::updateTimerLabel(QString timeStr, bool isWarning) {
         ui->labelTimer->setStyleSheet(Style::timerNormal);
     }
 }
-
+ 
 void Home::onExamTimerTick() {
     timeLeft--;
-
+ 
     int m = timeLeft / 60;
     int s = timeLeft % 60;
     QString timeStr = QString("⏱ %1:%2").arg(m, 2, 10, QChar('0')).arg(s, 2, 10, QChar('0'));
     bool isWarning = timeLeft <= 120;
     updateTimerLabel(timeStr, isWarning);
-
+ 
     if (timeLeft == 120) {
         blinkTimer->start();
     }
-
+ 
     if (timeLeft <= 0) {
         finishExam();
     }
 }
-
+ 
 void Home::onExamTimerBlink() {
     timerBlinkState = !timerBlinkState;
     if (timerBlinkState) {
@@ -232,11 +237,11 @@ void Home::onExamTimerBlink() {
         ui->labelTimer->setStyleSheet(Style::timerWarnOff);
     }
 }
-
+ 
 void Home::updateStatsCards() {
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
     ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "-");
-
+ 
     if (totalExamsTaken > 0) {
         double avg = (double)totalCorrect / totalExamsTaken;
         ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
@@ -244,14 +249,14 @@ void Home::updateStatsCards() {
         ui->labelCardValue3->setText("-");
     }
 }
-
+ 
 void Home::resetAnswerButtons() {
     ui->buttonA->setStyleSheet(Style::answerNormal);
     ui->buttonB->setStyleSheet(Style::answerNormal);
     ui->buttonC->setStyleSheet(Style::answerNormal);
     ui->buttonD->setStyleSheet(Style::answerNormal);
 }
-
+ 
 QString Home::calculateGrade() {
     double pct = (double)correctCount / examQuestions.size() * 100.0;
     if (pct >= 90) return "Excellent (6)";
@@ -261,7 +266,7 @@ QString Home::calculateGrade() {
     if (pct >= 30) return "Poor (2)";
     return "Very Poor (2-)";
 }
-
+ 
 QString Home::getGradeColor() {
     double pct = (double)correctCount / examQuestions.size() * 100.0;
     if (pct >= 75) return "#00D4AA";

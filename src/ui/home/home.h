@@ -1,33 +1,33 @@
 #pragma once
-
+ 
 #include <QMainWindow>
 #include <QTimer>
 #include <QString>
 #include <QList>
 #include "question.h"
-
+ 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
 QT_END_NAMESPACE
-
+ 
 class Home : public QMainWindow {
     Q_OBJECT
-
+ 
 public:
     Home(QWidget *parent = nullptr);
     ~Home();
-
+ 
 private slots:
-    void toggleSidebar();
+    void toggleSidebar(bool hidden = false);
     void onLogoutClicked();
     void onExamTimerTick();
     void onExamTimerBlink();
-
+ 
 private:
     Ui::Home *ui;
     bool sidebarExpanded;
     int activeNavIndex;
-
+ 
     QList<Question> allQuestions;
     QList<Question> examQuestions;
     int currentQuestionIndex;
@@ -40,11 +40,11 @@ private:
     int totalCorrect;
     QTimer *examTimer;
     QTimer *blinkTimer;
-
+ 
     void updateSidebarButtons();
     void repositionSidebarButtons();
     void setNavActive(int index);
-
+ 
     void loadQuestions();
     void startExam();
     void initializeExamQuestions();
@@ -61,8 +61,7 @@ private:
     void resetAnswerButtons();
     QString calculateGrade();
     QString getGradeColor();
-
-    // Settings
+ 
     void initSettingsPage();
     void onSaveUsername();
     void onSavePassword();
