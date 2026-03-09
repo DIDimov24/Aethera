@@ -42,6 +42,7 @@ set(PROJECT_SOURCES
     ui/sidebar/style.h
 
     ui/exam/exam.cpp
+    ui/exam/exams.cpp
     ui/exam/question.h
     ui/exam/style.h
 
