@@ -137,6 +137,10 @@ void Home::nextQuestion() {
     }
 }
 
+void Home::skipExam() {
+    finishExam();
+}
+
 void Home::finishExam() {
     blinkTimer->stop();
     examTimer->stop();

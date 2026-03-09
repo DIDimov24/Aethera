@@ -101,6 +101,7 @@ Home::Home(QWidget *parent)
     connect(ui->buttonD, &QPushButton::clicked, this, [this]() { submitAnswer(3); });
 
     connect(ui->buttonNext, &QPushButton::clicked, this, &Home::nextQuestion);
+    connect(ui->buttonSkip, &QPushButton::clicked, this, &Home::skipExam);
     connect(ui->buttonBackHome, &QPushButton::clicked, this, [this]() {
         setNavActive(0);
         updateStatsCards();
