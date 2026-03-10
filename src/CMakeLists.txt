@@ -9,6 +9,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -47,6 +48,10 @@ set(PROJECT_SOURCES
     ui/exam/style.h
 
     ui/settings/settings.cpp
+
+    ui/profile/profile.cpp
+    ui/profile/profile.h
+    ui/profile/profile.ui
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
@@ -62,4 +67,6 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/sidebar
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
+    ${CMAKE_CURRENT_BINARY_DIR}/Aethera_autogen/include
 )

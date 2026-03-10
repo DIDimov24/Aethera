@@ -124,7 +124,7 @@ void Home::updateSidebarButtons() {
     setNavActive(activeNavIndex);
  
     if (UserSession::instance().isLoggedIn()) {
-        setup(ui->buttonLogOut, "Log Out", ":/icons/user.svg", logoutSS);
+        setup(ui->buttonLogOut, "My Profile", ":/icons/user.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
         ui->buttonLoginRegister->setVisible(false);
     } else {

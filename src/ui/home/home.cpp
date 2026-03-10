@@ -2,6 +2,7 @@
 #include "ui_home.h"
 #include "login.h"
 #include "usersession.h"
+#include "profile.h"
 #include <QMessageBox>
 
 Home::Home(QWidget *parent)
@@ -9,6 +10,10 @@ Home::Home(QWidget *parent)
     , ui(new Ui::Home)
 {
     ui->setupUi(this);
+
+    // Create and add the profile page
+    profilePage = new Profile(this);
+    ui->stackedWidget->addWidget(profilePage);
 
     sidebarExpanded = true;
     activeNavIndex = 0;
@@ -87,7 +92,9 @@ Home::Home(QWidget *parent)
         startExam();
     });
 
-    connect(ui->buttonLogOut, &QPushButton::clicked, this, &Home::onLogoutClicked);
+    connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
+        ui->stackedWidget->setCurrentWidget(profilePage);
+    });
 
     connect(ui->buttonLoginRegister, &QPushButton::clicked, this, [this]() {
         Login *loginPage = new Login();
@@ -117,6 +124,8 @@ Home::Home(QWidget *parent)
         setNavActive(2);
         ui->stackedWidget->setCurrentIndex(3);
     });
+
+    connect(profilePage, &Profile::logoutRequested, this, &Home::onLogoutClicked);
 
     connect(ui->buttonNewExam, &QPushButton::clicked, this, [this]() {
         setNavActive(1);

@@ -1,10 +1,12 @@
 #pragma once
 
+
 #include <QMainWindow>
 #include <QTimer>
 #include <QString>
 #include <QList>
 #include "question.h"
+#include "profile.h"
 
 struct ExamRecord {
     int number;
@@ -31,6 +33,7 @@ private slots:
 
 private:
     Ui::Home *ui;
+    Profile *profilePage;
     bool sidebarExpanded;
     int activeNavIndex;
 
