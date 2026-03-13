@@ -3,6 +3,7 @@
 #include "login.h"
 #include "usersession.h"
 #include "profile.h"
+#include "examhistory.h"
 #include <QMessageBox>
 
 Home::Home(QWidget *parent)
@@ -11,30 +12,20 @@ Home::Home(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Create and add the profile page
+    settingsPage = new Settings(this);
+    ui->stackedWidget->addWidget(settingsPage);
+
+    examHistoryPage = new ExamHistory(this);
+    ui->stackedWidget->addWidget(examHistoryPage);
+
     profilePage = new Profile(this);
     ui->stackedWidget->addWidget(profilePage);
 
+    examPage = new Exam(this);
+    ui->stackedWidget->addWidget(examPage);
+
     sidebarExpanded = true;
     activeNavIndex = 0;
-
-    currentQuestionIndex = 0;
-    selectedAnswer = -1;
-    correctCount = 0;
-    timeLeft = 600;
-    timerBlinkState = true;
-    totalExamsTaken = 0;
-    bestScore = -1;
-    totalCorrect = 0;
-    examTimer = new QTimer(this);
-    examTimer->setInterval(1000);
-    connect(examTimer, &QTimer::timeout, this, &Home::onExamTimerTick);
-
-    blinkTimer = new QTimer(this);
-    blinkTimer->setInterval(500);
-    connect(blinkTimer, &QTimer::timeout, this, &Home::onExamTimerBlink);
-
-    loadQuestions();
 
     connect(ui->buttonToggleSidebar, &QPushButton::clicked, this, &Home::toggleSidebar);
 
@@ -83,16 +74,17 @@ Home::Home(QWidget *parent)
             return;
         }
         setNavActive(1);
-        populateExamHistory();
-        ui->stackedWidget->setCurrentIndex(6);
+        examHistoryPage->populate(examPage->getExamHistory());
+        ui->stackedWidget->setCurrentWidget(examHistoryPage);
     });
     connect(ui->buttonStartExam, &QPushButton::clicked, this, [this]() {
         setNavActive(1);
-        ui->stackedWidget->setCurrentIndex(1);
-        startExam();
+        ui->stackedWidget->setCurrentWidget(examPage);
+        examPage->startExam();
     });
 
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
+        setNavActive(3);
         ui->stackedWidget->setCurrentWidget(profilePage);
     });
 
@@ -102,38 +94,39 @@ Home::Home(QWidget *parent)
         loginPage->show();
     });
 
-    connect(ui->buttonA, &QPushButton::clicked, this, [this]() { submitAnswer(0); });
-    connect(ui->buttonB, &QPushButton::clicked, this, [this]() { submitAnswer(1); });
-    connect(ui->buttonC, &QPushButton::clicked, this, [this]() { submitAnswer(2); });
-    connect(ui->buttonD, &QPushButton::clicked, this, [this]() { submitAnswer(3); });
-
-    connect(ui->buttonNext, &QPushButton::clicked, this, &Home::nextQuestion);
-    connect(ui->buttonSkip, &QPushButton::clicked, this, &Home::skipExam);
-    connect(ui->buttonBackHome, &QPushButton::clicked, this, [this]() {
-        setNavActive(0);
-        updateStatsCards();
-        ui->stackedWidget->setCurrentIndex(0);
-    });
-    connect(ui->buttonViewExams, &QPushButton::clicked, this, [this]() {
-        setNavActive(1);
-        populateExamHistory();
-        ui->stackedWidget->setCurrentIndex(6);
-    });
-
     connect(ui->buttonSettings, &QPushButton::clicked, this, [this]() {
         setNavActive(2);
-        ui->stackedWidget->setCurrentIndex(3);
+        settingsPage->refresh();
+        ui->stackedWidget->setCurrentWidget(settingsPage);
     });
 
     connect(profilePage, &Profile::logoutRequested, this, &Home::onLogoutClicked);
 
-    connect(ui->buttonNewExam, &QPushButton::clicked, this, [this]() {
-        setNavActive(1);
-        ui->stackedWidget->setCurrentIndex(1);
-        startExam();
+    connect(settingsPage, &Settings::accountDeleted, this, [this]() {
+        Login *loginPage = new Login();
+        this->hide();
+        loginPage->show();
     });
 
-    initSettingsPage();
+    connect(examHistoryPage, &ExamHistory::newExamRequested, this, [this]() {
+        setNavActive(1);
+        ui->stackedWidget->setCurrentWidget(examPage);
+        examPage->startExam();
+    });
+
+    connect(examPage, &Exam::examFinished, this, &Home::updateStatsCards);
+    connect(examPage, &Exam::backToHomeRequested, this, [this]() {
+        setNavActive(0);
+        updateStatsCards();
+        ui->stackedWidget->setCurrentIndex(0);
+    });
+    connect(examPage, &Exam::viewExamsRequested, this, [this]() {
+        setNavActive(1);
+        examHistoryPage->populate(examPage->getExamHistory());
+        ui->stackedWidget->setCurrentWidget(examHistoryPage);
+    });
+    connect(examPage, &Exam::sidebarToggleRequested, this, &Home::toggleSidebar);
+
     updateStatsCards();
     updateSidebarButtons();
     setNavActive(0);
@@ -148,3 +141,19 @@ Home::Home(QWidget *parent)
 }
 
 Home::~Home() { delete ui; }
+
+void Home::updateStatsCards() {
+    int totalExamsTaken = examPage->getTotalExamsTaken();
+    int bestScore = examPage->getBestScore();
+    int totalCorrect = examPage->getTotalCorrect();
+
+    ui->labelCardValue1->setText(QString::number(totalExamsTaken));
+    ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "-");
+
+    if (totalExamsTaken > 0) {
+        double avg = (double)totalCorrect / totalExamsTaken;
+        ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
+    } else {
+        ui->labelCardValue3->setText("-");
+    }
+}

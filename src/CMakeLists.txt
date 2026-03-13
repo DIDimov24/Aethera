@@ -10,6 +10,9 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/examhistory
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -19,9 +22,10 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
     main.cpp
+    
     assets/icons.qrc
-
     assets/aethera.db
+
     core/database.cpp
     core/database.h
     core/usersession.cpp
@@ -43,11 +47,17 @@ set(PROJECT_SOURCES
     ui/sidebar/style.h
 
     ui/exam/exam.cpp
-    ui/exam/exams.cpp
-    ui/exam/question.h
+    ui/exam/exam.h
+    ui/exam/exam.ui
     ui/exam/style.h
 
+    ui/examhistory/examhistory.cpp
+    ui/examhistory/examhistory.h
+    ui/examhistory/examhistory.ui
+
     ui/settings/settings.cpp
+    ui/settings/settings.h
+    ui/settings/settings.ui
 
     ui/profile/profile.cpp
     ui/profile/profile.h
@@ -66,7 +76,7 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/sidebar
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/examhistory
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
-    ${CMAKE_CURRENT_BINARY_DIR}/Aethera_autogen/include
 )

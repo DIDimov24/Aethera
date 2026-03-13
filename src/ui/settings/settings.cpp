@@ -1,36 +1,46 @@
-#include "home.h"
-#include "ui_home.h"
+#include "settings.h"
+#include "ui_settings.h"
 #include "usersession.h"
 #include "database.h"
-#include "login.h"
 #include <QMessageBox>
 #include <QPushButton>
 
-void Home::initSettingsPage() {
-    connect(ui->buttonSaveUsername, &QPushButton::clicked, this, &Home::onSaveUsername);
-    connect(ui->buttonSavePassword, &QPushButton::clicked, this, &Home::onSavePassword);
-    connect(ui->buttonSaveBio, &QPushButton::clicked, this, &Home::onSaveBio);
-    connect(ui->buttonDeleteAccount, &QPushButton::clicked, this, &Home::onDeleteAccountClicked);
+Settings::Settings(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Settings) {
+    ui->setupUi(this);
+
+    connect(ui->buttonSaveUsername, &QPushButton::clicked, this, &Settings::onSaveUsername);
+    connect(ui->buttonSavePassword, &QPushButton::clicked, this, &Settings::onSavePassword);
+    connect(ui->buttonSaveBio,      &QPushButton::clicked, this, &Settings::onSaveBio);
+    connect(ui->buttonDeleteAccount, &QPushButton::clicked, this, &Settings::onDeleteAccountClicked);
 
     connect(ui->buttonViewTerms, &QPushButton::clicked, this, [this]() {
-        ui->stackedWidget->setCurrentIndex(4);
+        ui->stackedWidgetSettings->setCurrentIndex(1);
     });
     connect(ui->buttonViewPrivacy, &QPushButton::clicked, this, [this]() {
-        ui->stackedWidget->setCurrentIndex(5);
+        ui->stackedWidgetSettings->setCurrentIndex(2);
     });
     connect(ui->buttonBackFromTerms, &QPushButton::clicked, this, [this]() {
-        ui->stackedWidget->setCurrentIndex(3);
+        ui->stackedWidgetSettings->setCurrentIndex(0);
     });
     connect(ui->buttonBackFromPrivacy, &QPushButton::clicked, this, [this]() {
-        ui->stackedWidget->setCurrentIndex(3);
+        ui->stackedWidgetSettings->setCurrentIndex(0);
     });
+}
 
+Settings::~Settings() {
+    delete ui;
+}
+
+void Settings::refresh() {
+    ui->stackedWidgetSettings->setCurrentIndex(0);
     if (UserSession::instance().isLoggedIn()) {
         ui->textSettingsBio->setPlainText(UserSession::instance().getBio());
     }
 }
 
-void Home::onSaveUsername() {
+void Settings::onSaveUsername() {
     if (!UserSession::instance().isLoggedIn()) {
         ui->labelSettingsUsernameStatus->setText("Please log in first.");
         ui->labelSettingsUsernameStatus->setStyleSheet("color: #FF6B6B; font-size: 12px;");
@@ -74,7 +84,7 @@ void Home::onSaveUsername() {
     ui->labelSettingsUsernameStatus->setVisible(true);
 }
 
-void Home::onSavePassword() {
+void Settings::onSavePassword() {
     if (!UserSession::instance().isLoggedIn()) {
         ui->labelSettingsPasswordStatus->setText("Please log in first.");
         ui->labelSettingsPasswordStatus->setStyleSheet("color: #FF6B6B; font-size: 12px;");
@@ -117,7 +127,7 @@ void Home::onSavePassword() {
     ui->labelSettingsPasswordStatus->setVisible(true);
 }
 
-void Home::onSaveBio() {
+void Settings::onSaveBio() {
     if (!UserSession::instance().isLoggedIn()) {
         ui->labelSettingsBioStatus->setText("Please log in first.");
         ui->labelSettingsBioStatus->setStyleSheet("color: #FF6B6B; font-size: 12px;");
@@ -134,7 +144,7 @@ void Home::onSaveBio() {
     ui->labelSettingsBioStatus->setVisible(true);
 }
 
-void Home::onDeleteAccountClicked() {
+void Settings::onDeleteAccountClicked() {
     if (!UserSession::instance().isLoggedIn()) return;
 
     QMessageBox msgBox(this);
@@ -179,7 +189,5 @@ void Home::onDeleteAccountClicked() {
     Database::instance().deleteUser(username);
     UserSession::instance().clear();
 
-    Login *loginPage = new Login();
-    this->hide();
-    loginPage->show();
+    emit accountDeleted();
 }

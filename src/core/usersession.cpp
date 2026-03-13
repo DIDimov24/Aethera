@@ -36,5 +36,3 @@ void UserSession::setUsername(const QString &username) {
 void UserSession::setBio(const QString &bio) {
     _user.bio = bio;
 }
-
-

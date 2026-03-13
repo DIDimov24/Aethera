@@ -1,18 +1,11 @@
 #pragma once
 
-
 #include <QMainWindow>
-#include <QTimer>
 #include <QString>
-#include <QList>
-#include "question.h"
 #include "profile.h"
-
-struct ExamRecord {
-    int number;
-    int score;
-    int total;
-};
+#include "exam.h"
+#include "settings.h"
+#include "examhistory.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
@@ -28,55 +21,21 @@ public:
 private slots:
     void toggleSidebar(bool hidden = false);
     void onLogoutClicked();
-    void onExamTimerTick();
-    void onExamTimerBlink();
 
 private:
     Ui::Home *ui;
+
     Profile *profilePage;
+    Settings *settingsPage;
+    Exam *examPage;
+    ExamHistory *examHistoryPage;
+
     bool sidebarExpanded;
     int activeNavIndex;
-
-    QList<Question> allQuestions;
-    QList<Question> examQuestions;
-    int currentQuestionIndex;
-    int selectedAnswer;
-    int correctCount;
-    int timeLeft;
-    bool timerBlinkState;
-    int totalExamsTaken;
-    int bestScore;
-    int totalCorrect;
-    QList<ExamRecord> examHistory;
-    QTimer *examTimer;
-    QTimer *blinkTimer;
 
     void updateSidebarButtons();
     void repositionSidebarButtons();
     void setNavActive(int index);
 
-    void loadQuestions();
-    void startExam();
-    void initializeExamQuestions();
-    void submitAnswer(int answerIndex);
-    void nextQuestion();
-    void skipExam();
-    void finishExam();
-    void recordExamResult();
-    void showQuestion(int index);
-    void updateProgress();
-    void highlightAnswer(int answer, int correct);
-    void updateTimerLabel(QString timeStr, bool isWarning);
     void updateStatsCards();
-    void resetAnswerButtons();
-    QString calculateGrade();
-    QString getGradeColor();
-
-    void initSettingsPage();
-    void onSaveUsername();
-    void onSavePassword();
-    void onSaveBio();
-    void onDeleteAccountClicked();
-
-    void populateExamHistory();
 };

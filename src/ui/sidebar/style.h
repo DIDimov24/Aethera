@@ -71,7 +71,7 @@ static const char *logoutExpanded = R"(
     }
     QPushButton:hover {
         background-color: #1c1c1f;
-        color: #e05555;
+        color: #e0e0e4;
     }
 )";
  
@@ -86,7 +86,7 @@ static const char *logoutCollapsed = R"(
     }
     QPushButton:hover {
         background-color: #1c1c1f;
-        color: #e05555;
+        color: #e0e0e4;
     }
 )";
  

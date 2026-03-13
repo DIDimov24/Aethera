@@ -1,9 +1,56 @@
-#include "home.h"
-#include "ui_home.h"
+#include "exam.h"
+#include "ui_exam.h"
 #include "style.h"
 #include <QRandomGenerator>
+#include <QFrame>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QProgressBar>
 
-void Home::loadQuestions() {
+Exam::Exam(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::Exam) {
+    ui->setupUi(this);
+
+    currentQuestionIndex = 0;
+    selectedAnswer = -1;
+    correctCount = 0;
+    timeLeft = 600;
+    timerBlinkState = true;
+    totalExamsTaken = 0;
+    bestScore = -1;
+    totalCorrect = 0;
+
+    examTimer = new QTimer(this);
+    examTimer->setInterval(1000);
+    connect(examTimer, &QTimer::timeout, this, &Exam::onExamTimerTick);
+
+    blinkTimer = new QTimer(this);
+    blinkTimer->setInterval(500);
+    connect(blinkTimer, &QTimer::timeout, this, &Exam::onExamTimerBlink);
+
+    loadQuestions();
+
+    connect(ui->buttonA, &QPushButton::clicked, this, [this]() { submitAnswer(0); });
+    connect(ui->buttonB, &QPushButton::clicked, this, [this]() { submitAnswer(1); });
+    connect(ui->buttonC, &QPushButton::clicked, this, [this]() { submitAnswer(2); });
+    connect(ui->buttonD, &QPushButton::clicked, this, [this]() { submitAnswer(3); });
+
+    connect(ui->buttonNext, &QPushButton::clicked, this, &Exam::nextQuestion);
+    connect(ui->buttonSkip, &QPushButton::clicked, this, &Exam::skipExam);
+    connect(ui->buttonBackHome, &QPushButton::clicked, this, &Exam::backToHomeRequested);
+    connect(ui->buttonViewExams, &QPushButton::clicked, this, &Exam::viewExamsRequested);
+    
+    // Show exam page by default
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+Exam::~Exam() {
+    delete ui;
+}
+
+void Exam::loadQuestions() {
     auto addQ = [this](QString text, QString a, QString b, QString c, QString d, int correct, QString cat) {
         Question q;
         q.text = text;
@@ -81,9 +128,9 @@ void Home::loadQuestions() {
          "USA", "Germany", "China", "Soviet Union", 3, "History");
 }
 
-void Home::startExam() {
+void Exam::startExam() {
     ui->labelTimer->setStyleSheet(Style::timerNormal);
-    toggleSidebar(true);
+    emit sidebarToggleRequested(true);
 
     blinkTimer->stop();
     examTimer->stop();
@@ -100,9 +147,12 @@ void Home::startExam() {
     updateTimerLabel(QString("⏱ 10:00"), false);
 
     examTimer->start();
+    
+    // Show exam page (index 0)
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
-void Home::initializeExamQuestions() {
+void Exam::initializeExamQuestions() {
     examQuestions = allQuestions;
 
     std::shuffle(examQuestions.begin(), examQuestions.end(), std::default_random_engine(QRandomGenerator::global()->generate()));
@@ -112,7 +162,7 @@ void Home::initializeExamQuestions() {
     }
 }
 
-void Home::submitAnswer(int answerIndex) {
+void Exam::submitAnswer(int answerIndex) {
     if (selectedAnswer != -1) return;
 
     selectedAnswer = answerIndex;
@@ -125,7 +175,7 @@ void Home::submitAnswer(int answerIndex) {
     ui->buttonNext->setEnabled(true);
 }
 
-void Home::nextQuestion() {
+void Exam::nextQuestion() {
     currentQuestionIndex++;
     selectedAnswer = -1;
 
@@ -137,15 +187,16 @@ void Home::nextQuestion() {
     }
 }
 
-void Home::skipExam() {
+void Exam::skipExam() {
     finishExam();
 }
 
-void Home::finishExam() {
+void Exam::finishExam() {
     blinkTimer->stop();
     examTimer->stop();
     recordExamResult();
-    if (!sidebarExpanded) toggleSidebar();
+    
+    emit sidebarToggleRequested(false);
 
     QString color = getGradeColor();
     QString grade = calculateGrade();
@@ -157,11 +208,12 @@ void Home::finishExam() {
     ui->labelGrade->setStyleSheet(
         QString("color: %1; font-size: 16px; font-weight: 600;").arg(color));
 
-    updateStatsCards();
-    ui->stackedWidget->setCurrentIndex(2);
+    // Show results page (index 1)
+    ui->stackedWidget->setCurrentIndex(1);
+    emit examFinished();
 }
 
-void Home::recordExamResult() {
+void Exam::recordExamResult() {
     totalExamsTaken++;
     if (bestScore == -1 || correctCount > bestScore) {
         bestScore = correctCount;
@@ -175,10 +227,10 @@ void Home::recordExamResult() {
     examHistory.append(record);
 }
 
-void Home::showQuestion(int index) {
+void Exam::showQuestion(int index) {
     if (index < 0 || index >= examQuestions.size()) return;
 
-    Question question = examQuestions[currentQuestionIndex];
+    Question question = examQuestions[index];
 
     ui->labelQuestion->setText(question.text);
     ui->buttonA->setText("A)  " + question.optionA);
@@ -190,7 +242,7 @@ void Home::showQuestion(int index) {
     resetAnswerButtons();
 }
 
-void Home::updateProgress() {
+void Exam::updateProgress() {
     int current = currentQuestionIndex + 1;
     int total = examQuestions.size();
     ui->labelProgress->setText(QString::number(current) + " / " + QString::number(total));
@@ -198,7 +250,7 @@ void Home::updateProgress() {
     ui->progressBar->setValue(current);
 }
 
-void Home::highlightAnswer(int answer, int correct) {
+void Exam::highlightAnswer(int answer, int correct) {
     QPushButton *btns[4] = { ui->buttonA, ui->buttonB, ui->buttonC, ui->buttonD };
     for (int i = 0; i < 4; i++) {
         if (i == correct) btns[i]->setStyleSheet(Style::answerCorrect);
@@ -207,7 +259,7 @@ void Home::highlightAnswer(int answer, int correct) {
     }
 }
 
-void Home::updateTimerLabel(QString timeStr, bool isWarning) {
+void Exam::updateTimerLabel(QString timeStr, bool isWarning) {
     ui->labelTimer->setText(timeStr);
     if (isWarning) {
         ui->labelTimer->setStyleSheet(Style::timerWarnOn);
@@ -216,7 +268,7 @@ void Home::updateTimerLabel(QString timeStr, bool isWarning) {
     }
 }
 
-void Home::onExamTimerTick() {
+void Exam::onExamTimerTick() {
     timeLeft--;
 
     int m = timeLeft / 60;
@@ -234,7 +286,7 @@ void Home::onExamTimerTick() {
     }
 }
 
-void Home::onExamTimerBlink() {
+void Exam::onExamTimerBlink() {
     timerBlinkState = !timerBlinkState;
     if (timerBlinkState) {
         ui->labelTimer->setStyleSheet(Style::timerWarnOn);
@@ -243,26 +295,20 @@ void Home::onExamTimerBlink() {
     }
 }
 
-void Home::updateStatsCards() {
-    ui->labelCardValue1->setText(QString::number(totalExamsTaken));
-    ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "-");
-
-    if (totalExamsTaken > 0) {
-        double avg = (double)totalCorrect / totalExamsTaken;
-        ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
-    } else {
-        ui->labelCardValue3->setText("-");
-    }
+void Exam::updateStatsCards(int totalExamsTaken, int bestScore, int totalCorrect) {
+    this->totalExamsTaken = totalExamsTaken;
+    this->bestScore = bestScore;
+    this->totalCorrect = totalCorrect;
 }
 
-void Home::resetAnswerButtons() {
+void Exam::resetAnswerButtons() {
     ui->buttonA->setStyleSheet(Style::answerNormal);
     ui->buttonB->setStyleSheet(Style::answerNormal);
     ui->buttonC->setStyleSheet(Style::answerNormal);
     ui->buttonD->setStyleSheet(Style::answerNormal);
 }
 
-QString Home::calculateGrade() {
+QString Exam::calculateGrade() {
     double pct = (double)correctCount / examQuestions.size() * 100.0;
     if (pct >= 90) return "Excellent (6)";
     if (pct >= 75) return "Very Good (5)";
@@ -272,9 +318,14 @@ QString Home::calculateGrade() {
     return "Very Poor (2-)";
 }
 
-QString Home::getGradeColor() {
+QString Exam::getGradeColor() {
     double pct = (double)correctCount / examQuestions.size() * 100.0;
     if (pct >= 75) return "#00D4AA";
     if (pct >= 45) return "#F5C518";
     return "#FF6B6B";
+}
+
+void Exam::populateExamHistory(const QList<ExamRecord> &history) {
+    // This function is kept for potential future exam history page within the exam widget
+    // For now, the exam history is displayed on a separate page handled by Home
 }

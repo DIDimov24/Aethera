@@ -121,8 +121,6 @@ void Home::updateSidebarButtons() {
     }
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
  
-    setNavActive(activeNavIndex);
- 
     if (UserSession::instance().isLoggedIn()) {
         setup(ui->buttonLogOut, "My Profile", ":/icons/user.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
@@ -132,6 +130,8 @@ void Home::updateSidebarButtons() {
         ui->buttonLoginRegister->setVisible(true);
         ui->buttonLogOut->setVisible(false);
     }
+ 
+    setNavActive(activeNavIndex);
 }
  
 void Home::setNavActive(int index) {
@@ -139,7 +139,9 @@ void Home::setNavActive(int index) {
  
     const char* norm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
     const char* act = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
- 
+
+    const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
+
     ui->buttonNavHome ->setStyleSheet(index == 0 ? act : norm);
     if (!UserSession::instance().isLoggedIn()) {
         const char* dis = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
@@ -148,4 +150,8 @@ void Home::setNavActive(int index) {
         ui->buttonNavExams->setStyleSheet(index == 1 ? act : norm);
     }
     ui->buttonSettings->setStyleSheet(index == 2 ? act : norm);
+
+    if (UserSession::instance().isLoggedIn()) {
+        ui->buttonLogOut->setStyleSheet(index == 3 ? act : logoutNorm);
+    }
 }

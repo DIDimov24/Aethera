@@ -9,6 +9,7 @@ public:
     void setUser(const User &user);
     void clear();
     bool isLoggedIn();
+
     QString getUsername();
     QString getGrade();
     QString getBio();
