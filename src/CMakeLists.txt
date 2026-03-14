@@ -6,6 +6,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/db
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/session
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/crypto
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
@@ -18,7 +21,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Sql)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Network)
 
 set(PROJECT_SOURCES
     main.cpp
@@ -26,10 +29,16 @@ set(PROJECT_SOURCES
     assets/icons.qrc
     assets/aethera.db
 
-    core/database.cpp
-    core/database.h
-    core/usersession.cpp
-    core/usersession.h
+
+    core/db/database.cpp
+    core/db/database.h
+
+    core/session/usersession.cpp
+    core/session/usersession.h
+
+    core/crypto/passwordhasher.cpp
+    core/crypto/passwordhasher.h
+
 
     ui/login/login.cpp
     ui/login/login.h
@@ -66,11 +75,13 @@ set(PROJECT_SOURCES
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
 
-target_link_libraries(Aethera PRIVATE Qt6::Widgets Qt6::Sql)
+target_link_libraries(Aethera PRIVATE Qt6::Widgets Qt6::Sql Qt6::Network)
 
 target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/db
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/session
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/crypto
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home

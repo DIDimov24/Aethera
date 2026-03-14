@@ -1,5 +1,5 @@
 #include "database.h"
-
+#include "passwordhasher.h"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
@@ -15,6 +15,7 @@ Database::Database() {
     QFileInfo sourceInfo(sourcePath);
 
     QDir dir = sourceInfo.absoluteDir();
+    dir.cdUp();
     dir.cdUp();
     QString databasePath = dir.absoluteFilePath("assets/aethera.db");
 
@@ -54,7 +55,7 @@ bool Database::registerUser(const QString &username, const QString &password, co
     QSqlQuery query(database);
     query.prepare("INSERT INTO users (username, password, grade) VALUES (?, ?, ?)");
     query.addBindValue(username);
-    query.addBindValue(password);
+    query.addBindValue(PasswordHasher::hash(password));
     query.addBindValue(grade);
     return query.exec();
 }
@@ -72,7 +73,7 @@ bool Database::validateUser(const QString &username, const QString &password) {
         return false;
     }
 
-    return query.value(0).toString() == password;
+    return PasswordHasher::verify(password, query.value(0).toString());
 }
 
 bool Database::userExists(const QString &username) {
@@ -92,16 +93,15 @@ bool Database::getUser(const QString &username, User &user) {
     }
 
     QSqlQuery query(database);
-    query.prepare("SELECT username, password, grade, bio FROM users WHERE username = ?");
+    query.prepare("SELECT username, grade, bio FROM users WHERE username = ?");
     query.addBindValue(username);
     if (!query.exec() || !query.next()) {
         return false;
     }
 
     user.username = query.value(0).toString();
-    user.password = query.value(1).toString();
-    user.grade = query.value(2).toString();
-    user.bio = query.value(3).toString();
+    user.grade = query.value(1).toString();
+    user.bio = query.value(2).toString();
     return true;
 }
 
@@ -120,7 +120,7 @@ bool Database::updatePassword(const QString &username, const QString &newPasswor
 
     QSqlQuery query(database);
     query.prepare("UPDATE users SET password = ? WHERE username = ?");
-    query.addBindValue(newPassword);
+    query.addBindValue(PasswordHasher::hash(newPassword));
     query.addBindValue(username);
     return query.exec();
 }
