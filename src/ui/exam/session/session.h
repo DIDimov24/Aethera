@@ -15,7 +15,6 @@ struct Question {
     QString category;
 };
 
-
 struct ExamRecord {
     int number;
     int score;
@@ -23,30 +22,25 @@ struct ExamRecord {
 };
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Exam; }
+namespace Ui { class Session; }
 QT_END_NAMESPACE
 
-class Exam : public QWidget {
+class Session : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Exam(QWidget *parent = nullptr);
-    ~Exam();
+    explicit Session(QWidget *parent = nullptr);
+    ~Session();
 
     void startExam();
-    void updateStatsCards(int totalExamsTaken, int bestScore, int totalCorrect);
-    void populateExamHistory(const QList<ExamRecord> &history);
-    
-    // Getters for stats that Home needs
+
     int getTotalExamsTaken() const { return totalExamsTaken; }
     int getBestScore() const { return bestScore; }
     int getTotalCorrect() const { return totalCorrect; }
     const QList<ExamRecord>& getExamHistory() const { return examHistory; }
 
 signals:
-    void examFinished();
-    void backToHomeRequested();
-    void viewExamsRequested();
+    void examCompleted(int score, int total);
     void sidebarToggleRequested(bool hidden);
 
 private slots:
@@ -54,7 +48,7 @@ private slots:
     void onExamTimerBlink();
 
 private:
-    Ui::Exam *ui;
+    Ui::Session *ui;
 
     QList<Question> allQuestions;
     QList<Question> examQuestions;
@@ -82,6 +76,4 @@ private:
     void highlightAnswer(int answer, int correct);
     void updateTimerLabel(QString timeStr, bool isWarning);
     void resetAnswerButtons();
-    QString calculateGrade();
-    QString getGradeColor();
 };

@@ -1,5 +1,5 @@
-#include "examhistory.h"
-#include "ui_examhistory.h"
+#include "history.h"
+#include "ui_history.h"
 #include <QFrame>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -7,19 +7,19 @@
 #include <QProgressBar>
 #include <QPushButton>
 
-ExamHistory::ExamHistory(QWidget *parent)
+History::History(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::ExamHistory)
+    , ui(new Ui::History)
 {
     ui->setupUi(this);
-    connect(ui->buttonNewExam, &QPushButton::clicked, this, &ExamHistory::newExamRequested);
+    connect(ui->buttonNewExam, &QPushButton::clicked, this, &History::newExamRequested);
 }
 
-ExamHistory::~ExamHistory() {
+History::~History() {
     delete ui;
 }
 
-void ExamHistory::populate(const QList<ExamRecord> &history) {
+void History::populate(const QList<ExamRecord> &history) {
     QLayoutItem *item;
     while ((item = ui->layoutExamHistoryContent->takeAt(0)) != nullptr) {
         if (item->widget()) item->widget()->deleteLater();
@@ -41,12 +41,12 @@ void ExamHistory::populate(const QList<ExamRecord> &history) {
 
         QString gradeStr;
         QString gradeColor;
-        if (pct >= 90)      { gradeStr = "Excellent (6)";  gradeColor = "#00D4AA"; }
-        else if (pct >= 75) { gradeStr = "Very Good (5)";  gradeColor = "#00D4AA"; }
-        else if (pct >= 60) { gradeStr = "Good (4)";       gradeColor = "#F5C518"; }
-        else if (pct >= 45) { gradeStr = "Average (3)";    gradeColor = "#F5C518"; }
-        else if (pct >= 30) { gradeStr = "Poor (2)";       gradeColor = "#FF6B6B"; }
-        else                { gradeStr = "Very Poor (2-)"; gradeColor = "#FF6B6B"; }
+        if (pct >= 90) { gradeStr = "Excellent (6)"; gradeColor = "#00D4AA"; }
+        else if (pct >= 75) { gradeStr = "Very Good (5)"; gradeColor = "#00D4AA"; }
+        else if (pct >= 60) { gradeStr = "Good (4)"; gradeColor = "#F5C518"; }
+        else if (pct >= 45) { gradeStr = "Average (3)"; gradeColor = "#F5C518"; }
+        else if (pct >= 30) { gradeStr = "Poor (2)"; gradeColor = "#FF6B6B"; }
+        else { gradeStr = "Very Poor (2-)"; gradeColor = "#FF6B6B"; }
 
         QFrame *card = new QFrame;
         card->setObjectName("examHistoryCard");

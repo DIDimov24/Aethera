@@ -13,9 +13,12 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
-    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
-    ${CMAKE_CURRENT_SOURCE_DIR}/ui/examhistory
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/session
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/results
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/difficulties
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -25,7 +28,7 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Network)
 
 set(PROJECT_SOURCES
     main.cpp
-    
+
     assets/icons.qrc
     assets/aethera.db
 
@@ -55,14 +58,26 @@ set(PROJECT_SOURCES
     ui/sidebar/sidebar.cpp
     ui/sidebar/style.h
 
-    ui/exam/exam.cpp
-    ui/exam/exam.h
-    ui/exam/exam.ui
-    ui/exam/style.h
+    ui/exam/session/session.cpp
+    ui/exam/session/session.h
+    ui/exam/session/session.ui
+    ui/exam/session/style.h
 
-    ui/examhistory/examhistory.cpp
-    ui/examhistory/examhistory.h
-    ui/examhistory/examhistory.ui
+    ui/exam/results/results.cpp
+    ui/exam/results/results.h
+    ui/exam/results/results.ui
+
+    ui/exam/difficulties/difficulties.cpp
+    ui/exam/difficulties/difficulties.h
+    ui/exam/difficulties/difficulties.ui
+
+    ui/exam/subjects/subjects.cpp
+    ui/exam/subjects/subjects.h
+    ui/exam/subjects/subjects.ui
+
+    ui/exam/history/history.cpp
+    ui/exam/history/history.h
+    ui/exam/history/history.ui
 
     ui/settings/settings.cpp
     ui/settings/settings.h
@@ -86,8 +101,11 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/sidebar
-    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam
-    ${CMAKE_CURRENT_SOURCE_DIR}/ui/examhistory
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/settings
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/profile
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/session
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/results
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/difficulties
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
 )

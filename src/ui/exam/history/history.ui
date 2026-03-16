@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ExamHistory</class>
- <widget class="QWidget" name="ExamHistory">
+ <class>History</class>
+ <widget class="QWidget" name="History">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,7 +12,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">
-QWidget#ExamHistory {
+QWidget#History {
     background-color: #161618;
 }
 QWidget#examHistoryHeader {

@@ -3,9 +3,12 @@
 #include <QMainWindow>
 #include <QString>
 #include "profile.h"
-#include "exam.h"
+#include "session.h"
+#include "results.h"
+#include "difficulties.h"
+#include "subjects.h"
+#include "history.h"
 #include "settings.h"
-#include "examhistory.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
@@ -27,8 +30,11 @@ private:
 
     Profile *profilePage;
     Settings *settingsPage;
-    Exam *examPage;
-    ExamHistory *examHistoryPage;
+    Session *sessionPage;
+    Results *resultsPage;
+    Difficulties *difficultiesPage;
+    Subjects *subjectsPage;
+    History *historyPage;
 
     bool sidebarExpanded;
     int activeNavIndex;
