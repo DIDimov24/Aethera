@@ -28,6 +28,8 @@ QLabel#labelSubjectsSubtitle {
     color: #6b6b76;
     font-size: 14px;
 }
+QPushButton#buttonEnglish,
+QPushButton#buttonMath,
 QPushButton#buttonHistory {
     background-color: #1c1c1f;
     color: #e0e0e4;
@@ -38,11 +40,15 @@ QPushButton#buttonHistory {
     padding: 20px 28px;
     text-align: left;
 }
+QPushButton#buttonEnglish:hover,
+QPushButton#buttonMath:hover,
 QPushButton#buttonHistory:hover {
     background-color: #202023;
     border-color: #3a3a3e;
     color: #ffffff;
 }
+QPushButton#buttonEnglish:pressed,
+QPushButton#buttonMath:pressed,
 QPushButton#buttonHistory:pressed {
     background-color: #1a1a1d;
     border-color: #4a4a52;
@@ -110,6 +116,32 @@ QPushButton#buttonHistory:pressed {
       </size>
      </property>
     </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="buttonEnglish">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>64</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>English</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="buttonMath">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>64</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Math</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QPushButton" name="buttonHistory">

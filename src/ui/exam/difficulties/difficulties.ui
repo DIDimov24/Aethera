@@ -140,7 +140,7 @@ QPushButton#buttonHard:hover {
       </size>
      </property>
      <property name="text">
-      <string>Easy</string>
+        <string>Beginner</string>
      </property>
     </widget>
    </item>
@@ -153,7 +153,7 @@ QPushButton#buttonHard:hover {
       </size>
      </property>
      <property name="text">
-      <string>Medium</string>
+        <string>Intermediate</string>
      </property>
     </widget>
    </item>
@@ -166,7 +166,7 @@ QPushButton#buttonHard:hover {
       </size>
      </property>
      <property name="text">
-      <string>Hard</string>
+        <string>Advanced</string>
      </property>
     </widget>
    </item>

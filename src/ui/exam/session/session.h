@@ -4,21 +4,27 @@
 #include <QTimer>
 #include <QString>
 #include <QList>
+#include <QDateTime>
+#include "questionsBank.h"
 
-struct Question {
-    QString text;
+struct ExamQuestionResult {
+    QString questionText;
     QString optionA;
     QString optionB;
     QString optionC;
     QString optionD;
+    int selectedAnswer;
     int correctAnswer;
-    QString category;
 };
 
 struct ExamRecord {
     int number;
     int score;
     int total;
+    QString subject;
+    QString difficulty;
+    QDateTime completedAt;
+    QList<ExamQuestionResult> questionResults;
 };
 
 QT_BEGIN_NAMESPACE
@@ -32,12 +38,14 @@ public:
     explicit Session(QWidget *parent = nullptr);
     ~Session();
 
-    void startExam();
+    void startExam(const QString &subject, const QString &difficulty);
 
-    int getTotalExamsTaken() const { return totalExamsTaken; }
-    int getBestScore() const { return bestScore; }
-    int getTotalCorrect() const { return totalCorrect; }
-    const QList<ExamRecord>& getExamHistory() const { return examHistory; }
+    int getTotalExamsTaken() { return totalExamsTaken; }
+    int getBestScore() { return bestScore; }
+    int getTotalCorrect() { return totalCorrect; }
+    QList<ExamRecord> getExamHistory() { return examHistory; }
+    QString getCurrentSubject() { return currentSubject; }
+    QString getCurrentDifficulty() { return currentDifficulty; }
 
 signals:
     void examCompleted(int score, int total);
@@ -50,8 +58,7 @@ private slots:
 private:
     Ui::Session *ui;
 
-    QList<Question> allQuestions;
-    QList<Question> examQuestions;
+    QList<ExamQuestion> examQuestions;
     int currentQuestionIndex;
     int selectedAnswer;
     int correctCount;
@@ -61,10 +68,12 @@ private:
     int bestScore;
     int totalCorrect;
     QList<ExamRecord> examHistory;
+    QString currentSubject;
+    QString currentDifficulty;
+    QList<int> selectedAnswers;
     QTimer *examTimer;
     QTimer *blinkTimer;
 
-    void loadQuestions();
     void initializeExamQuestions();
     void submitAnswer(int answerIndex);
     void nextQuestion();

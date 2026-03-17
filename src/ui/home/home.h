@@ -8,6 +8,7 @@
 #include "difficulties.h"
 #include "subjects.h"
 #include "history.h"
+#include "review.h"
 #include "settings.h"
 
 QT_BEGIN_NAMESPACE
@@ -35,9 +36,11 @@ private:
     Difficulties *difficultiesPage;
     Subjects *subjectsPage;
     History *historyPage;
+    Review *reviewPage;
 
     bool sidebarExpanded;
     int activeNavIndex;
+    QString selectedExamSubject;
 
     void updateSidebarButtons();
     void repositionSidebarButtons();

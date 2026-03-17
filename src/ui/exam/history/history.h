@@ -19,6 +19,7 @@ public:
 
 signals:
     void newExamRequested();
+    void reviewRequested(int examIndex);
 
 private:
     Ui::History *ui;

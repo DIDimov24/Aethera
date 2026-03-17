@@ -17,6 +17,9 @@ Home::Home(QWidget *parent)
     historyPage = new History(this);
     ui->stackedWidget->addWidget(historyPage);
 
+    reviewPage = new Review(this);
+    ui->stackedWidget->addWidget(reviewPage);
+
     profilePage = new Profile(this);
     ui->stackedWidget->addWidget(profilePage);
 
@@ -34,6 +37,7 @@ Home::Home(QWidget *parent)
 
     sidebarExpanded = true;
     activeNavIndex = 0;
+    selectedExamSubject = "History";
 
     connect(ui->buttonToggleSidebar, &QPushButton::clicked, this, &Home::toggleSidebar);
 
@@ -87,8 +91,8 @@ Home::Home(QWidget *parent)
     });
     connect(ui->buttonStartExam, &QPushButton::clicked, this, [this]() {
         setNavActive(1);
-        ui->stackedWidget->setCurrentWidget(sessionPage);
-        sessionPage->startExam();
+        historyPage->populate(sessionPage->getExamHistory());
+        ui->stackedWidget->setCurrentWidget(historyPage);
     });
 
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
@@ -118,8 +122,37 @@ Home::Home(QWidget *parent)
 
     connect(historyPage, &History::newExamRequested, this, [this]() {
         setNavActive(1);
+        ui->stackedWidget->setCurrentWidget(subjectsPage);
+    });
+
+    connect(historyPage, &History::reviewRequested, this, [this](int examIndex) {
+        const QList<ExamRecord> history = sessionPage->getExamHistory();
+        if (examIndex < 0 || examIndex >= history.size()) {
+            return;
+        }
+
+        reviewPage->showReview(history[examIndex]);
+        ui->stackedWidget->setCurrentWidget(reviewPage);
+    });
+
+    connect(reviewPage, &Review::backToHistoryRequested, this, [this]() {
+        setNavActive(1);
+        historyPage->populate(sessionPage->getExamHistory());
+        ui->stackedWidget->setCurrentWidget(historyPage);
+    });
+
+    connect(subjectsPage, &Subjects::subjectSelected, this, [this](const QString &subject) {
+        selectedExamSubject = subject;
+        ui->stackedWidget->setCurrentWidget(difficultiesPage);
+    });
+
+    connect(difficultiesPage, &Difficulties::difficultySelected, this, [this](int difficulty) {
+        QString difficultySelected = "Beginner";
+        if (difficulty == 1) difficultySelected = "Intermediate";
+        if (difficulty == 2) difficultySelected = "Advanced";
+
         ui->stackedWidget->setCurrentWidget(sessionPage);
-        sessionPage->startExam();
+        sessionPage->startExam(selectedExamSubject, difficultySelected);
     });
 
     connect(sessionPage, &Session::examCompleted, this, [this](int score, int total) {
@@ -160,7 +193,7 @@ void Home::updateStatsCards() {
     int totalCorrect = sessionPage->getTotalCorrect();
 
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
-    ui->labelCardValue2->setText(bestScore >= 0 ? QString("%1/20").arg(bestScore) : "-");
+    ui->labelCardValue2->setText(bestScore >= 0 ? QString::number(bestScore) : "-");
 
     if (totalExamsTaken > 0) {
         double avg = (double)totalCorrect / totalExamsTaken;

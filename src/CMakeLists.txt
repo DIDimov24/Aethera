@@ -19,6 +19,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/difficulties
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -58,6 +59,7 @@ set(PROJECT_SOURCES
     ui/sidebar/sidebar.cpp
     ui/sidebar/style.h
 
+    ui/exam/session/questionsBank.h
     ui/exam/session/session.cpp
     ui/exam/session/session.h
     ui/exam/session/session.ui
@@ -78,6 +80,12 @@ set(PROJECT_SOURCES
     ui/exam/history/history.cpp
     ui/exam/history/history.h
     ui/exam/history/history.ui
+    ui/exam/history/style.h
+
+    ui/exam/review/review.cpp
+    ui/exam/review/review.h
+    ui/exam/review/review.ui
+    ui/exam/review/style.h
 
     ui/settings/settings.cpp
     ui/settings/settings.h
@@ -108,4 +116,5 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/difficulties
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
 )
