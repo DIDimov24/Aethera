@@ -54,7 +54,6 @@ private:
     void initializeExamQuestions();
     void submitAnswer(int answerIndex);
     void nextQuestion();
-    void skipExam();
     void finishExam();
     void recordExamResult();
     void showQuestion(int index);

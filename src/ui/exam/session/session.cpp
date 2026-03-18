@@ -39,7 +39,6 @@ Session::Session(QWidget *parent)
     connect(ui->buttonD, &QPushButton::clicked, this, [this]() { submitAnswer(3); });
 
     connect(ui->buttonNext, &QPushButton::clicked, this, &Session::nextQuestion);
-    connect(ui->buttonSkip, &QPushButton::clicked, this, &Session::skipExam);
 }
 
 Session::~Session() {
@@ -126,10 +125,6 @@ void Session::nextQuestion() {
         showQuestion(currentQuestionIndex);
         updateProgress();
     }
-}
-
-void Session::skipExam() {
-    finishExam();
 }
 
 void Session::finishExam() {

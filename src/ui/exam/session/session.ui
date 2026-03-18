@@ -61,22 +61,6 @@ QPushButton#buttonNext:disabled {
     color: #3a3a3e;
     border: 1px solid #2a2a2d;
 }
-QPushButton#buttonSkip {
-    background-color: #f3f4f6;
-    color: #111113;
-    font-size: 14px;
-    font-weight: 600;
-    border: 1px solid #e6e7ea;
-    border-radius: 8px;
-    padding: 12px 28px;
-}
-QPushButton#buttonSkip:hover {
-    background-color: #e8e9ec;
-    border-color: #cfd2d6;
-}
-QPushButton#buttonSkip:pressed {
-    background-color: #dfe2e6;
-}
 QProgressBar#progressBar {
     background-color: #222224;
     border: none;
@@ -281,28 +265,6 @@ QLabel#labelProgress {
      <property name="spacing">
       <number>0</number>
      </property>
-     <item>
-      <widget class="QPushButton" name="buttonSkip">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>190</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>190</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Skip Exam</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <spacer name="examFooterSpacer">
        <property name="orientation">
