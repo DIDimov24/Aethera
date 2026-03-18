@@ -143,3 +143,58 @@ bool Database::deleteUser(const QString &username) {
     query.addBindValue(username);
     return query.exec();
 }
+
+bool Database::saveExamAttempt(const QString &username,
+                               const QString &subject,
+                               const QString &difficulty,
+                               int score,
+                               const QString &completedAt,
+                               const QString &resultsJson) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("INSERT INTO exam_attempts (username, subject, difficulty, score, completed_at, results_json) VALUES (?, ?, ?, ?, ?, ?)");
+    query.addBindValue(username);
+    query.addBindValue(subject);
+    query.addBindValue(difficulty);
+    query.addBindValue(score);
+    query.addBindValue(completedAt);
+    query.addBindValue(resultsJson);
+
+    return query.exec();
+}
+
+QList<ExamAttempt> Database::loadExamAttemptsForUser(const QString &username) {
+    QList<ExamAttempt> attempts;
+    if (!openDatabase()) return attempts;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT id, subject, difficulty, score, completed_at FROM exam_attempts WHERE username = ? ORDER BY datetime(completed_at) DESC");
+    query.addBindValue(username);
+
+    if (!query.exec()) return attempts;
+
+    while (query.next()) {
+        attempts.append({
+            query.value(0).toInt(), 
+            query.value(1).toString(),
+            query.value(2).toString(), 
+            query.value(3).toInt(), 
+            query.value(4).toString()
+        });
+    }
+
+    return attempts;
+}
+
+QString Database::loadExamResultsJson(int attemptId) {
+    if (!openDatabase()) return "";
+
+    QSqlQuery query(database);
+    query.prepare("SELECT results_json FROM exam_attempts WHERE id = ?");
+    query.addBindValue(attemptId);
+    
+    if (!query.exec() || !query.next()) return "";
+
+    return query.value(0).toString();
+}

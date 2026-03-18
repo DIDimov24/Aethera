@@ -4,28 +4,7 @@
 #include <QTimer>
 #include <QString>
 #include <QList>
-#include <QDateTime>
 #include "questionsBank.h"
-
-struct ExamQuestionResult {
-    QString questionText;
-    QString optionA;
-    QString optionB;
-    QString optionC;
-    QString optionD;
-    int selectedAnswer;
-    int correctAnswer;
-};
-
-struct ExamRecord {
-    int number;
-    int score;
-    int total;
-    QString subject;
-    QString difficulty;
-    QDateTime completedAt;
-    QList<ExamQuestionResult> questionResults;
-};
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Session; }
@@ -43,7 +22,6 @@ public:
     int getTotalExamsTaken() { return totalExamsTaken; }
     int getBestScore() { return bestScore; }
     int getTotalCorrect() { return totalCorrect; }
-    QList<ExamRecord> getExamHistory() { return examHistory; }
     QString getCurrentSubject() { return currentSubject; }
     QString getCurrentDifficulty() { return currentDifficulty; }
 
@@ -67,7 +45,6 @@ private:
     int totalExamsTaken;
     int bestScore;
     int totalCorrect;
-    QList<ExamRecord> examHistory;
     QString currentSubject;
     QString currentDifficulty;
     QList<int> selectedAnswers;

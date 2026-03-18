@@ -1,10 +1,13 @@
 #include "review.h"
 #include "ui_review.h"
 #include "style.h"
-
+#include "database.h"
 #include <QFrame>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 
 Review::Review(QWidget *parent)
     : QWidget(parent)
@@ -22,8 +25,13 @@ Review::~Review()
     delete ui;
 }
 
-void Review::showReview(const ExamRecord &record)
-{
+void Review::loadAndShow(int attemptId, const QString &subject, const QString &difficulty, int score) {
+    QString resultsJson = Database::instance().loadExamResultsJson(attemptId);
+
+    QJsonDocument doc = QJsonDocument::fromJson(resultsJson.toUtf8());
+    QJsonArray resultsArray = doc.array();
+
+    // clears previous items from layout
     while (QLayoutItem *item = ui->layoutReviewContent->takeAt(0)) {
         if (item->widget()) {
             item->widget()->deleteLater();
@@ -31,23 +39,24 @@ void Review::showReview(const ExamRecord &record)
         delete item;
     }
 
-    ui->labelReviewTitle->setText(QString("Review • %1 • %2").arg(record.subject, record.difficulty));
+    ui->labelReviewTitle->setText(QString("Review • %1 • %2").arg(subject, difficulty));
 
     QLabel *summaryLabel = new QLabel(
-        QString("Score: %1/%2 • %3")
-            .arg(record.score)
-            .arg(record.total)
-            .arg(record.completedAt.toString("yyyy-MM-dd HH:mm")),
+        QString("Score: %1/20").arg(score),
         ui->scrollContents
     );
     summaryLabel->setStyleSheet(Style::subtitle);
     ui->layoutReviewContent->addWidget(summaryLabel);
 
-    for (int i = 0; i < record.questionResults.size(); ++i) {
-        const ExamQuestionResult &result = record.questionResults[i];
-        const bool isCorrect = (result.selectedAnswer == result.correctAnswer);
+    for (int i = 0; i < resultsArray.size(); i++) {
+        QJsonObject qObj = resultsArray[i].toObject();
 
-        QString verdictText = isCorrect ? "Correct" : "Wrong";
+        int selectedIdx = qObj["selected"].toInt();
+        int correctIdx = qObj["correct"].toInt();
+        bool isCorrect = (selectedIdx == correctIdx);
+        QString questionText = qObj["question_text"].toString();
+
+        QString decisionText = isCorrect ? "Correct" : "Wrong";
 
         QFrame *card = new QFrame(ui->scrollContents);
         card->setObjectName("reviewCard");
@@ -57,28 +66,20 @@ void Review::showReview(const ExamRecord &record)
         cardLayout->setContentsMargins(14, 12, 14, 12);
         cardLayout->setSpacing(6);
 
-        QLabel *verdictLabel = new QLabel(QString("Q%1 • %2").arg(i + 1).arg(verdictText), card);
+        QLabel *verdictLabel = new QLabel(QString("Q%1 • %2").arg(i + 1).arg(decisionText), card);
         verdictLabel->setStyleSheet(isCorrect ? Style::verdictCorrect : Style::verdictWrong);
 
-        QLabel *questionLabel = new QLabel(result.questionText, card);
+        QLabel *questionLabel = new QLabel(questionText, card);
         questionLabel->setStyleSheet(Style::question);
         questionLabel->setWordWrap(true);
 
-        auto optionToText = [&](int index) {
-            if (index == 0) return QString("A) %1").arg(result.optionA);
-            if (index == 1) return QString("B) %1").arg(result.optionB);
-            if (index == 2) return QString("C) %1").arg(result.optionC);
-            return QString("D) %1").arg(result.optionD);
-        };
+        // selectedIdx = 2 -> 'A' + 2 = 'C'
+        QString selectedText = QString(QChar('A' + selectedIdx));
+        QString correctText = QString(QChar('A' + correctIdx));
 
-        QString yourAnswer = result.selectedAnswer >= 0
-            ? optionToText(result.selectedAnswer)
-            : QString("Not answered");
-        QString correctAnswer = optionToText(result.correctAnswer);
-
-        QLabel *yourAnswerLabel = new QLabel(QString("Your answer: %1").arg(yourAnswer), card);
+        QLabel *yourAnswerLabel = new QLabel(QString("Your answer: %1").arg(selectedText), card);
         yourAnswerLabel->setStyleSheet(Style::meta);
-        QLabel *correctAnswerLabel = new QLabel(QString("Correct answer: %1").arg(correctAnswer), card);
+        QLabel *correctAnswerLabel = new QLabel(QString("Correct answer: %1").arg(correctText), card);
         correctAnswerLabel->setStyleSheet(Style::meta);
 
         cardLayout->addWidget(verdictLabel);

@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include <QList>
-#include "session.h"
+#include "database.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class History; }
@@ -15,11 +15,11 @@ public:
     explicit History(QWidget *parent = nullptr);
     ~History();
 
-    void populate(const QList<ExamRecord> &history);
+    void loadAndPopulate(const QString &username);
 
 signals:
     void newExamRequested();
-    void reviewRequested(int examIndex);
+    void reviewRequested(int attemptId);
 
 private:
     Ui::History *ui;

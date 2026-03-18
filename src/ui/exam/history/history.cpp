@@ -19,16 +19,19 @@ History::~History() {
     delete ui;
 }
 
-void History::populate(const QList<ExamRecord> &history) {
-    ui->labelReviewHint->setVisible(!history.isEmpty());
+void History::loadAndPopulate(const QString &username) {
+    QList<ExamAttempt> attempts = Database::instance().loadExamAttemptsForUser(username);
+    ui->labelReviewHint->setVisible(!attempts.isEmpty());
 
-    QLayoutItem *item;
-    while ((item = ui->layoutExamHistoryContent->takeAt(0)) != nullptr) {
-        if (item->widget()) item->widget()->deleteLater();
+    // clears previous items from layout
+    while (QLayoutItem *item = ui->layoutExamHistoryContent->takeAt(0)) {
+        if (item->widget()) {
+            item->widget()->deleteLater();
+        }
         delete item;
     }
 
-    if (history.isEmpty()) {
+    if (attempts.isEmpty()) {
         QLabel *emptyLabel = new QLabel("No exams taken yet.");
         emptyLabel->setStyleSheet(Style::emptyLabel);
         emptyLabel->setAlignment(Qt::AlignCenter);
@@ -37,9 +40,9 @@ void History::populate(const QList<ExamRecord> &history) {
         return;
     }
 
-    for (int i = history.size() - 1; i >= 0; i--) {
-        const ExamRecord &rec = history[i];
-        double pct = rec.total > 0 ? (double)rec.score / rec.total * 100.0 : 0.0;
+    for (int i = 0; i < attempts.size(); i++) {
+        ExamAttempt attempt = attempts[i];
+        double pct = (double)attempt.score / 20.0 * 100.0;
 
         QString gradeStr;
         QString gradeColor;
@@ -62,17 +65,17 @@ void History::populate(const QList<ExamRecord> &history) {
         cardLayout->setContentsMargins(20, 12, 20, 12);
         cardLayout->setSpacing(16);
 
-        QString completedAtText = rec.completedAt.toString("yyyy-MM-dd HH:mm");
+        QString completedAtText = attempt.completedAt;
         QLabel *timeLabel = new QLabel(completedAtText);
         timeLabel->setStyleSheet(Style::timeLabel);
         timeLabel->setMinimumWidth(130);
 
-        QString details = QString("%1 • %2").arg(rec.subject, rec.difficulty);
+        QString details = QString("%1 • %2").arg(attempt.subject, attempt.difficulty);
         QLabel *detailsLabel = new QLabel(details);
         detailsLabel->setStyleSheet(Style::detailsLabel);
         detailsLabel->setMinimumWidth(170);
 
-        QLabel *scoreLabel = new QLabel(QString("%1 / %2").arg(rec.score).arg(rec.total));
+        QLabel *scoreLabel = new QLabel(QString("%1 / 20").arg(attempt.score));
         scoreLabel->setStyleSheet(QString(Style::scoreLabel).arg(gradeColor));
         scoreLabel->setMinimumWidth(80);
 
@@ -105,8 +108,8 @@ void History::populate(const QList<ExamRecord> &history) {
         cardLayout->addWidget(barContainer, 1);
         cardLayout->addWidget(pctLabel);
 
-        connect(card, &QPushButton::clicked, this, [this, i]() {
-            emit reviewRequested(i);
+        connect(card, &QPushButton::clicked, this, [this, attemptId = attempt.id]() {
+            emit reviewRequested(attemptId);
         });
 
         ui->layoutExamHistoryContent->addWidget(card);

@@ -86,12 +86,12 @@ Home::Home(QWidget *parent)
             return;
         }
         setNavActive(1);
-        historyPage->populate(sessionPage->getExamHistory());
+        historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
     connect(ui->buttonStartExam, &QPushButton::clicked, this, [this]() {
         setNavActive(1);
-        historyPage->populate(sessionPage->getExamHistory());
+        historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
 
@@ -125,19 +125,20 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(subjectsPage);
     });
 
-    connect(historyPage, &History::reviewRequested, this, [this](int examIndex) {
-        const QList<ExamRecord> history = sessionPage->getExamHistory();
-        if (examIndex < 0 || examIndex >= history.size()) {
-            return;
+    connect(historyPage, &History::reviewRequested, this, [this](int attemptId) {
+        QList<ExamAttempt> attempts = Database::instance().loadExamAttemptsForUser(UserSession::instance().getUsername());
+        for (int i = 0; i < attempts.size(); i++) {
+            if (attempts[i].id == attemptId) {
+                reviewPage->loadAndShow(attemptId, attempts[i].subject, attempts[i].difficulty, attempts[i].score);
+                ui->stackedWidget->setCurrentWidget(reviewPage);
+                return;
+            }
         }
-
-        reviewPage->showReview(history[examIndex]);
-        ui->stackedWidget->setCurrentWidget(reviewPage);
     });
 
     connect(reviewPage, &Review::backToHistoryRequested, this, [this]() {
         setNavActive(1);
-        historyPage->populate(sessionPage->getExamHistory());
+        historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
 
@@ -167,7 +168,7 @@ Home::Home(QWidget *parent)
     });
     connect(resultsPage, &Results::viewExamsRequested, this, [this]() {
         setNavActive(1);
-        historyPage->populate(sessionPage->getExamHistory());
+        historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
     connect(sessionPage, &Session::sidebarToggleRequested, this, &Home::toggleSidebar);

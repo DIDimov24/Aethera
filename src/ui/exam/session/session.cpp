@@ -1,7 +1,12 @@
 #include "session.h"
 #include "ui_session.h"
 #include "style.h"
+#include "database.h"
+#include "usersession.h"
 #include <QRandomGenerator>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <algorithm>
 #include <random>
 
@@ -143,28 +148,24 @@ void Session::recordExamResult() {
     }
     totalCorrect += correctCount;
 
-    ExamRecord record;
-    record.number = totalExamsTaken;
-    record.score = correctCount;
-    record.total = examQuestions.size();
-    record.subject = currentSubject;
-    record.difficulty = currentDifficulty;
-    record.completedAt = QDateTime::currentDateTime();
+    QJsonArray resultsJson;
+    for (int i = 0; i < examQuestions.size(); i++) {
+        ExamQuestion question = examQuestions[i];
+        int selectedAnswer = selectedAnswers[i];
 
-    for (int i = 0; i < examQuestions.size(); ++i) {
-        const ExamQuestion &question = examQuestions[i];
-        ExamQuestionResult result;
-        result.questionText = question.text;
-        result.optionA = question.optionA;
-        result.optionB = question.optionB;
-        result.optionC = question.optionC;
-        result.optionD = question.optionD;
-        result.correctAnswer = question.correctAnswer;
-        result.selectedAnswer = (i < selectedAnswers.size()) ? selectedAnswers[i] : -1;
-        record.questionResults.append(result);
+        QJsonObject qObj;
+        qObj["index"] = i;
+        qObj["selected"] = selectedAnswer;
+        qObj["correct"] = question.correctAnswer;
+        qObj["is_correct"] = (selectedAnswer == question.correctAnswer) ? 1 : 0;
+        qObj["question_text"] = question.text;
+        resultsJson.append(qObj);
     }
 
-    examHistory.append(record);
+    QString username = UserSession::instance().getUsername();
+    QString jsonStr = QJsonDocument(resultsJson).toJson(QJsonDocument::Compact);
+    QString completedAtStr = QDateTime::currentDateTime().toString("dd-MM-yyyy HH:mm");
+    Database::instance().saveExamAttempt(username, currentSubject, currentDifficulty, correctCount, completedAtStr, jsonStr);
 }
 
 void Session::showQuestion(int index) {

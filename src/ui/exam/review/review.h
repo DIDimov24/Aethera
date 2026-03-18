@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include "session.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Review; }
@@ -13,7 +12,8 @@ class Review : public QWidget {
 public:
     explicit Review(QWidget *parent = nullptr);
     ~Review();
-    void showReview(const ExamRecord &record);
+
+    void loadAndShow(int attemptId, const QString &subject, const QString &difficulty, int score);
 
 signals:
     void backToHistoryRequested();
