@@ -73,25 +73,17 @@ QLabel#labelCardTitle3 {
     letter-spacing: 1.5px;
 }
 QLabel#labelCardValue1,
+QLabel#labelCardValue2,
 QLabel#labelCardValue3 {
     color: #ffffff;
     font-size: 32px;
     font-weight: 700;
     letter-spacing: -1px;
 }
-QLabel#labelCardValue2 {
-    color: #3dd68c;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -1px;
-}
 QLabel#labelCardUnit1,
+QLabel#labelCardUnit2,
 QLabel#labelCardUnit3 {
     color: #4a4a52;
-    font-size: 11px;
-}
-QLabel#labelCardUnit2 {
-    color: #2a9e68;
     font-size: 11px;
 }
 QWidget#divider {
@@ -102,36 +94,6 @@ QLabel#labelSectionTitle {
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 2px;
-}
-QWidget#heroPanel {
-    background-color: #1c1c1f;
-    border-radius: 12px;
-    border: 1px solid #2a2a2d;
-}
-QLabel#labelHeroHeading {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-}
-QLabel#labelHeroDesc {
-    color: #4a4a52;
-    font-size: 12px;
-}
-QPushButton#buttonStartExam {
-    background-color: #ffffff;
-    color: #111113;
-    font-size: 13px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 22px;
-}
-QPushButton#buttonStartExam:hover {
-    background-color: #e8e8e8;
-}
-QPushButton#buttonStartExam:pressed {
-    background-color: #d0d0d0;
 }
 QToolTip {
     background-color: #2a2a2d;
@@ -604,93 +566,17 @@ QPushButton:hover {
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="heroPanel" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>152</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>152</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="heroPanelLayout">
-         <property name="spacing">
-          <number>4</number>
-         </property>
-         <property name="leftMargin">
-          <number>28</number>
-         </property>
-         <property name="topMargin">
-          <number>28</number>
-         </property>
-         <property name="rightMargin">
-          <number>28</number>
-         </property>
-         <property name="bottomMargin">
-          <number>16</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="labelHeroHeading">
-           <property name="text">
-            <string>Ready to challenge yourself?</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelHeroDesc">
-           <property name="text">
-            <string>20 questions  ·  10 minutes  ·  mixed subjects</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="heroPanelSpacer">
-           <property name="orientation">
-            <enum>Qt::Orientation::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>1</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="buttonStartExam">
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>38</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>170</width>
-             <height>38</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Start Exam</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
        <spacer name="pageHomeBottomSpacer">
         <property name="orientation">
          <enum>Qt::Orientation::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>375</height>
          </size>
         </property>
        </spacer>

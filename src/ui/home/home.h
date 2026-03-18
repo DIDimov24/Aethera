@@ -47,4 +47,6 @@ private:
     void setNavActive(int index);
 
     void updateStatsCards();
+
+    void showAccountRequired();
 };

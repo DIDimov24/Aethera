@@ -3,6 +3,7 @@
 #include "login.h"
 #include "usersession.h"
 #include "profile.h"
+#include "database.h"
 #include <QMessageBox>
 
 Home::Home(QWidget *parent)
@@ -47,54 +48,13 @@ Home::Home(QWidget *parent)
     });
     connect(ui->buttonNavExams, &QPushButton::clicked, this, [this]() {
         if (!UserSession::instance().isLoggedIn()) {
-            QMessageBox msgBox(this);
-            msgBox.setWindowTitle("Account Required");
-            msgBox.setText("You need an account to take exams.\nWould you like to create one?");
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            msgBox.setStyleSheet(R"(
-                QMessageBox {
-                    background-color: #161618;
-                    color: #e0e0e4;
-                }
-                QMessageBox QLabel {
-                    color: #e0e0e4;
-                    font-size: 13px;
-                }
-                QPushButton {
-                    background-color: #222224;
-                    color: #e0e0e4;
-                    font-size: 13px;
-                    font-weight: 600;
-                    border: 1px solid #2a2a2d;
-                    border-radius: 6px;
-                    padding: 8px 20px;
-                    min-width: 80px;
-                }
-                QPushButton:hover {
-                    background-color: #2a2a2d;
-                    color: #ffffff;
-                    border-color: #3a3a3e;
-                }
-            )");
-            if (msgBox.exec() == QMessageBox::Yes) {
-                Login *loginPage = new Login();
-                this->hide();
-                loginPage->show();
-            }
+            showAccountRequired();
             return;
         }
         setNavActive(1);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
-    connect(ui->buttonStartExam, &QPushButton::clicked, this, [this]() {
-        setNavActive(1);
-        historyPage->loadAndPopulate(UserSession::instance().getUsername());
-        ui->stackedWidget->setCurrentWidget(historyPage);
-    });
-
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
         setNavActive(3);
         ui->stackedWidget->setCurrentWidget(profilePage);
@@ -189,17 +149,76 @@ Home::Home(QWidget *parent)
 Home::~Home() { delete ui; }
 
 void Home::updateStatsCards() {
-    int totalExamsTaken = sessionPage->getTotalExamsTaken();
-    int bestScore = sessionPage->getBestScore();
-    int totalCorrect = sessionPage->getTotalCorrect();
+    if (!UserSession::instance().isLoggedIn()) {
+        ui->labelCardValue1->setText("0");
+        ui->labelCardValue2->setText("-");
+        ui->labelCardValue3->setText("-");
+        return;
+    }
+
+    QString username = UserSession::instance().getUsername();
+    QList<ExamAttempt> attempts = Database::instance().loadExamAttemptsForUser(username);
+
+    int totalExamsTaken = attempts.size();
+    int bestScore = -1;
+    int totalScore = 0;
+
+    for (int i = 0; i < totalExamsTaken; i++) {
+        ExamAttempt attempt = attempts[i];
+        totalScore += attempt.score;
+        if (bestScore == -1 || attempt.score > bestScore) {
+            bestScore = attempt.score;
+        }
+    }
 
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
     ui->labelCardValue2->setText(bestScore >= 0 ? QString::number(bestScore) : "-");
 
     if (totalExamsTaken > 0) {
-        double avg = (double)totalCorrect / totalExamsTaken;
-        ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
+        double averageScore = (double)totalScore / totalExamsTaken;
+        ui->labelCardValue3->setText(QString::number(averageScore, 'f', 1));
     } else {
         ui->labelCardValue3->setText("-");
+    }
+}
+
+void Home::showAccountRequired() {
+    QMessageBox msgBox(this);
+
+    msgBox.setWindowTitle("Account Required");
+    msgBox.setText("You need an account to continue.\nWould you like to create one?");
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    msgBox.setStyleSheet(R"(
+        QMessageBox {
+            background-color: #161618;
+            color: #e0e0e4;
+        }
+        QMessageBox QLabel {
+            color: #e0e0e4;
+            font-size: 13px;
+        }
+        QPushButton {
+            background-color: #222224;
+            color: #e0e0e4;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #2a2a2d;
+            border-radius: 6px;
+            padding: 8px 20px;
+            min-width: 80px;
+        }
+        QPushButton:hover {
+            background-color: #2a2a2d;
+            color: #ffffff;
+            border-color: #3a3a3e;
+        }
+    )");
+
+    if (msgBox.exec() == QMessageBox::Yes) {
+        Login *loginPage = new Login();
+        this->hide();
+        loginPage->show();
     }
 }
