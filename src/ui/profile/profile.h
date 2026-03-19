@@ -13,9 +13,14 @@ public:
     explicit Profile(QWidget *parent = nullptr);
     ~Profile();
 
+    void refresh();
+
 signals:
     void logoutRequested();
+    void editProfileRequested();
 
 private:
     Ui::Profile *ui;
+    QStringList avatarPaths;
+    int currentAvatarIndex;
 };

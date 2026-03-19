@@ -15,24 +15,25 @@
   </property>
   <property name="styleSheet">
    <string notr="true">
-QLabel#labelProfileTitle {
-    color: #FFFFFF;
-    font-size: 28px;
-    font-weight: bold;
-}
-QPushButton#buttonLogoutFromProfile {
-    background-color: #8b2020;
-    color: #e0c0c0;
-    font-size: 14px;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 28px;
-}
-QPushButton#buttonLogoutFromProfile:hover {
-    background-color: #a52a2a;
-    color: #ffffff;
-}
+QWidget#Profile { background-color: #161618; }
+QWidget#scrollAreaProfile { background: transparent; border: none; }
+QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+QWidget#avatarCircle { min-width: 116px; max-width: 116px; min-height: 116px; max-height: 116px; background-color: #000000; border-radius: 58px; border: 2px solid #2a2a2d; }
+QLabel#labelHeroUsername { color: #FFFFFF; font-size: 26px; font-weight: 700; margin-top: 4px; }
+QLabel#labelHeroGrade { color: #6b6b76; font-size: 15px; margin-top: 0px; }
+QLabel#labelHeroUsername { color: #FFFFFF; font-size: 22px; font-weight: 700; }
+QLabel#labelHeroGrade { color: #6b6b76; font-size: 13px; }
+QLabel#labelSectionBio, QLabel#labelSectionAccount { color: #FFFFFF; font-size: 18px; font-weight: 700; }
+QLabel#labelSectionText { color: #6b6b76; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+QLabel#labelBioText, QLabel#labelAccountValue { color: #ffffff; font-size: 18px; }
+QLabel#labelBioTextEmpty, QLabel#labelBioTextActual { color: #6b6b76; font-size: 18px; }
+QLabel#labelAccountLabel, QLabel#labelFieldUsername, QLabel#labelFieldGrade { color: #6b6b76; font-size: 13px; }
+QFrame#bioCard, QFrame#accountCard { background-color: #1c1c1f; border-radius: 12px; border: 1px solid #2a2a2d; }
+QFrame#innerDivider { background-color: #2a2a2d; min-height: 1px; max-height: 1px; border: none; }
+QPushButton#buttonEditBio, QPushButton#buttonEditUsername, QPushButton#buttonEditGrade { background-color: transparent; color: #c0392b; border: 1px solid #c0392b; border-radius: 8px; padding: 4px 12px; font-size: 13px; font-weight: 600; }
+QPushButton#buttonEditBio:hover, QPushButton#buttonEditUsername:hover, QPushButton#buttonEditGrade:hover { background-color: rgba(192, 57, 43, 0.12); }
    </string>
   </property>
   <layout class="QVBoxLayout" name="pageProfileLayout">
@@ -53,80 +54,208 @@ QPushButton#buttonLogoutFromProfile:hover {
    </property>
    <item>
     <widget class="QScrollArea" name="scrollAreaProfile">
-     <property name="styleSheet">
-      <string notr="true">
-QScrollArea { background: transparent; border: none; }
-QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
-QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-     </string>
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
      <property name="frameShape">
       <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
      </property>
      <widget class="QWidget" name="scrollContentProfile">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>280</width>
-        <height>400</height>
+        <width>800</width>
+        <height>900</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="layoutProfileContent">
        <property name="spacing">
-        <number>20</number>
+        <number>12</number>
        </property>
        <property name="leftMargin">
         <number>50</number>
        </property>
        <property name="topMargin">
-        <number>40</number>
+        <number>24</number>
        </property>
        <property name="rightMargin">
         <number>50</number>
        </property>
        <property name="bottomMargin">
-        <number>40</number>
+        <number>20</number>
        </property>
        <item>
-        <widget class="QLabel" name="labelProfileTitle">
-         <property name="text">
-          <string>My Profile</string>
+        <layout class="QHBoxLayout" name="layoutHeroHeader">
+         <property name="spacing">
+          <number>12</number>
          </property>
-        </widget>
+         <property name="alignment">
+          <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+         <item>
+          <widget class="QWidget" name="avatarCircle"/>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="layoutHeroText">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="labelHeroUsername"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelHeroGrade"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonLogoutFromProfile">
+        <widget class="QFrame" name="bioCard">
          <property name="minimumSize">
           <size>
-           <width>200</width>
-           <height>50</height>
+           <width>0</width>
+           <height>130</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>200</width>
-           <height>50</height>
-          </size>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="text">
-          <string>Log Out</string>
+         <layout class="QVBoxLayout" name="layoutBioCard">
+          <property name="spacing">
+          <number>8</number>
          </property>
+         <property name="leftMargin">
+          <number>16</number>
+         </property>
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <property name="rightMargin">
+          <number>16</number>
+         </property>
+         <property name="bottomMargin">
+          <number>14</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="labelSectionBio">
+            <property name="text">
+             <string>Profile Bio</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutBioRow">
+            <item>
+             <widget class="QLabel" name="labelBioText"/>
+            </item>
+            <item>
+             <spacer name="bioSpacer"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonEditBio">
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <spacer name="profileBottomSpacer">
+        <widget class="QFrame" name="accountCard">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>170</height>
+          </size>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QVBoxLayout" name="layoutAccountCard">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <property name="leftMargin">
+           <number>16</number>
+          </property>
+          <property name="topMargin">
+           <number>14</number>
+          </property>
+          <property name="rightMargin">
+           <number>16</number>
+          </property>
+          <property name="bottomMargin">
+           <number>14</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="labelSectionAccount"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutAccountRow1">
+            <item>
+             <widget class="QLabel" name="labelFieldUsername"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAccountValueUsername"/>
+            </item>
+            <item>
+             <spacer name="accountRow1Spacer"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonEditUsername">
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QFrame" name="innerDivider"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutAccountRow2">
+            <item>
+             <widget class="QLabel" name="labelFieldGrade"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAccountValueGrade"/>
+            </item>
+            <item>
+             <spacer name="accountRow2Spacer"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonEditGrade">
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="bottomSpacer">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>150</height>
           </size>
          </property>
         </spacer>

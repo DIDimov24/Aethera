@@ -57,7 +57,14 @@ Home::Home(QWidget *parent)
     });
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
         setNavActive(3);
+        profilePage->refresh();
         ui->stackedWidget->setCurrentWidget(profilePage);
+    });
+
+    connect(profilePage, &Profile::editProfileRequested, this, [this]() {
+        setNavActive(2);
+        settingsPage->refresh();
+        ui->stackedWidget->setCurrentWidget(settingsPage);
     });
 
     connect(ui->buttonLoginRegister, &QPushButton::clicked, this, [this]() {
