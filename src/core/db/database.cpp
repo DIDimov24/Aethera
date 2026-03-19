@@ -198,3 +198,103 @@ QString Database::loadExamResultsJson(int attemptId) {
 
     return query.value(0).toString();
 }
+
+QList<StudentScore> Database::getHighestScores(int limit) {
+    QList<StudentScore> scores;
+    if (!openDatabase()) return scores;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT username, MAX(score) as max_score FROM exam_attempts GROUP BY username ORDER BY max_score DESC LIMIT ?");
+    query.addBindValue(limit);
+
+    if (!query.exec()) return scores;
+
+    while (query.next()) {
+        scores.append({
+            query.value(0).toString(),
+            query.value(1).toInt()
+        });
+    }
+
+    return scores;
+}
+
+QList<StudentScore> Database::getLowestScores(int limit) {
+    QList<StudentScore> scores;
+    if (!openDatabase()) return scores;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT username, MIN(score) as min_score FROM exam_attempts GROUP BY username ORDER BY min_score ASC LIMIT ?");
+    query.addBindValue(limit);
+
+    if (!query.exec()) return scores;
+
+    while (query.next()) {
+        scores.append({
+            query.value(0).toString(),
+            query.value(1).toInt()
+        });
+    }
+
+    return scores;
+}
+
+float Database::getAverageScore() {
+    if (!openDatabase()) return 0.0f;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT AVG(score) FROM exam_attempts");
+
+    if (!query.exec() || !query.next()) return 0.0f;
+
+    return query.value(0).toFloat();
+}
+
+int Database::getTotalEvaluatedStudents() {
+    if (!openDatabase()) return 0;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT COUNT(DISTINCT username) FROM exam_attempts");
+
+    if (!query.exec() || !query.next()) return 0;
+
+    return query.value(0).toInt();
+}
+
+QList<CategoryStat> Database::getSubjectStats() {
+    QList<CategoryStat> stats;
+    if (!openDatabase()) return stats;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT subject, AVG(score) FROM exam_attempts GROUP BY subject ORDER BY AVG(score) DESC");
+
+    if (!query.exec()) return stats;
+
+    while (query.next()) {
+        CategoryStat stat;
+        stat.name = query.value(0).toString();
+        stat.averageScore = query.value(1).toFloat();
+        stats.append(stat);
+    }
+
+    return stats;
+}
+
+QList<CategoryStat> Database::getDifficultyStats() {
+    QList<CategoryStat> stats;
+    if (!openDatabase()) return stats;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT difficulty, AVG(score) FROM exam_attempts GROUP BY difficulty ORDER BY AVG(score) DESC");
+
+    if (!query.exec()) return stats;
+
+    while (query.next()) {
+        CategoryStat stat;
+        stat.name = query.value(0).toString();
+        stat.averageScore = query.value(1).toFloat();
+        stats.append(stat);
+    }
+
+    return stats;
+}

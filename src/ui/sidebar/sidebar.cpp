@@ -88,6 +88,7 @@ void Home::repositionSidebarButtons() {
  
     ui->buttonNavHome ->setGeometry(btnX,  60, btnW, btnH);
     ui->buttonNavExams->setGeometry(btnX, 108, btnW, btnH);
+    ui->buttonNavStatistics->setGeometry(btnX, 156, btnW, btnH);
     ui->buttonSettings->setGeometry(btnX, 696, btnW, btnH);
     ui->buttonLogOut->setGeometry(btnX, 648, btnW, btnH);
     ui->buttonLoginRegister->setGeometry(btnX, 648, btnW, btnH);
@@ -97,7 +98,7 @@ void Home::updateSidebarButtons() {
     const char* navNorm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
     const char* logoutSS = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
     const char* loginSS = sidebarExpanded ? Style::loginExpanded : Style::loginCollapsed;
- 
+
     auto setup = [this](QPushButton *btn, const QString &label, const QString &iconPath, const char *ss) {
         btn->setIcon(QIcon(iconPath));
         btn->setIconSize(QSize(18, 18));
@@ -110,17 +111,19 @@ void Home::updateSidebarButtons() {
             btn->setToolTip(label);
         }
     };
- 
+
     const char* navDisabled = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
- 
+
     setup(ui->buttonNavHome, "Home", ":/icons/home.svg", navNorm);
     if (UserSession::instance().isLoggedIn()) {
         setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navNorm);
+        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navNorm);
     } else {
         setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navDisabled);
+        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navDisabled);
     }
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
- 
+
     if (UserSession::instance().isLoggedIn()) {
         setup(ui->buttonLogOut, "My Profile", ":/icons/user.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
@@ -130,11 +133,11 @@ void Home::updateSidebarButtons() {
         ui->buttonLoginRegister->setVisible(true);
         ui->buttonLogOut->setVisible(false);
     }
- 
+
     setNavActive(activeNavIndex);
 }
- 
-void Home::setNavActive(int index) {
+
+void Home::setNavActive(NavPage index) {
     activeNavIndex = index;
  
     const char* norm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
@@ -142,16 +145,17 @@ void Home::setNavActive(int index) {
 
     const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
 
-    ui->buttonNavHome ->setStyleSheet(index == 0 ? act : norm);
+    ui->buttonNavHome ->setStyleSheet(index == NavPage::Home ? act : norm);
     if (!UserSession::instance().isLoggedIn()) {
-        const char* dis = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
-        ui->buttonNavExams->setStyleSheet(dis);
+        ui->buttonNavExams->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
+        ui->buttonNavStatistics->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
     } else {
-        ui->buttonNavExams->setStyleSheet(index == 1 ? act : norm);
+        ui->buttonNavExams->setStyleSheet(index == NavPage::Exams ? act : norm);
+        ui->buttonNavStatistics->setStyleSheet(index == NavPage::Statistics ? act : norm);
     }
-    ui->buttonSettings->setStyleSheet(index == 2 ? act : norm);
+    ui->buttonSettings->setStyleSheet(index == NavPage::Settings ? act : norm);
 
     if (UserSession::instance().isLoggedIn()) {
-        ui->buttonLogOut->setStyleSheet(index == 3 ? act : logoutNorm);
+        ui->buttonLogOut->setStyleSheet(index == NavPage::Profile ? act : logoutNorm);
     }
 }

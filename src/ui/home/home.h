@@ -10,10 +10,19 @@
 #include "history.h"
 #include "review.h"
 #include "settings.h"
+#include "statistics.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
 QT_END_NAMESPACE
+
+enum class NavPage {
+    Home = 0,
+    Exams = 1,
+    Settings = 2,
+    Profile = 3,
+    Statistics = 4
+};
 
 class Home : public QMainWindow {
     Q_OBJECT
@@ -37,14 +46,15 @@ private:
     Subjects *subjectsPage;
     History *historyPage;
     Review *reviewPage;
+    Statistics *statisticsPage;
 
     bool sidebarExpanded;
-    int activeNavIndex;
+    NavPage activeNavIndex;
     QString selectedExamSubject;
 
     void updateSidebarButtons();
     void repositionSidebarButtons();
-    void setNavActive(int index);
+    void setNavActive(NavPage index);
 
     void updateStatsCards();
 

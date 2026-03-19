@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlDatabase>
 #include <QList>
+#include <QMap>
 
 struct User {
     QString username;
@@ -16,6 +17,16 @@ struct ExamAttempt {
     QString difficulty;
     int score;
     QString completedAt;
+};
+
+struct StudentScore {
+    QString username;
+    int score;
+};
+
+struct CategoryStat {
+    QString name;
+    float averageScore;
 };
 
 class Database {
@@ -42,6 +53,13 @@ public:
     QList<ExamAttempt> loadExamAttemptsForUser(const QString &username);
 
     QString loadExamResultsJson(int attemptId);
+
+    QList<StudentScore> getHighestScores(int limit = 10);
+    QList<StudentScore> getLowestScores(int limit = 10);
+    float getAverageScore();
+    int getTotalEvaluatedStudents();
+    QList<CategoryStat> getSubjectStats();
+    QList<CategoryStat> getDifficultyStats();
 
 private:
     Database();

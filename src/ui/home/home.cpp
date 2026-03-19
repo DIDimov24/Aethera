@@ -4,6 +4,7 @@
 #include "usersession.h"
 #include "profile.h"
 #include "database.h"
+#include "statistics.h"
 #include <QMessageBox>
 
 Home::Home(QWidget *parent)
@@ -36,14 +37,17 @@ Home::Home(QWidget *parent)
     subjectsPage = new Subjects(this);
     ui->stackedWidget->addWidget(subjectsPage);
 
+    statisticsPage = new Statistics(this);
+    ui->stackedWidget->addWidget(statisticsPage);
+
     sidebarExpanded = true;
-    activeNavIndex = 0;
+    activeNavIndex = NavPage::Home;
     selectedExamSubject = "History";
 
     connect(ui->buttonToggleSidebar, &QPushButton::clicked, this, &Home::toggleSidebar);
 
     connect(ui->buttonNavHome, &QPushButton::clicked, this, [this]() {
-        setNavActive(0);
+        setNavActive(NavPage::Home);
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(ui->buttonNavExams, &QPushButton::clicked, this, [this]() {
@@ -51,18 +55,29 @@ Home::Home(QWidget *parent)
             showAccountRequired();
             return;
         }
-        setNavActive(1);
+
+        setNavActive(NavPage::Exams);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
+    connect(ui->buttonNavStatistics, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) {
+            showAccountRequired();
+            return;
+        }
+
+        setNavActive(NavPage::Statistics);
+        statisticsPage->refresh();
+        ui->stackedWidget->setCurrentWidget(statisticsPage);
+    });
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
-        setNavActive(3);
+        setNavActive(NavPage::Profile);
         profilePage->refresh();
         ui->stackedWidget->setCurrentWidget(profilePage);
     });
 
     connect(profilePage, &Profile::editProfileRequested, this, [this]() {
-        setNavActive(2);
+        setNavActive(NavPage::Settings);
         settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
@@ -74,7 +89,7 @@ Home::Home(QWidget *parent)
     });
 
     connect(ui->buttonSettings, &QPushButton::clicked, this, [this]() {
-        setNavActive(2);
+        setNavActive(NavPage::Settings);
         settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
@@ -88,7 +103,7 @@ Home::Home(QWidget *parent)
     });
 
     connect(historyPage, &History::newExamRequested, this, [this]() {
-        setNavActive(1);
+        setNavActive(NavPage::Exams);
         ui->stackedWidget->setCurrentWidget(subjectsPage);
     });
 
@@ -104,7 +119,7 @@ Home::Home(QWidget *parent)
     });
 
     connect(reviewPage, &Review::backToHistoryRequested, this, [this]() {
-        setNavActive(1);
+        setNavActive(NavPage::Exams);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
@@ -129,12 +144,12 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(resultsPage);
     });
     connect(resultsPage, &Results::backToHomeRequested, this, [this]() {
-        setNavActive(0);
+        setNavActive(NavPage::Home);
         updateStatsCards();
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(resultsPage, &Results::viewExamsRequested, this, [this]() {
-        setNavActive(1);
+        setNavActive(NavPage::Exams);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
@@ -142,7 +157,7 @@ Home::Home(QWidget *parent)
 
     updateStatsCards();
     updateSidebarButtons();
-    setNavActive(0);
+    setNavActive(NavPage::Home);
 
     if (UserSession::instance().isLoggedIn()) {
         QString name = UserSession::instance().getUsername();

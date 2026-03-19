@@ -20,12 +20,13 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/statistics
 )
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Network)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Sql Network Charts)
 
 set(PROJECT_SOURCES
     main.cpp
@@ -94,11 +95,15 @@ set(PROJECT_SOURCES
     ui/profile/profile.cpp
     ui/profile/profile.h
     ui/profile/profile.ui
+
+    ui/statistics/statistics.cpp
+    ui/statistics/statistics.h
+    ui/statistics/statistics.ui
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
 
-target_link_libraries(Aethera PRIVATE Qt6::Widgets Qt6::Sql Qt6::Network)
+target_link_libraries(Aethera PRIVATE Qt6::Widgets Qt6::Sql Qt6::Network Qt6::Charts)
 
 target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -117,4 +122,5 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/subjects
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/statistics
 )
