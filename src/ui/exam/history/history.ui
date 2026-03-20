@@ -5,8 +5,8 @@
   <property name="geometry"><rect><x>0</x><y>0</y><width>800</width><height>750</height></rect></property>
   <property name="styleSheet">
    <string notr="true">
-QWidget#History { background-color: #161618; }
-QWidget#examHistoryHeader { background-color: #161618; border-bottom: 1px solid #222224; }
+QWidget#History { background-color: #111113; }
+QWidget#examHistoryHeader { background-color: #111113; border-bottom: 1px solid #1e1e20; }
 QLabel#labelExamHistoryTitle { color: #ffffff; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
 QLabel#labelReviewHint { color: #6b6b76; font-size: 13px; }
 QPushButton#buttonNewExam {
@@ -15,11 +15,11 @@ QPushButton#buttonNewExam {
 }
 QPushButton#buttonNewExam:hover { background-color: #222224; border-color: #3a3a3e; color: #ffffff; }
 QPushButton#buttonNewExam:pressed { background-color: #2a2a2d; }
-QScrollArea { background-color: transparent; border: none; }
-QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
-QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
+QScrollArea { background-color: #111113; border: none; }
+QScrollBar:vertical { background: #111113; width: 8px; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #2a2a2d; border-radius: 4px; min-height: 30px; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-QWidget#scrollContents { background-color: transparent; }
+QWidget#scrollContents { background-color: #111113; }
    </string>
   </property>
   <layout class="QVBoxLayout" name="examHistoryMainLayout">

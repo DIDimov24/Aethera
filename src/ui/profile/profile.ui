@@ -9,7 +9,8 @@
 QWidget#Profile { background-color: #161618; }
 QWidget#profileHeader { background-color: #161618; border-bottom: 1px solid #222224; }
 QLabel#labelProfileTitle { color: #ffffff; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
-QWidget#scrollAreaProfile { background: transparent; border: none; }
+QScrollArea#scrollAreaProfile { background-color: #161618; border: none; }
+QWidget#scrollContentProfile { background-color: #161618; }
 QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
 QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }

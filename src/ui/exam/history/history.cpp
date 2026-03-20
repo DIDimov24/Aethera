@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QPushButton>
+#include <QWidget>
 
 History::History(QWidget *parent)
     : QWidget(parent)
@@ -48,7 +49,7 @@ void History::loadAndPopulate(const QString &username) {
                 background-color: #1c1c1f; color: #e0e0e4; font-size: 13px; font-weight: 600;
                 border: 1px solid #2a2a2d; border-radius: 8px; padding: 10px 24px;
             }
-            QPushButton:hover { background-color: #222224; border-color: #3a3a3e; color: #ffffff; }
+            QPushButton:hover { background-color: #202023; border-color: #3a3a3e; color: #ffffff; }
         )");
         startBtn->setFixedWidth(180);
         startBtn->setCursor(Qt::PointingHandCursor);
@@ -71,68 +72,98 @@ void History::loadAndPopulate(const QString &username) {
 
         QString gradeStr;
         QString gradeColor;
-        if (pct >= 90)      { gradeStr = "Excellent (6)";  gradeColor = "#00D4AA"; }
-        else if (pct >= 75) { gradeStr = "Very Good (5)";  gradeColor = "#00D4AA"; }
-        else if (pct >= 60) { gradeStr = "Good (4)";       gradeColor = "#F5C518"; }
-        else if (pct >= 45) { gradeStr = "Average (3)";    gradeColor = "#F5C518"; }
-        else if (pct >= 30) { gradeStr = "Poor (2)";       gradeColor = "#FF6B6B"; }
-        else                { gradeStr = "Very Poor (2-)"; gradeColor = "#FF6B6B"; }
+        QString iconBg;
+        if (pct >= 90)      { gradeStr = "Excellent (6)";  gradeColor = "#00D4AA"; iconBg = "#0a2e26"; }
+        else if (pct >= 75) { gradeStr = "Very Good (5)";  gradeColor = "#00D4AA"; iconBg = "#0a2e26"; }
+        else if (pct >= 60) { gradeStr = "Good (4)";       gradeColor = "#F5C518"; iconBg = "#2a2410"; }
+        else if (pct >= 45) { gradeStr = "Average (3)";    gradeColor = "#F5C518"; iconBg = "#2a2410"; }
+        else if (pct >= 30) { gradeStr = "Poor (2)";       gradeColor = "#FF6B6B"; iconBg = "#2a0f0f"; }
+        else                { gradeStr = "Very Poor (2-)";  gradeColor = "#FF6B6B"; iconBg = "#2a0f0f"; }
 
         QPushButton *card = new QPushButton;
         card->setCursor(Qt::PointingHandCursor);
         card->setFlat(true);
         card->setObjectName("examHistoryCard");
-        card->setStyleSheet(QString(R"(
-            QPushButton#examHistoryCard { %1 }
-            QPushButton#examHistoryCard:hover { background-color: #202023; border-color: #3a3a3e; }
-        )").arg(Style::card));
-        card->setMinimumHeight(80);
-        card->setMaximumHeight(80);
+        card->setMinimumHeight(76);
+        card->setMaximumHeight(76);
+        card->setStyleSheet(R"(
+            QPushButton#examHistoryCard {
+                background-color: #1c1c1f;
+                border: 1px solid #2a2a2d;
+                border-radius: 12px;
+                text-align: left;
+                padding: 0px;
+            }
+            QPushButton#examHistoryCard:hover {
+                background-color: #202023;
+                border-color: #3a3a3e;
+            }
+            QPushButton#examHistoryCard:pressed {
+                background-color: #252528;
+            }
+        )");
 
         QHBoxLayout *cardLayout = new QHBoxLayout(card);
-        cardLayout->setContentsMargins(20, 12, 20, 12);
+        cardLayout->setContentsMargins(20, 0, 20, 0);
         cardLayout->setSpacing(16);
 
-        QLabel *timeLabel = new QLabel(attempt.completedAt);
-        timeLabel->setStyleSheet(Style::timeLabel);
-        timeLabel->setMinimumWidth(130);
+        QWidget *iconBox = new QWidget;
+        iconBox->setFixedSize(40, 40);
+        iconBox->setStyleSheet(QString("background-color: %1; border-radius: 10px;").arg(iconBg));
 
-        QLabel *detailsLabel = new QLabel(QString("%1 • %2").arg(attempt.subject, attempt.difficulty));
-        detailsLabel->setStyleSheet(Style::detailsLabel);
-        detailsLabel->setMinimumWidth(170);
+        QLabel *iconLabel = new QLabel(iconBox);
+        iconLabel->setText(QString::number(attempt.score));
+        iconLabel->setStyleSheet(QString("color: %1; font-size: 13px; font-weight: 700; background: transparent;").arg(gradeColor));
+        iconLabel->setAlignment(Qt::AlignCenter);
+        iconLabel->setGeometry(0, 0, 40, 40);
 
-        QLabel *scoreLabel = new QLabel(QString("%1 / 20").arg(attempt.score));
-        scoreLabel->setStyleSheet(QString(Style::scoreLabel).arg(gradeColor));
-        scoreLabel->setMinimumWidth(80);
+        QWidget *textBlock = new QWidget;
+        QVBoxLayout *textLayout = new QVBoxLayout(textBlock);
+        textLayout->setContentsMargins(0, 0, 0, 0);
+        textLayout->setSpacing(1);
 
-        QLabel *gradeLabel = new QLabel(gradeStr);
-        gradeLabel->setStyleSheet(QString(Style::gradeLabel).arg(gradeColor));
-        gradeLabel->setMinimumWidth(140);
+        QLabel *titleLabel = new QLabel(QString("%1  •  %2").arg(attempt.subject, attempt.difficulty));
+        titleLabel->setStyleSheet("color: #e0e0e4; font-size: 13px; font-weight: 600;");
+
+        QLabel *subLabel = new QLabel(QString("%1  •  %2 / 20  •  %3%").arg(attempt.completedAt).arg(attempt.score).arg(static_cast<int>(pct)));
+        subLabel->setStyleSheet("color: #6b6b76; font-size: 11px;");
+
+        textLayout->addWidget(titleLabel);
+        textLayout->addWidget(subLabel);
+
+        QWidget *rightBlock = new QWidget;
+        QVBoxLayout *rightLayout = new QVBoxLayout(rightBlock);
+        rightLayout->setContentsMargins(0, 0, 0, 0);
+        rightLayout->setSpacing(4);
+        rightLayout->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+        QLabel *gradeChip = new QLabel(gradeStr);
+        gradeChip->setStyleSheet(QString("color: %1; font-size: 12px; font-weight: 600;").arg(gradeColor));
+        gradeChip->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         QProgressBar *bar = new QProgressBar;
         bar->setMinimum(0);
         bar->setMaximum(100);
         bar->setValue(static_cast<int>(pct));
         bar->setTextVisible(false);
-        bar->setMaximumHeight(6);
-        bar->setStyleSheet(QString(Style::progressBar).arg(gradeColor));
+        bar->setFixedHeight(4);
+        bar->setFixedWidth(80);
+        bar->setStyleSheet(QString(R"(
+            QProgressBar { background-color: #2a2a2d; border-radius: 2px; border: none; }
+            QProgressBar::chunk { background-color: %1; border-radius: 2px; }
+        )").arg(gradeColor));
 
-        QLabel *pctLabel = new QLabel(QString("%1%").arg(static_cast<int>(pct)));
-        pctLabel->setStyleSheet(Style::pctLabel);
-        pctLabel->setMinimumWidth(40);
-        pctLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        rightLayout->addWidget(gradeChip, 0, Qt::AlignRight);
+        rightLayout->addWidget(bar, 0, Qt::AlignRight);
 
-        QWidget *barContainer = new QWidget;
-        QVBoxLayout *barLayout = new QVBoxLayout(barContainer);
-        barLayout->setContentsMargins(0, 0, 0, 0);
-        barLayout->addWidget(bar);
+        QLabel *arrowLabel = new QLabel("›");
+        arrowLabel->setStyleSheet("color: #3a3a3e; font-size: 18px;");
+        arrowLabel->setFixedWidth(16);
 
-        cardLayout->addWidget(timeLabel);
-        cardLayout->addWidget(detailsLabel);
-        cardLayout->addWidget(scoreLabel);
-        cardLayout->addWidget(gradeLabel);
-        cardLayout->addWidget(barContainer, 1);
-        cardLayout->addWidget(pctLabel);
+        cardLayout->addWidget(iconBox);
+        cardLayout->addWidget(textBlock, 1);
+        cardLayout->addWidget(rightBlock);
+        cardLayout->addWidget(arrowLabel);
 
         connect(card, &QPushButton::clicked, this, [this, attemptId = attempt.id]() {
             emit reviewRequested(attemptId);
