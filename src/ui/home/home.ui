@@ -3,585 +3,343 @@
  <class>Home</class>
  <widget class="QMainWindow" name="Home">
   <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1000</width>
-    <height>750</height>
-   </rect>
+   <rect><x>0</x><y>0</y><width>1000</width><height>750</height></rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>1000</width>
-    <height>750</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1000</width>
-    <height>750</height>
-   </size>
-  </property>
-  <property name="windowTitle">
-   <string>Aethera</string>
-  </property>
+  <property name="minimumSize"><size><width>1000</width><height>750</height></size></property>
+  <property name="maximumSize"><size><width>1000</width><height>750</height></size></property>
+  <property name="windowTitle"><string>Aethera</string></property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">
-QWidget#centralwidget {
-    background-color: #161618;
+QWidget#centralwidget { background-color: #161618; }
+QWidget#sidebar { background-color: #111113; border-right: 1px solid #1e1e20; }
+QLabel#labelTitle { color: #ffffff; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
+QLabel#labelSubtitle { color: #3a3a3e; font-size: 10px; font-weight: 600; letter-spacing: 3px; }
+QLabel#labelWelcome { color: #6b6b76; font-size: 13px; }
+QWidget#cardExams, QWidget#cardBest, QWidget#cardAvg {
+    background-color: #1c1c1f; border-radius: 12px; border: 1px solid #2a2a2d;
 }
-QWidget#sidebar {
-    background-color: #111113;
-    border-right: 1px solid #222224;
+QWidget#cardExams:hover, QWidget#cardBest:hover, QWidget#cardAvg:hover {
+    background-color: #202023; border-color: #3a3a3e;
 }
-QLabel#labelTitle {
-    color: #ffffff;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -1px;
+QLabel#labelCardTitle1, QLabel#labelCardTitle2, QLabel#labelCardTitle3 {
+    color: #4a4a52; font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
 }
-QLabel#labelSubtitle {
-    color: #4a4a52;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 3px;
+QLabel#labelCardValue1, QLabel#labelCardValue2, QLabel#labelCardValue3 {
+    color: #ffffff; font-size: 32px; font-weight: 700; letter-spacing: -1px;
 }
-QLabel#labelWelcome {
-    color: #6b6b76;
-    font-size: 13px;
+QLabel#labelCardUnit1, QLabel#labelCardUnit2, QLabel#labelCardUnit3 {
+    color: #4a4a52; font-size: 11px;
 }
-QWidget#cardExams,
-QWidget#cardBest,
-QWidget#cardAvg {
-    background-color: #1c1c1f;
-    border-radius: 12px;
-    border: 1px solid #2a2a2d;
+QWidget#divider { background-color: #222224; }
+QLabel#labelSectionTitle, QLabel#labelSectionQuick {
+    color: #3a3a3e; font-size: 10px; font-weight: 600; letter-spacing: 2px;
 }
-QWidget#cardExams:hover,
-QWidget#cardBest:hover,
-QWidget#cardAvg:hover {
-    background-color: #202023;
-    border-color: #3a3a3e;
+QPushButton#buttonQuickExam, QPushButton#buttonQuickHistory {
+    background-color: #1c1c1f; border: 1px solid #2a2a2d; border-radius: 12px; text-align: left; padding: 0px;
 }
-QLabel#labelCardTitle1,
-QLabel#labelCardTitle2,
-QLabel#labelCardTitle3 {
-    color: #4a4a52;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+QPushButton#buttonQuickExam:hover, QPushButton#buttonQuickHistory:hover {
+    background-color: #202023; border-color: #3a3a3e;
 }
-QLabel#labelCardValue1,
-QLabel#labelCardValue2,
-QLabel#labelCardValue3 {
-    color: #ffffff;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -1px;
+QPushButton#buttonQuickExam:pressed, QPushButton#buttonQuickHistory:pressed {
+    background-color: #252528;
 }
-QLabel#labelCardUnit1,
-QLabel#labelCardUnit2,
-QLabel#labelCardUnit3 {
-    color: #4a4a52;
-    font-size: 11px;
+QLabel#labelQuickExamTitle, QLabel#labelQuickHistoryTitle {
+    color: #e0e0e4; font-size: 13px; font-weight: 600;
 }
-QWidget#divider {
-    background-color: #222224;
+QLabel#labelQuickExamSub, QLabel#labelQuickHistorySub {
+    color: #6b6b76; font-size: 11px;
 }
-QLabel#labelSectionTitle {
-    color: #3a3a3e;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
+QWidget#quickExamIcon {
+    background-color: #2a1a1a; border-radius: 10px;
+    min-width: 40px; max-width: 40px; min-height: 40px; max-height: 40px;
+}
+QWidget#quickHistoryIcon {
+    background-color: #1a2a1a; border-radius: 10px;
+    min-width: 40px; max-width: 40px; min-height: 40px; max-height: 40px;
+}
+QLabel#labelQuickExamArrow, QLabel#labelQuickHistoryArrow {
+    color: #3a3a3e; font-size: 18px;
 }
 QToolTip {
-    background-color: #2a2a2d;
-    color: #e0e0e4;
-    border: 1px solid #3a3a3e;
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 12px;
+    background-color: #2a2a2d; color: #e0e0e4; border: 1px solid #3a3a3e;
+    border-radius: 6px; padding: 4px 8px; font-size: 12px;
 }
-
     </string>
    </property>
    <widget class="QWidget" name="sidebar" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>200</width>
-      <height>750</height>
-     </rect>
-    </property>
+    <property name="geometry"><rect><x>0</x><y>0</y><width>200</width><height>750</height></rect></property>
     <widget class="QPushButton" name="buttonToggleSidebar">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>10</y>
-       <width>36</width>
-       <height>36</height>
-      </rect>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>10</y><width>36</width><height>36</height></rect></property>
      <property name="styleSheet">
-      <string notr="true">
-QPushButton {
-    background-color: transparent;
-    border: none;
-    border-radius: 6px;
-    padding: 6px;
-}
-QPushButton:hover {
-    background-color: #1c1c1f;
-}
-      </string>
+      <string notr="true">QPushButton { background-color: transparent; border: none; border-radius: 6px; padding: 6px; } QPushButton:hover { background-color: #1c1c1f; }</string>
      </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
+     <property name="text"><string/></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg</iconset></property>
+     <property name="iconSize"><size><width>20</width><height>20</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonNavHome">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>60</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>   Home</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/home.svg</normaloff>:/icons/home.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>60</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Home</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/home.svg</normaloff>:/icons/home.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonNavExams">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>108</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>   Exams</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/exam.svg</normaloff>:/icons/exam.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>108</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Exams</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/exam.svg</normaloff>:/icons/exam.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonNavStatistics">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>156</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>   Statistics</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-    <normaloff>:/icons/diagram.svg</normaloff>:/icons/diagram.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>156</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Statistics</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/diagram.svg</normaloff>:/icons/diagram.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonLogOut">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>648</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="visible">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>   Log Out</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/user.svg</normaloff>:/icons/user.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>648</y><width>184</width><height>40</height></rect></property>
+     <property name="visible"><bool>false</bool></property>
+     <property name="text"><string>   Log Out</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/user.svg</normaloff>:/icons/user.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonLoginRegister">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>648</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>   Login / Register</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/user.svg</normaloff>:/icons/user.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>648</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Login / Register</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/user.svg</normaloff>:/icons/user.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
     <widget class="QPushButton" name="buttonSettings">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>696</y>
-       <width>184</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>   Settings</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../../assets/icons.qrc">
-       <normaloff>:/icons/settings.svg</normaloff>:/icons/settings.svg</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>18</width>
-       <height>18</height>
-      </size>
-     </property>
+     <property name="geometry"><rect><x>8</x><y>696</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Settings</string></property>
+     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/settings.svg</normaloff>:/icons/settings.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
    </widget>
    <widget class="QStackedWidget" name="stackedWidget">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>0</y>
-      <width>800</width>
-      <height>750</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
+    <property name="geometry"><rect><x>200</x><y>0</y><width>800</width><height>750</height></rect></property>
+    <property name="currentIndex"><number>0</number></property>
     <widget class="QWidget" name="pageHome">
      <layout class="QVBoxLayout" name="pageHomeLayout">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <property name="leftMargin">
-       <number>50</number>
-      </property>
-      <property name="topMargin">
-       <number>52</number>
-      </property>
-      <property name="rightMargin">
-       <number>50</number>
-      </property>
-      <property name="bottomMargin">
-       <number>40</number>
-      </property>
+      <property name="spacing"><number>0</number></property>
+      <property name="leftMargin"><number>50</number></property>
+      <property name="topMargin"><number>48</number></property>
+      <property name="rightMargin"><number>50</number></property>
+      <property name="bottomMargin"><number>40</number></property>
       <item>
        <widget class="QLabel" name="labelSubtitle">
-        <property name="text">
-         <string>STUDY PLATFORM</string>
-        </property>
+        <property name="text"><string>STUDY PLATFORM</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap1" native="true">
+        <property name="minimumSize"><size><width>0</width><height>4</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>4</height></size></property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="labelTitle">
-        <property name="text">
-         <string>Aethera</string>
-        </property>
+        <property name="text"><string>Aethera</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap2" native="true">
+        <property name="minimumSize"><size><width>0</width><height>4</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>4</height></size></property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="labelWelcome">
-        <property name="text">
-         <string>Welcome back! Ready to test your knowledge?</string>
-        </property>
+        <property name="text"><string>Welcome back! Ready to test your knowledge?</string></property>
        </widget>
       </item>
       <item>
        <widget class="QWidget" name="divider" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>1</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>1</height>
-         </size>
-        </property>
+        <property name="minimumSize"><size><width>0</width><height>1</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>1</height></size></property>
+        <property name="styleSheet"><string notr="true">background-color: #222224;</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap3" native="true">
+        <property name="minimumSize"><size><width>0</width><height>16</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>16</height></size></property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="labelSectionTitle">
-        <property name="text">
-         <string>YOUR STATS</string>
-        </property>
+        <property name="text"><string>YOUR STATS</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap4" native="true">
+        <property name="minimumSize"><size><width>0</width><height>10</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>10</height></size></property>
        </widget>
       </item>
       <item>
        <widget class="QWidget" name="statsRow" native="true">
+        <property name="minimumSize"><size><width>0</width><height>112</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>112</height></size></property>
         <layout class="QHBoxLayout" name="statsRowLayout">
-         <property name="spacing">
-          <number>23</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+         <property name="spacing"><number>16</number></property>
+         <property name="leftMargin"><number>0</number></property>
+         <property name="topMargin"><number>0</number></property>
+         <property name="rightMargin"><number>0</number></property>
+         <property name="bottomMargin"><number>0</number></property>
          <item>
           <widget class="QWidget" name="cardExams" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>112</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>112</height>
-            </size>
-           </property>
+           <property name="minimumSize"><size><width>0</width><height>112</height></size></property>
+           <property name="maximumSize"><size><width>16777215</width><height>112</height></size></property>
            <layout class="QVBoxLayout" name="layoutCardExams">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <property name="leftMargin">
-             <number>18</number>
-            </property>
-            <property name="topMargin">
-             <number>18</number>
-            </property>
-            <property name="rightMargin">
-             <number>18</number>
-            </property>
-            <property name="bottomMargin">
-             <number>12</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="labelCardTitle1">
-              <property name="text">
-               <string>EXAMS TAKEN</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelCardValue1">
-              <property name="text">
-               <string>0</string>
-              </property>
-             </widget>
-            </item>
+            <property name="spacing"><number>2</number></property>
+            <property name="leftMargin"><number>20</number></property>
+            <property name="topMargin"><number>18</number></property>
+            <property name="rightMargin"><number>20</number></property>
+            <property name="bottomMargin"><number>14</number></property>
+            <item><widget class="QLabel" name="labelCardTitle1"><property name="text"><string>EXAMS TAKEN</string></property></widget></item>
+            <item><widget class="QLabel" name="labelCardValue1"><property name="text"><string>0</string></property></widget></item>
             <item>
              <spacer name="spacerCardExams">
-              <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>1</height>
-               </size>
-              </property>
+              <property name="orientation"><enum>Qt::Orientation::Vertical</enum></property>
+              <property name="sizeHint" stdset="0"><size><width>20</width><height>1</height></size></property>
              </spacer>
             </item>
-            <item>
-             <widget class="QLabel" name="labelCardUnit1">
-              <property name="text">
-               <string>total exams</string>
-              </property>
-             </widget>
-            </item>
+            <item><widget class="QLabel" name="labelCardUnit1"><property name="text"><string>total exams</string></property></widget></item>
            </layout>
           </widget>
          </item>
          <item>
           <widget class="QWidget" name="cardBest" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>112</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>112</height>
-            </size>
-           </property>
+           <property name="minimumSize"><size><width>0</width><height>112</height></size></property>
+           <property name="maximumSize"><size><width>16777215</width><height>112</height></size></property>
            <layout class="QVBoxLayout" name="layoutCardBest">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <property name="leftMargin">
-             <number>18</number>
-            </property>
-            <property name="topMargin">
-             <number>18</number>
-            </property>
-            <property name="rightMargin">
-             <number>18</number>
-            </property>
-            <property name="bottomMargin">
-             <number>12</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="labelCardTitle2">
-              <property name="text">
-               <string>BEST SCORE</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelCardValue2">
-              <property name="text">
-               <string>-</string>
-              </property>
-             </widget>
-            </item>
+            <property name="spacing"><number>2</number></property>
+            <property name="leftMargin"><number>20</number></property>
+            <property name="topMargin"><number>18</number></property>
+            <property name="rightMargin"><number>20</number></property>
+            <property name="bottomMargin"><number>14</number></property>
+            <item><widget class="QLabel" name="labelCardTitle2"><property name="text"><string>BEST SCORE</string></property></widget></item>
+            <item><widget class="QLabel" name="labelCardValue2"><property name="text"><string>-</string></property></widget></item>
             <item>
              <spacer name="spacerCardBest">
-              <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>1</height>
-               </size>
-              </property>
+              <property name="orientation"><enum>Qt::Orientation::Vertical</enum></property>
+              <property name="sizeHint" stdset="0"><size><width>20</width><height>1</height></size></property>
              </spacer>
             </item>
-            <item>
-             <widget class="QLabel" name="labelCardUnit2">
-              <property name="text">
-               <string>personal best</string>
-              </property>
-             </widget>
-            </item>
+            <item><widget class="QLabel" name="labelCardUnit2"><property name="text"><string>personal best</string></property></widget></item>
            </layout>
           </widget>
          </item>
          <item>
           <widget class="QWidget" name="cardAvg" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>112</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>112</height>
-            </size>
-           </property>
+           <property name="minimumSize"><size><width>0</width><height>112</height></size></property>
+           <property name="maximumSize"><size><width>16777215</width><height>112</height></size></property>
            <layout class="QVBoxLayout" name="layoutCardAvg">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <property name="leftMargin">
-             <number>18</number>
-            </property>
-            <property name="topMargin">
-             <number>18</number>
-            </property>
-            <property name="rightMargin">
-             <number>18</number>
-            </property>
-            <property name="bottomMargin">
-             <number>12</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="labelCardTitle3">
-              <property name="text">
-               <string>AVERAGE SCORE</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelCardValue3">
-              <property name="text">
-               <string>-</string>
-              </property>
-             </widget>
-            </item>
+            <property name="spacing"><number>2</number></property>
+            <property name="leftMargin"><number>20</number></property>
+            <property name="topMargin"><number>18</number></property>
+            <property name="rightMargin"><number>20</number></property>
+            <property name="bottomMargin"><number>14</number></property>
+            <item><widget class="QLabel" name="labelCardTitle3"><property name="text"><string>AVERAGE SCORE</string></property></widget></item>
+            <item><widget class="QLabel" name="labelCardValue3"><property name="text"><string>-</string></property></widget></item>
             <item>
              <spacer name="spacerCardAvg">
-              <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>1</height>
-               </size>
-              </property>
+              <property name="orientation"><enum>Qt::Orientation::Vertical</enum></property>
+              <property name="sizeHint" stdset="0"><size><width>20</width><height>1</height></size></property>
              </spacer>
             </item>
+            <item><widget class="QLabel" name="labelCardUnit3"><property name="text"><string>average</string></property></widget></item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap5" native="true">
+        <property name="minimumSize"><size><width>0</width><height>24</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>24</height></size></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelSectionQuick">
+        <property name="text"><string>QUICK ACTIONS</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="gap6" native="true">
+        <property name="minimumSize"><size><width>0</width><height>10</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>10</height></size></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="quickRow" native="true">
+        <property name="minimumSize"><size><width>0</width><height>76</height></size></property>
+        <property name="maximumSize"><size><width>16777215</width><height>76</height></size></property>
+        <layout class="QHBoxLayout" name="quickRowLayout">
+         <property name="spacing"><number>16</number></property>
+         <property name="leftMargin"><number>0</number></property>
+         <property name="topMargin"><number>0</number></property>
+         <property name="rightMargin"><number>0</number></property>
+         <property name="bottomMargin"><number>0</number></property>
+         <item>
+          <widget class="QPushButton" name="buttonQuickExam">
+           <property name="minimumSize"><size><width>0</width><height>76</height></size></property>
+           <property name="maximumSize"><size><width>16777215</width><height>76</height></size></property>
+           <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+           <property name="text"><string/></property>
+           <layout class="QHBoxLayout" name="quickExamLayout">
+            <property name="spacing"><number>16</number></property>
+            <property name="leftMargin"><number>20</number></property>
+            <property name="topMargin"><number>0</number></property>
+            <property name="rightMargin"><number>20</number></property>
+            <property name="bottomMargin"><number>0</number></property>
+            <item><widget class="QWidget" name="quickExamIcon" native="true"/></item>
             <item>
-             <widget class="QLabel" name="labelCardUnit3">
-              <property name="text">
-               <string>average</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="quickExamTextLayout">
+              <property name="spacing"><number>3</number></property>
+              <item><widget class="QLabel" name="labelQuickExamTitle"><property name="text"><string>Start New Exam</string></property></widget></item>
+              <item><widget class="QLabel" name="labelQuickExamSub"><property name="text"><string>Pick a subject and difficulty</string></property></widget></item>
+             </layout>
             </item>
+            <item>
+             <spacer name="quickExamSpacer">
+              <property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property>
+              <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+             </spacer>
+            </item>
+            <item><widget class="QLabel" name="labelQuickExamArrow"><property name="text"><string>›</string></property></widget></item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonQuickHistory">
+           <property name="minimumSize"><size><width>0</width><height>76</height></size></property>
+           <property name="maximumSize"><size><width>16777215</width><height>76</height></size></property>
+           <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+           <property name="text"><string/></property>
+           <layout class="QHBoxLayout" name="quickHistoryLayout">
+            <property name="spacing"><number>16</number></property>
+            <property name="leftMargin"><number>20</number></property>
+            <property name="topMargin"><number>0</number></property>
+            <property name="rightMargin"><number>20</number></property>
+            <property name="bottomMargin"><number>0</number></property>
+            <item><widget class="QWidget" name="quickHistoryIcon" native="true"/></item>
+            <item>
+             <layout class="QVBoxLayout" name="quickHistoryTextLayout">
+              <property name="spacing"><number>3</number></property>
+              <item><widget class="QLabel" name="labelQuickHistoryTitle"><property name="text"><string>View Exam History</string></property></widget></item>
+              <item><widget class="QLabel" name="labelQuickHistorySub"><property name="text"><string>Review your past attempts</string></property></widget></item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="quickHistorySpacer">
+              <property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property>
+              <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+             </spacer>
+            </item>
+            <item><widget class="QLabel" name="labelQuickHistoryArrow"><property name="text"><string>›</string></property></widget></item>
            </layout>
           </widget>
          </item>
@@ -590,18 +348,8 @@ QPushButton:hover {
       </item>
       <item>
        <spacer name="pageHomeBottomSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Policy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>375</height>
-         </size>
-        </property>
+        <property name="orientation"><enum>Qt::Orientation::Vertical</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property>
        </spacer>
       </item>
      </layout>
@@ -609,8 +357,6 @@ QPushButton:hover {
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="../../assets/icons.qrc"/>
- </resources>
+ <resources><include location="../../assets/icons.qrc"/></resources>
  <connections/>
 </ui>

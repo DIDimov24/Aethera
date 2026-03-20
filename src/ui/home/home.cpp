@@ -6,6 +6,7 @@
 #include "database.h"
 #include "statistics.h"
 #include <QMessageBox>
+#include <cmath>
 
 Home::Home(QWidget *parent)
     : QMainWindow(parent)
@@ -51,21 +52,13 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(ui->buttonNavExams, &QPushButton::clicked, this, [this]() {
-        if (!UserSession::instance().isLoggedIn()) {
-            showAccountRequired();
-            return;
-        }
-
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
         setNavActive(NavPage::Exams);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
     connect(ui->buttonNavStatistics, &QPushButton::clicked, this, [this]() {
-        if (!UserSession::instance().isLoggedIn()) {
-            showAccountRequired();
-            return;
-        }
-
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
         setNavActive(NavPage::Statistics);
         statisticsPage->refresh();
         ui->stackedWidget->setCurrentWidget(statisticsPage);
@@ -75,38 +68,31 @@ Home::Home(QWidget *parent)
         profilePage->refresh();
         ui->stackedWidget->setCurrentWidget(profilePage);
     });
-
     connect(profilePage, &Profile::editProfileRequested, this, [this]() {
         setNavActive(NavPage::Settings);
         settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
-
     connect(ui->buttonLoginRegister, &QPushButton::clicked, this, [this]() {
         Login *loginPage = new Login();
         this->hide();
         loginPage->show();
     });
-
     connect(ui->buttonSettings, &QPushButton::clicked, this, [this]() {
         setNavActive(NavPage::Settings);
         settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
-
     connect(profilePage, &Profile::logoutRequested, this, &Home::onLogoutClicked);
-
     connect(settingsPage, &Settings::accountDeleted, this, [this]() {
         Login *loginPage = new Login();
         this->hide();
         loginPage->show();
     });
-
     connect(historyPage, &History::newExamRequested, this, [this]() {
         setNavActive(NavPage::Exams);
         ui->stackedWidget->setCurrentWidget(subjectsPage);
     });
-
     connect(historyPage, &History::reviewRequested, this, [this](int attemptId) {
         QList<ExamAttempt> attempts = Database::instance().loadExamAttemptsForUser(UserSession::instance().getUsername());
         for (int i = 0; i < attempts.size(); i++) {
@@ -117,27 +103,22 @@ Home::Home(QWidget *parent)
             }
         }
     });
-
     connect(reviewPage, &Review::backToHistoryRequested, this, [this]() {
         setNavActive(NavPage::Exams);
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
-
     connect(subjectsPage, &Subjects::subjectSelected, this, [this](const QString &subject) {
         selectedExamSubject = subject;
         ui->stackedWidget->setCurrentWidget(difficultiesPage);
     });
-
     connect(difficultiesPage, &Difficulties::difficultySelected, this, [this](int difficulty) {
         QString difficultySelected = "Beginner";
         if (difficulty == 1) difficultySelected = "Intermediate";
         if (difficulty == 2) difficultySelected = "Advanced";
-
         ui->stackedWidget->setCurrentWidget(sessionPage);
         sessionPage->startExam(selectedExamSubject, difficultySelected);
     });
-
     connect(sessionPage, &Session::examCompleted, this, [this](int score, int total) {
         updateStatsCards();
         resultsPage->displayResults(score, total);
@@ -155,6 +136,18 @@ Home::Home(QWidget *parent)
     });
     connect(sessionPage, &Session::sidebarToggleRequested, this, &Home::toggleSidebar);
 
+    connect(ui->buttonQuickExam, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
+        setNavActive(NavPage::Exams);
+        ui->stackedWidget->setCurrentWidget(subjectsPage);
+    });
+    connect(ui->buttonQuickHistory, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
+        setNavActive(NavPage::Exams);
+        historyPage->loadAndPopulate(UserSession::instance().getUsername());
+        ui->stackedWidget->setCurrentWidget(historyPage);
+    });
+
     updateStatsCards();
     updateSidebarButtons();
     setNavActive(NavPage::Home);
@@ -162,9 +155,9 @@ Home::Home(QWidget *parent)
     if (UserSession::instance().isLoggedIn()) {
         QString name = UserSession::instance().getUsername();
         QString grade = UserSession::instance().getGrade();
-        ui->labelWelcome->setText("Welcome back, " + name + " (Grade " + grade + ")! Ready to test your knowledge?");
+        ui->labelWelcome->setText("Welcome back, " + name + " (Grade " + grade + "). Ready to test your knowledge?");
     } else {
-        ui->labelWelcome->setText("Login or create an account.");
+        ui->labelWelcome->setText("Login or create an account to get started.");
     }
 }
 
@@ -186,19 +179,20 @@ void Home::updateStatsCards() {
     int totalScore = 0;
 
     for (int i = 0; i < totalExamsTaken; i++) {
-        ExamAttempt attempt = attempts[i];
-        totalScore += attempt.score;
-        if (bestScore == -1 || attempt.score > bestScore) {
-            bestScore = attempt.score;
-        }
+        totalScore += attempts[i].score;
+        if (bestScore == -1 || attempts[i].score > bestScore)
+            bestScore = attempts[i].score;
     }
 
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
     ui->labelCardValue2->setText(bestScore >= 0 ? QString::number(bestScore) : "-");
 
     if (totalExamsTaken > 0) {
-        double averageScore = (double)totalScore / totalExamsTaken;
-        ui->labelCardValue3->setText(QString::number(averageScore, 'f', 1));
+        double avg = (double)totalScore / totalExamsTaken;
+        if (avg == std::floor(avg))
+            ui->labelCardValue3->setText(QString::number((int)avg));
+        else
+            ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
     } else {
         ui->labelCardValue3->setText("-");
     }
@@ -206,38 +200,20 @@ void Home::updateStatsCards() {
 
 void Home::showAccountRequired() {
     QMessageBox msgBox(this);
-
     msgBox.setWindowTitle("Account Required");
     msgBox.setText("You need an account to continue.\nWould you like to create one?");
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
     msgBox.setStyleSheet(R"(
-        QMessageBox {
-            background-color: #161618;
-            color: #e0e0e4;
-        }
-        QMessageBox QLabel {
-            color: #e0e0e4;
-            font-size: 13px;
-        }
+        QMessageBox { background-color: #161618; color: #e0e0e4; }
+        QMessageBox QLabel { color: #e0e0e4; font-size: 13px; }
         QPushButton {
-            background-color: #222224;
-            color: #e0e0e4;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid #2a2a2d;
-            border-radius: 6px;
-            padding: 8px 20px;
-            min-width: 80px;
+            background-color: #222224; color: #e0e0e4; font-size: 13px; font-weight: 600;
+            border: 1px solid #2a2a2d; border-radius: 6px; padding: 8px 20px; min-width: 80px;
         }
-        QPushButton:hover {
-            background-color: #2a2a2d;
-            color: #ffffff;
-            border-color: #3a3a3e;
-        }
+        QPushButton:hover { background-color: #2a2a2d; color: #ffffff; border-color: #3a3a3e; }
     )");
-
     if (msgBox.exec() == QMessageBox::Yes) {
         Login *loginPage = new Login();
         this->hide();

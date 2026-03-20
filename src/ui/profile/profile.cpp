@@ -1,4 +1,3 @@
-
 #include "profile.h"
 #include "../../core/session/usersession.h"
 #include <QRandomGenerator>
@@ -20,6 +19,9 @@ Profile::Profile(QWidget *parent)
     ui->labelFieldUsername->setText("Username");
     ui->labelFieldGrade->setText("Grade");
 
+    ui->labelBioText->setWordWrap(true);
+    ui->labelBioText->setMaximumHeight(60);
+
     refresh();
 }
 
@@ -39,10 +41,10 @@ void Profile::refresh() {
 
     if (bio.isEmpty()) {
         ui->labelBioText->setText("No bio yet.");
-        ui->labelBioText->setStyleSheet("color: #6b6b76;");
+        ui->labelBioText->setStyleSheet("color: #6b6b76; font-size: 14px;");
     } else {
         ui->labelBioText->setText(bio);
-        ui->labelBioText->setStyleSheet("color: #ffffff;");
+        ui->labelBioText->setStyleSheet("color: #ffffff; font-size: 14px;");
     }
 
     QString avatarPath = avatarPaths.value(currentAvatarIndex, "");

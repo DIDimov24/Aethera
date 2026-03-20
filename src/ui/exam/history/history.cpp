@@ -23,19 +23,44 @@ void History::loadAndPopulate(const QString &username) {
     QList<ExamAttempt> attempts = Database::instance().loadExamAttemptsForUser(username);
     ui->labelReviewHint->setVisible(!attempts.isEmpty());
 
-    // clears previous items from layout
     while (QLayoutItem *item = ui->layoutExamHistoryContent->takeAt(0)) {
-        if (item->widget()) {
-            item->widget()->deleteLater();
-        }
+        if (item->widget()) item->widget()->deleteLater();
         delete item;
     }
 
     if (attempts.isEmpty()) {
+        QWidget *emptyContainer = new QWidget;
+        QVBoxLayout *emptyLayout = new QVBoxLayout(emptyContainer);
+        emptyLayout->setAlignment(Qt::AlignCenter);
+        emptyLayout->setSpacing(12);
+
         QLabel *emptyLabel = new QLabel("No exams taken yet.");
-        emptyLabel->setStyleSheet(Style::emptyLabel);
+        emptyLabel->setStyleSheet("color: #6b6b76; font-size: 15px; font-weight: 500;");
         emptyLabel->setAlignment(Qt::AlignCenter);
-        ui->layoutExamHistoryContent->addWidget(emptyLabel);
+
+        QLabel *emptyHint = new QLabel("Take your first exam to start tracking your progress.");
+        emptyHint->setStyleSheet("color: #3a3a3e; font-size: 13px;");
+        emptyHint->setAlignment(Qt::AlignCenter);
+
+        QPushButton *startBtn = new QPushButton("Take First Exam");
+        startBtn->setStyleSheet(R"(
+            QPushButton {
+                background-color: #1c1c1f; color: #e0e0e4; font-size: 13px; font-weight: 600;
+                border: 1px solid #2a2a2d; border-radius: 8px; padding: 10px 24px;
+            }
+            QPushButton:hover { background-color: #222224; border-color: #3a3a3e; color: #ffffff; }
+        )");
+        startBtn->setFixedWidth(180);
+        startBtn->setCursor(Qt::PointingHandCursor);
+        connect(startBtn, &QPushButton::clicked, this, &History::newExamRequested);
+
+        emptyLayout->addWidget(emptyLabel);
+        emptyLayout->addWidget(emptyHint);
+        emptyLayout->addSpacing(8);
+        emptyLayout->addWidget(startBtn, 0, Qt::AlignCenter);
+
+        ui->layoutExamHistoryContent->addStretch();
+        ui->layoutExamHistoryContent->addWidget(emptyContainer);
         ui->layoutExamHistoryContent->addStretch();
         return;
     }
@@ -46,18 +71,21 @@ void History::loadAndPopulate(const QString &username) {
 
         QString gradeStr;
         QString gradeColor;
-        if (pct >= 90) { gradeStr = "Excellent (6)"; gradeColor = "#00D4AA"; }
-        else if (pct >= 75) { gradeStr = "Very Good (5)"; gradeColor = "#00D4AA"; }
-        else if (pct >= 60) { gradeStr = "Good (4)"; gradeColor = "#F5C518"; }
-        else if (pct >= 45) { gradeStr = "Average (3)"; gradeColor = "#F5C518"; }
-        else if (pct >= 30) { gradeStr = "Poor (2)"; gradeColor = "#FF6B6B"; }
-        else { gradeStr = "Very Poor (2-)"; gradeColor = "#FF6B6B"; }
+        if (pct >= 90)      { gradeStr = "Excellent (6)";  gradeColor = "#00D4AA"; }
+        else if (pct >= 75) { gradeStr = "Very Good (5)";  gradeColor = "#00D4AA"; }
+        else if (pct >= 60) { gradeStr = "Good (4)";       gradeColor = "#F5C518"; }
+        else if (pct >= 45) { gradeStr = "Average (3)";    gradeColor = "#F5C518"; }
+        else if (pct >= 30) { gradeStr = "Poor (2)";       gradeColor = "#FF6B6B"; }
+        else                { gradeStr = "Very Poor (2-)"; gradeColor = "#FF6B6B"; }
 
         QPushButton *card = new QPushButton;
         card->setCursor(Qt::PointingHandCursor);
         card->setFlat(true);
         card->setObjectName("examHistoryCard");
-        card->setStyleSheet(Style::card);
+        card->setStyleSheet(QString(R"(
+            QPushButton#examHistoryCard { %1 }
+            QPushButton#examHistoryCard:hover { background-color: #202023; border-color: #3a3a3e; }
+        )").arg(Style::card));
         card->setMinimumHeight(80);
         card->setMaximumHeight(80);
 
@@ -65,13 +93,11 @@ void History::loadAndPopulate(const QString &username) {
         cardLayout->setContentsMargins(20, 12, 20, 12);
         cardLayout->setSpacing(16);
 
-        QString completedAtText = attempt.completedAt;
-        QLabel *timeLabel = new QLabel(completedAtText);
+        QLabel *timeLabel = new QLabel(attempt.completedAt);
         timeLabel->setStyleSheet(Style::timeLabel);
         timeLabel->setMinimumWidth(130);
 
-        QString details = QString("%1 • %2").arg(attempt.subject, attempt.difficulty);
-        QLabel *detailsLabel = new QLabel(details);
+        QLabel *detailsLabel = new QLabel(QString("%1 • %2").arg(attempt.subject, attempt.difficulty));
         detailsLabel->setStyleSheet(Style::detailsLabel);
         detailsLabel->setMinimumWidth(170);
 
