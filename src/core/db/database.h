@@ -9,6 +9,7 @@ struct User {
     QString username;
     QString grade;
     QString bio;
+    QString avatar;
 };
 
 struct ExamAttempt {
@@ -34,13 +35,14 @@ public:
     static Database& instance();
 
     bool openDatabase();
-    bool registerUser(const QString &username, const QString &password, const QString &grade);
+    bool registerUser(const QString &username, const QString &password, const QString &grade, const QString &avatar);
     bool validateUser(const QString &username, const QString &password);
     bool userExists(const QString &username);
     bool getUser(const QString &username, User &out);
     bool updateUsername(const QString &oldUsername, const QString &newUsername);
     bool updatePassword(const QString &username, const QString &newPassword);
     bool updateBio(const QString &username, const QString &bio);
+    bool updateAvatar(const QString &username, const QString &avatar);
     bool deleteUser(const QString &username);
 
     bool saveExamAttempt(const QString &username,

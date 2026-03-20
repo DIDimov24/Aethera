@@ -14,7 +14,12 @@ QWidget#scrollContentProfile { background-color: #161618; }
 QScrollBar:vertical { background: #0f0e1a; width: 8px; border-radius: 4px; }
 QScrollBar::handle:vertical { background: #2e2c50; border-radius: 4px; min-height: 30px; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-QWidget#avatarCircle { min-width: 88px; max-width: 88px; min-height: 88px; max-height: 88px; background-color: #000000; border-radius: 44px; }
+QPushButton#avatarCircle { min-width: 110px; max-width: 110px; min-height: 110px; max-height: 110px; background-color: #1c1c1f; border-radius: 55px; border: none; padding: 0px; }
+QPushButton#buttonLogout {
+    background-color: transparent; color: #c0392b; border: 1px solid #c0392b;
+    border-radius: 8px; padding: 8px 20px; font-size: 13px; font-weight: 600;
+}
+QPushButton#buttonLogout:hover { background-color: rgba(192, 57, 43, 0.12); }
 QLabel#labelHeroUsername { color: #ffffff; font-size: 22px; font-weight: 700; }
 QLabel#labelHeroGrade { color: #6b6b76; font-size: 13px; }
 QLabel#labelSectionBio, QLabel#labelSectionAccount { color: #4a4a52; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; }
@@ -76,7 +81,7 @@ QPushButton#buttonEditBio:hover, QPushButton#buttonEditUsername:hover, QPushButt
        <item>
         <layout class="QHBoxLayout" name="layoutHeroHeader">
          <property name="spacing"><number>20</number></property>
-         <item><widget class="QWidget" name="avatarCircle"/></item>
+         <item><widget class="QPushButton" name="avatarCircle"><property name="text"><string/></property><property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property></widget></item>
          <item>
           <layout class="QVBoxLayout" name="layoutHeroText">
            <property name="spacing"><number>4</number></property>
@@ -187,6 +192,31 @@ QPushButton#buttonEditBio:hover, QPushButton#buttonEditUsername:hover, QPushButt
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="gapAccountLogout" native="true">
+         <property name="minimumSize"><size><width>0</width><height>10</height></size></property>
+         <property name="maximumSize"><size><width>16777215</width><height>10</height></size></property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutLogoutRow">
+         <property name="spacing"><number>0</number></property>
+         <item>
+          <widget class="QPushButton" name="buttonLogout">
+           <property name="maximumSize"><size><width>120</width><height>36</height></size></property>
+           <property name="minimumSize"><size><width>120</width><height>36</height></size></property>
+           <property name="text"><string>Log Out</string></property>
+           <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="logoutRightSpacer">
+           <property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property>
+           <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="bottomSpacer">

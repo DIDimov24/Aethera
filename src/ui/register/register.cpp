@@ -3,6 +3,7 @@
 #include "database.h"
 #include "login.h"
 #include "home.h"
+#include <QRandomGenerator>
 
 Register::Register(QWidget *parent)
     : QMainWindow(parent)
@@ -24,8 +25,8 @@ Register::~Register() {
 void Register::onCreateClicked() {
     QString username = ui->inputUsername->text().trimmed();
     QString password = ui->inputPassword->text().trimmed();
-    QString confirm = ui->inputConfirm->text().trimmed();
-    QString grade = ui->comboGrade->currentText().trimmed();
+    QString confirm  = ui->inputConfirm->text().trimmed();
+    QString grade    = ui->comboGrade->currentText().trimmed();
 
     ui->labelError->setText("");
 
@@ -56,7 +57,10 @@ void Register::onCreateClicked() {
         return;
     }
 
-    if (!Database::instance().registerUser(username, password, grade)) {
+    int avatarIndex = QRandomGenerator::global()->bounded(1, 7);
+    QString avatar = QString("pfp%1").arg(avatarIndex);
+
+    if (!Database::instance().registerUser(username, password, grade, avatar)) {
         ui->labelError->setText("Could not create account. Try a different username.");
         return;
     }

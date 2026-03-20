@@ -13,9 +13,11 @@ public:
     QString getUsername();
     QString getGrade();
     QString getBio();
+    QString getAvatar();
 
     void setUsername(const QString &username);
     void setBio(const QString &bio);
+    void setAvatar(const QString &avatar);
 
 private:
     User _user;

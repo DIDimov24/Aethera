@@ -26,6 +26,9 @@ Database::Database() {
 
         if (!database.open()) {
             qDebug() << "Error opening database:" << database.lastError().text();
+        } else {
+            QSqlQuery migration(database);
+            migration.exec("ALTER TABLE users ADD COLUMN avatar TEXT DEFAULT ''");
         }
     } else {
         qDebug() << "Could not find aethera.db at:" << databasePath;
@@ -47,39 +50,32 @@ bool Database::openDatabase() {
     return true;
 }
 
-bool Database::registerUser(const QString &username, const QString &password, const QString &grade) {
-    if (!openDatabase()) {
-        return false;
-    }
+bool Database::registerUser(const QString &username, const QString &password, const QString &grade, const QString &avatar) {
+    if (!openDatabase()) return false;
 
     QSqlQuery query(database);
-    query.prepare("INSERT INTO users (username, password, grade) VALUES (?, ?, ?)");
+    query.prepare("INSERT INTO users (username, password, grade, avatar) VALUES (?, ?, ?, ?)");
     query.addBindValue(username);
     query.addBindValue(PasswordHasher::hash(password));
     query.addBindValue(grade);
+    query.addBindValue(avatar);
     return query.exec();
 }
 
 bool Database::validateUser(const QString &username, const QString &password) {
-    if (!openDatabase()) {
-        return false;
-    }
+    if (!openDatabase()) return false;
 
     QSqlQuery query(database);
     query.prepare("SELECT password FROM users WHERE username = ?");
     query.addBindValue(username);
 
-    if (!query.exec() || !query.next()) {
-        return false;
-    }
+    if (!query.exec() || !query.next()) return false;
 
     return PasswordHasher::verify(password, query.value(0).toString());
 }
 
 bool Database::userExists(const QString &username) {
-    if (!openDatabase()) {
-        return false;
-    }
+    if (!openDatabase()) return false;
 
     QSqlQuery query(database);
     query.prepare("SELECT 1 FROM users WHERE username = ?");
@@ -88,20 +84,17 @@ bool Database::userExists(const QString &username) {
 }
 
 bool Database::getUser(const QString &username, User &user) {
-    if (!openDatabase()) {
-        return false;
-    }
+    if (!openDatabase()) return false;
 
     QSqlQuery query(database);
-    query.prepare("SELECT username, grade, bio FROM users WHERE username = ?");
+    query.prepare("SELECT username, grade, bio, avatar FROM users WHERE username = ?");
     query.addBindValue(username);
-    if (!query.exec() || !query.next()) {
-        return false;
-    }
+    if (!query.exec() || !query.next()) return false;
 
     user.username = query.value(0).toString();
-    user.grade = query.value(1).toString();
-    user.bio = query.value(2).toString();
+    user.grade    = query.value(1).toString();
+    user.bio      = query.value(2).toString();
+    user.avatar   = query.value(3).toString();
     return true;
 }
 
@@ -131,6 +124,16 @@ bool Database::updateBio(const QString &username, const QString &bio) {
     QSqlQuery query(database);
     query.prepare("UPDATE users SET bio = ? WHERE username = ?");
     query.addBindValue(bio);
+    query.addBindValue(username);
+    return query.exec();
+}
+
+bool Database::updateAvatar(const QString &username, const QString &avatar) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("UPDATE users SET avatar = ? WHERE username = ?");
+    query.addBindValue(avatar);
     query.addBindValue(username);
     return query.exec();
 }
@@ -176,10 +179,10 @@ QList<ExamAttempt> Database::loadExamAttemptsForUser(const QString &username) {
 
     while (query.next()) {
         attempts.append({
-            query.value(0).toInt(), 
+            query.value(0).toInt(),
             query.value(1).toString(),
-            query.value(2).toString(), 
-            query.value(3).toInt(), 
+            query.value(2).toString(),
+            query.value(3).toInt(),
             query.value(4).toString()
         });
     }
@@ -193,7 +196,7 @@ QString Database::loadExamResultsJson(int attemptId) {
     QSqlQuery query(database);
     query.prepare("SELECT results_json FROM exam_attempts WHERE id = ?");
     query.addBindValue(attemptId);
-    
+
     if (!query.exec() || !query.next()) return "";
 
     return query.value(0).toString();
