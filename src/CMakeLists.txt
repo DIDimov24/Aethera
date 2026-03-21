@@ -8,7 +8,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/core/db
     ${CMAKE_CURRENT_SOURCE_DIR}/core/session
-    ${CMAKE_CURRENT_SOURCE_DIR}/core/crypto
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/utils
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
@@ -41,8 +41,8 @@ set(PROJECT_SOURCES
     core/session/usersession.cpp
     core/session/usersession.h
 
-    core/crypto/passwordhasher.cpp
-    core/crypto/passwordhasher.h
+    core/utils/utils.h
+    core/utils/utils.cpp
 
 
     ui/login/login.cpp
@@ -109,7 +109,7 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/core/db
     ${CMAKE_CURRENT_SOURCE_DIR}/core/session
-    ${CMAKE_CURRENT_SOURCE_DIR}/core/crypto
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/utils
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/login
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/register
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/home

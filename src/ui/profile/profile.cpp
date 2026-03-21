@@ -1,6 +1,6 @@
 #include "profile.h"
 #include "usersession.h"
-#include "style.h"
+#include "utils.h"
 #include <ui_profile.h>
 #include <QSize>
 #include <QIcon>
@@ -48,7 +48,7 @@ void Profile::refresh() {
         ui->labelBioText->setStyleSheet("color: #3a4a70; font-size: 14px; background: transparent;");
     }
 
-    QPixmap avatar = Style::createAvatarPixmap(username, 110);
+    QPixmap avatar = Utils::createAvatarPixmap(username, 110);
     ui->avatarCircle->setIcon(QIcon(avatar));
     ui->avatarCircle->setIconSize(QSize(110, 110));
     ui->avatarCircle->setStyleSheet(

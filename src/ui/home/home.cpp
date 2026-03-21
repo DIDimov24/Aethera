@@ -5,6 +5,7 @@
 #include "profile.h"
 #include "database.h"
 #include "statistics.h"
+#include "utils.h"
 #include <QMessageBox>
 
 Home::Home(QWidget *parent)
@@ -59,6 +60,7 @@ Home::Home(QWidget *parent)
     connect(ui->buttonNavStatistics, &QPushButton::clicked, this, [this]() {
         if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
         setNavActive(NavPage::Statistics);
+        statisticsPage->refresh();
         ui->stackedWidget->setCurrentWidget(statisticsPage);
     });
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
@@ -116,10 +118,13 @@ Home::Home(QWidget *parent)
     });
     connect(sessionPage, &Session::examCompleted, this, [this](int score, int total) {
         resultsPage->displayResults(score, total);
+        updateStatsCards();
+        statisticsPage->refresh();
         ui->stackedWidget->setCurrentWidget(resultsPage);
     });
     connect(resultsPage, &Results::backToHomeRequested, this, [this]() {
         setNavActive(NavPage::Home);
+        updateStatsCards();
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(resultsPage, &Results::viewExamsRequested, this, [this]() {
@@ -144,6 +149,7 @@ Home::Home(QWidget *parent)
 
     updateSidebarButtons();
     setNavActive(NavPage::Home);
+    updateStatsCards();
 
     if (UserSession::instance().isLoggedIn()) {
         QString name  = UserSession::instance().getUsername();
@@ -178,14 +184,11 @@ void Home::updateStatsCards() {
     }
 
     ui->labelCardValue1->setText(QString::number(totalExamsTaken));
-    ui->labelCardValue2->setText(bestScore >= 0 ? QString::number(bestScore) : "-");
+    ui->labelCardValue2->setText(bestScore >= 0 ? Utils::gradeFromScore(bestScore) : "-");
 
     if (totalExamsTaken > 0) {
         double avg = (double)totalScore / totalExamsTaken;
-        if (avg == std::floor(avg))
-            ui->labelCardValue3->setText(QString::number((int)avg));
-        else
-            ui->labelCardValue3->setText(QString::number(avg, 'f', 1));
+        ui->labelCardValue3->setText(Utils::gradeFromScore(avg));
     } else {
         ui->labelCardValue3->setText("-");
     }

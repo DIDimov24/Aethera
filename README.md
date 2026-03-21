@@ -66,9 +66,9 @@ Aethera is a school platform. We built a desktop application for exams using Qt 
 src/
 ├── assets/
 ├── core/
-│   ├── crypto/
 │   ├── db/
-│   └── session/
+│   ├── session/
+│   └── utils/
 ├── ui/
 │   ├── exam/
 │   ├── home/

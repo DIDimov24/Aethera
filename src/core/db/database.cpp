@@ -1,5 +1,5 @@
 #include "database.h"
-#include "passwordhasher.h"
+#include "utils.h"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
@@ -49,7 +49,7 @@ bool Database::registerUser(const QString &username, const QString &password, co
     QSqlQuery query(database);
     query.prepare("INSERT INTO users (username, password, grade) VALUES (?, ?, ?)");
     query.addBindValue(username);
-    query.addBindValue(PasswordHasher::hash(password));
+    query.addBindValue(Utils::hashPassword(password));
     query.addBindValue(grade);
     return query.exec();
 }
@@ -63,7 +63,7 @@ bool Database::validateUser(const QString &username, const QString &password) {
 
     if (!query.exec() || !query.next()) return false;
 
-    return PasswordHasher::verify(password, query.value(0).toString());
+    return Utils::verifyPassword(password, query.value(0).toString());
 }
 
 bool Database::userExists(const QString &username) {
@@ -104,7 +104,7 @@ bool Database::updatePassword(const QString &username, const QString &newPasswor
 
     QSqlQuery query(database);
     query.prepare("UPDATE users SET password = ? WHERE username = ?");
-    query.addBindValue(PasswordHasher::hash(newPassword));
+    query.addBindValue(Utils::hashPassword(newPassword));
     query.addBindValue(username);
     return query.exec();
 }

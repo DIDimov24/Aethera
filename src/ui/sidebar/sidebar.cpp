@@ -3,6 +3,7 @@
 #include "login.h"
 #include "usersession.h"
 #include "style.h"
+#include "utils.h"
 #include <QPropertyAnimation>
 #include <QAbstractAnimation>
 #include <QPushButton>
@@ -125,7 +126,7 @@ void Home::updateSidebarButtons() {
         QString username = UserSession::instance().getUsername();
         QString grade    = UserSession::instance().getGrade();
 
-        QPixmap sidebarAvatar = Style::createAvatarPixmap(username, 34);
+        QPixmap sidebarAvatar = Utils::createAvatarPixmap(username, 34);
         ui->sidebarAvatarCircle->setStyleSheet(
             "QWidget#sidebarAvatarCircle { background-color: transparent; border-radius: 17px; "
             "min-width: 34px; max-width: 34px; min-height: 34px; max-height: 34px; }"
@@ -146,7 +147,7 @@ void Home::updateSidebarButtons() {
         ui->labelSidebarUsername->setText("Guest");
         ui->labelSidebarGrade->setText("Guest");
 
-        QPixmap guestAvatar = Style::createAvatarPixmap("Guest", 34);
+        QPixmap guestAvatar = Utils::createAvatarPixmap("Guest", 34);
         ui->sidebarAvatarCircle->setStyleSheet(
             "QWidget#sidebarAvatarCircle { background-color: transparent; border-radius: 17px; "
             "min-width: 34px; max-width: 34px; min-height: 34px; max-height: 34px; }"
