@@ -3,47 +3,30 @@
  <class>Register</class>
  <widget class="QMainWindow" name="Register">
   <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1000</width>
-    <height>750</height>
-   </rect>
+   <rect><x>0</x><y>0</y><width>1000</width><height>750</height></rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>1000</width>
-    <height>750</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>1000</width>
-    <height>750</height>
-   </size>
-  </property>
-  <property name="windowTitle">
-   <string>Aethera</string>
-  </property>
+  <property name="minimumSize"><size><width>1000</width><height>750</height></size></property>
+  <property name="maximumSize"><size><width>1000</width><height>750</height></size></property>
+  <property name="windowTitle"><string>Aethera</string></property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">
 QWidget#centralwidget {
-    background-color: #161618;
+    background-color: #eceef5;
 }
 QWidget#card {
-    background-color: #1c1c1f;
+    background-color: #ffffff;
     border-radius: 12px;
-    border: 1px solid #2a2a2d;
+    border: 1px solid #d4d8ea;
 }
 QLabel#labelTitle {
-    color: #ffffff;
+    color: #1a2440;
     font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
 QLabel#labelSubtitle {
-    color: #4a4a52;
+    color: #8898c0;
     font-size: 12px;
     font-weight: 500;
 }
@@ -51,37 +34,37 @@ QLabel#labelUsername,
 QLabel#labelPassword,
 QLabel#labelConfirm,
 QLabel#labelGrade {
-    color: #6b6b76;
+    color: #5a6a90;
     font-size: 12px;
     font-weight: 500;
 }
 QLineEdit#inputUsername,
 QLineEdit#inputPassword,
 QLineEdit#inputConfirm {
-    background-color: #111113;
-    color: #e0e0e4;
+    background-color: #f4f5fa;
+    color: #1a2440;
     font-size: 13px;
-    border: 1px solid #2a2a2d;
+    border: 1px solid #d4d8ea;
     border-radius: 8px;
     padding: 10px 14px;
-    selection-background-color: #3a3a3e;
+    selection-background-color: #b0bcd8;
 }
 QLineEdit#inputUsername:focus,
 QLineEdit#inputPassword:focus,
 QLineEdit#inputConfirm:focus {
-    border: 1px solid #3a3a3e;
-    background-color: #161618;
+    border: 1px solid #4f6fc4;
+    background-color: #ffffff;
 }
 QComboBox#comboGrade {
-    background-color: #111113;
-    color: #e0e0e4;
+    background-color: #f4f5fa;
+    color: #1a2440;
     font-size: 13px;
-    border: 1px solid #2a2a2d;
+    border: 1px solid #d4d8ea;
     border-radius: 8px;
     padding: 10px 14px;
 }
 QComboBox#comboGrade:focus {
-    border: 1px solid #3a3a3e;
+    border: 1px solid #4f6fc4;
 }
 QComboBox#comboGrade::drop-down {
     subcontrol-origin: padding;
@@ -90,16 +73,16 @@ QComboBox#comboGrade::drop-down {
     border: none;
 }
 QComboBox QAbstractItemView {
-    background-color: #1c1c1f;
-    color: #e0e0e4;
-    border: 1px solid #2a2a2d;
-    selection-background-color: #2a2a2d;
-    selection-color: #ffffff;
+    background-color: #ffffff;
+    color: #1a2440;
+    border: 1px solid #d4d8ea;
+    selection-background-color: #eef1fb;
+    selection-color: #1a2440;
     outline: none;
 }
 QPushButton#buttonCreate {
-    background-color: #ffffff;
-    color: #111113;
+    background-color: #4f6fc4;
+    color: #ffffff;
     font-size: 13px;
     font-weight: 600;
     border: none;
@@ -107,263 +90,114 @@ QPushButton#buttonCreate {
     padding: 12px;
 }
 QPushButton#buttonCreate:hover {
-    background-color: #e8e8e8;
+    background-color: #3a5aae;
 }
 QPushButton#buttonCreate:pressed {
-    background-color: #d0d0d0;
+    background-color: #2c4890;
 }
 QPushButton#buttonBack {
     background-color: transparent;
-    color: #6b6b76;
+    color: #8898c0;
     font-size: 12px;
     font-weight: 500;
-    border: 1px solid #2a2a2d;
+    border: 1px solid #d4d8ea;
     border-radius: 8px;
     padding: 12px;
 }
 QPushButton#buttonBack:hover {
-    background-color: #222224;
-    color: #e0e0e4;
-    border-color: #3a3a3e;
+    background-color: #eceef5;
+    color: #1a2440;
+    border-color: #b0bcd8;
 }
 QPushButton#buttonBackHome {
     background-color: transparent;
-    color: #6b6b76;
+    color: #8898c0;
     font-size: 12px;
     font-weight: 500;
-    border: 1px solid #2a2a2d;
+    border: 1px solid #d4d8ea;
     border-radius: 8px;
     padding: 12px;
 }
 QPushButton#buttonBackHome:hover {
-    background-color: #222224;
-    color: #e0e0e4;
-    border-color: #3a3a3e;
+    background-color: #eceef5;
+    color: #1a2440;
+    border-color: #b0bcd8;
 }
 QLabel#labelError {
-    color: #e05555;
+    color: #c0392b;
     font-size: 12px;
 }
 QLabel#labelSuccess {
-    color: #3dd68c;
+    color: #2a6a20;
     font-size: 12px;
 }
     </string>
    </property>
    <widget class="QWidget" name="card" native="true">
     <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>80</y>
-      <width>360</width>
-      <height>590</height>
-     </rect>
+     <rect><x>320</x><y>80</y><width>360</width><height>590</height></rect>
     </property>
     <widget class="QLabel" name="labelTitle">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>32</y>
-       <width>360</width>
-       <height>38</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Create Account</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
+     <property name="geometry"><rect><x>0</x><y>32</y><width>360</width><height>38</height></rect></property>
+     <property name="text"><string>Create Account</string></property>
+     <property name="alignment"><set>Qt::AlignmentFlag::AlignCenter</set></property>
     </widget>
     <widget class="QLabel" name="labelSubtitle">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>72</y>
-       <width>360</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Join Aethera and start learning</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
+     <property name="geometry"><rect><x>0</x><y>72</y><width>360</width><height>20</height></rect></property>
+     <property name="text"><string>Join Aethera and start learning</string></property>
+     <property name="alignment"><set>Qt::AlignmentFlag::AlignCenter</set></property>
     </widget>
     <widget class="QLabel" name="labelUsername">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>114</y>
-       <width>296</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Username</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>114</y><width>296</width><height>18</height></rect></property>
+     <property name="text"><string>Username</string></property>
     </widget>
     <widget class="QLineEdit" name="inputUsername">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>136</y>
-       <width>296</width>
-       <height>42</height>
-      </rect>
-     </property>
-     <property name="placeholderText">
-      <string>Choose a username</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>136</y><width>296</width><height>42</height></rect></property>
+     <property name="placeholderText"><string>Choose a username</string></property>
     </widget>
     <widget class="QLabel" name="labelPassword">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>192</y>
-       <width>296</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Password</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>192</y><width>296</width><height>18</height></rect></property>
+     <property name="text"><string>Password</string></property>
     </widget>
     <widget class="QLineEdit" name="inputPassword">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>214</y>
-       <width>296</width>
-       <height>42</height>
-      </rect>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::EchoMode::Password</enum>
-     </property>
-     <property name="placeholderText">
-      <string>Choose a password</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>214</y><width>296</width><height>42</height></rect></property>
+     <property name="echoMode"><enum>QLineEdit::EchoMode::Password</enum></property>
+     <property name="placeholderText"><string>Choose a password</string></property>
     </widget>
     <widget class="QLabel" name="labelConfirm">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>270</y>
-       <width>296</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Confirm Password</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>270</y><width>296</width><height>18</height></rect></property>
+     <property name="text"><string>Confirm Password</string></property>
     </widget>
     <widget class="QLineEdit" name="inputConfirm">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>292</y>
-       <width>296</width>
-       <height>42</height>
-      </rect>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::EchoMode::Password</enum>
-     </property>
-     <property name="placeholderText">
-      <string>Repeat your password</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>292</y><width>296</width><height>42</height></rect></property>
+     <property name="echoMode"><enum>QLineEdit::EchoMode::Password</enum></property>
+     <property name="placeholderText"><string>Repeat your password</string></property>
     </widget>
     <widget class="QLabel" name="labelGrade">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>348</y>
-       <width>296</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Grade</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>348</y><width>296</width><height>18</height></rect></property>
+     <property name="text"><string>Grade</string></property>
     </widget>
     <widget class="QComboBox" name="comboGrade">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>370</y>
-       <width>296</width>
-       <height>42</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string>VIII</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>IX</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>X</string>
-      </property>
-     </item>
+     <property name="geometry"><rect><x>32</x><y>370</y><width>296</width><height>42</height></rect></property>
+     <item><property name="text"><string>VIII</string></property></item>
+     <item><property name="text"><string>IX</string></property></item>
+     <item><property name="text"><string>X</string></property></item>
     </widget>
     <widget class="QLabel" name="labelError">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>424</y>
-       <width>296</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>424</y><width>296</width><height>18</height></rect></property>
+     <property name="text"><string/></property>
     </widget>
     <widget class="QPushButton" name="buttonCreate">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>450</y>
-       <width>296</width>
-       <height>44</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Create Account</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>450</y><width>296</width><height>44</height></rect></property>
+     <property name="text"><string>Create Account</string></property>
     </widget>
     <widget class="QPushButton" name="buttonBack">
-     <property name="geometry">
-      <rect>
-       <x>32</x>
-       <y>506</y>
-       <width>142</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Back to Login</string>
-     </property>
+     <property name="geometry"><rect><x>32</x><y>506</y><width>142</width><height>40</height></rect></property>
+     <property name="text"><string>Back to Login</string></property>
     </widget>
     <widget class="QPushButton" name="buttonBackHome">
-     <property name="geometry">
-      <rect>
-       <x>186</x>
-       <y>506</y>
-       <width>142</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Back to Home</string>
-     </property>
+     <property name="geometry"><rect><x>186</x><y>506</y><width>142</width><height>40</height></rect></property>
+     <property name="text"><string>Back to Home</string></property>
     </widget>
    </widget>
   </widget>

@@ -2,186 +2,72 @@
 <ui version="4.0">
  <class>Difficulties</class>
  <widget class="QWidget" name="Difficulties">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>750</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>800</width><height>750</height></rect></property>
   <property name="styleSheet">
    <string notr="true">
-QWidget#Difficulties {
-    background-color: #161618;
-}
-QLabel#labelDifficultiesTitle {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-QLabel#labelDifficultiesSubtitle {
-    color: #6b6b76;
-    font-size: 14px;
-}
+QWidget#Difficulties { background-color: #eceef5; }
+QWidget#topBar { background-color: #2c3e6b; }
+QLabel#labelTopBarPage { color: #c8d4f0; font-size: 13px; font-weight: 600; }
+QLabel#labelTopBarBreadcrumb { color: rgba(200,212,240,0.45); font-size: 13px; }
+QWidget#topBarLine { background-color: #4f6fc4; }
+QLabel#labelDifficultiesTitle { color: #1a2440; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+QLabel#labelDifficultiesSubtitle { color: #8898c0; font-size: 14px; }
 QPushButton#buttonEasy {
-    background-color: #0d2318;
-    color: #3dd68c;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #1a5c38;
-    border-radius: 10px;
-    padding: 20px 28px;
+    background-color: #e8f5e3; color: #2a6a20; font-size: 15px; font-weight: 600;
+    border: 1px solid #a0cc80; border-radius: 10px; padding: 20px 28px;
 }
-QPushButton#buttonEasy:hover {
-    background-color: #112b1e;
-    border-color: #2a7a4e;
-}
+QPushButton#buttonEasy:hover { background-color: #ddf0d6; border-color: #70aa50; }
 QPushButton#buttonMedium {
-    background-color: #1f1a0d;
-    color: #F5C518;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #5c4a1a;
-    border-radius: 10px;
-    padding: 20px 28px;
+    background-color: #fef6e4; color: #7a5010; font-size: 15px; font-weight: 600;
+    border: 1px solid #e8c870; border-radius: 10px; padding: 20px 28px;
 }
-QPushButton#buttonMedium:hover {
-    background-color: #272111;
-    border-color: #7a6222;
-}
+QPushButton#buttonMedium:hover { background-color: #faeed0; border-color: #c8a040; }
 QPushButton#buttonHard {
-    background-color: #230d0d;
-    color: #e05555;
-    font-size: 15px;
-    font-weight: 600;
-    border: 1px solid #5c1a1a;
-    border-radius: 10px;
-    padding: 20px 28px;
+    background-color: #fbeaea; color: #7a2020; font-size: 15px; font-weight: 600;
+    border: 1px solid #e0a0a0; border-radius: 10px; padding: 20px 28px;
 }
-QPushButton#buttonHard:hover {
-    background-color: #2b1111;
-    border-color: #7a2222;
-}
+QPushButton#buttonHard:hover { background-color: #f5dada; border-color: #c87070; }
    </string>
   </property>
-  <layout class="QVBoxLayout" name="difficultiesLayout">
-   <property name="spacing">
-    <number>20</number>
-   </property>
-   <property name="leftMargin">
-    <number>50</number>
-   </property>
-   <property name="topMargin">
-    <number>60</number>
-   </property>
-   <property name="rightMargin">
-    <number>50</number>
-   </property>
-   <property name="bottomMargin">
-    <number>60</number>
-   </property>
+  <layout class="QVBoxLayout" name="outerLayout">
+   <property name="spacing"><number>0</number></property>
+   <property name="leftMargin"><number>0</number></property>
+   <property name="topMargin"><number>0</number></property>
+   <property name="rightMargin"><number>0</number></property>
+   <property name="bottomMargin"><number>0</number></property>
    <item>
-    <spacer name="topSpacer">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Policy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>60</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QLabel" name="labelDifficultiesTitle">
-     <property name="text">
-      <string>Select Difficulty</string>
-     </property>
+    <widget class="QWidget" name="topBar" native="true">
+     <property name="minimumSize"><size><width>0</width><height>52</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>52</height></size></property>
+     <layout class="QHBoxLayout" name="topBarLayout">
+      <property name="leftMargin"><number>28</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>28</number></property><property name="bottomMargin"><number>0</number></property>
+      <item><widget class="QLabel" name="labelTopBarBreadcrumb"><property name="text"><string>Aethera  ›  Exams  ›</string></property></widget></item>
+      <item><widget class="QLabel" name="labelTopBarPage"><property name="text"><string>Select Difficulty</string></property></widget></item>
+      <item><spacer name="s"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+     </layout>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="labelDifficultiesSubtitle">
-     <property name="text">
-      <string>Choose how challenging you want the exam to be.</string>
-     </property>
+    <widget class="QWidget" name="topBarLine" native="true">
+     <property name="minimumSize"><size><width>0</width><height>3</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>3</height></size></property>
     </widget>
    </item>
    <item>
-    <spacer name="midSpacer">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Policy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonEasy">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>64</height>
-      </size>
-     </property>
-     <property name="text">
-        <string>Beginner</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonMedium">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>64</height>
-      </size>
-     </property>
-     <property name="text">
-        <string>Intermediate</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonHard">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>64</height>
-      </size>
-     </property>
-     <property name="text">
-        <string>Advanced</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="bottomSpacer">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
+    <layout class="QVBoxLayout" name="difficultiesLayout">
+     <property name="spacing"><number>20</number></property>
+     <property name="leftMargin"><number>50</number></property>
+     <property name="topMargin"><number>48</number></property>
+     <property name="rightMargin"><number>50</number></property>
+     <property name="bottomMargin"><number>60</number></property>
+     <item><widget class="QLabel" name="labelDifficultiesTitle"><property name="text"><string>Select Difficulty</string></property></widget></item>
+     <item><widget class="QLabel" name="labelDifficultiesSubtitle"><property name="text"><string>Choose how challenging you want the exam to be.</string></property></widget></item>
+     <item><spacer name="midSpacer"><property name="orientation"><enum>Qt::Orientation::Vertical</enum></property><property name="sizeType"><enum>QSizePolicy::Policy::Fixed</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>20</height></size></property></spacer></item>
+     <item><widget class="QPushButton" name="buttonEasy"><property name="minimumSize"><size><width>0</width><height>64</height></size></property><property name="text"><string>Beginner</string></property></widget></item>
+     <item><widget class="QPushButton" name="buttonMedium"><property name="minimumSize"><size><width>0</width><height>64</height></size></property><property name="text"><string>Intermediate</string></property></widget></item>
+     <item><widget class="QPushButton" name="buttonHard"><property name="minimumSize"><size><width>0</width><height>64</height></size></property><property name="text"><string>Advanced</string></property></widget></item>
+     <item><spacer name="bottomSpacer"><property name="orientation"><enum>Qt::Orientation::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+    </layout>
    </item>
   </layout>
  </widget>

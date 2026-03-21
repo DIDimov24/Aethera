@@ -153,7 +153,7 @@ Home::Home(QWidget *parent)
     setNavActive(NavPage::Home);
 
     if (UserSession::instance().isLoggedIn()) {
-        QString name = UserSession::instance().getUsername();
+        QString name  = UserSession::instance().getUsername();
         QString grade = UserSession::instance().getGrade();
         ui->labelWelcome->setText("Welcome back, " + name + " (Grade " + grade + "). Ready to test your knowledge?");
     } else {
@@ -206,13 +206,13 @@ void Home::showAccountRequired() {
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::Yes);
     msgBox.setStyleSheet(R"(
-        QMessageBox { background-color: #161618; color: #e0e0e4; }
-        QMessageBox QLabel { color: #e0e0e4; font-size: 13px; }
+        QMessageBox { background-color: #f4f5fa; color: #1a2440; }
+        QMessageBox QLabel { color: #1a2440; font-size: 13px; }
         QPushButton {
-            background-color: #222224; color: #e0e0e4; font-size: 13px; font-weight: 600;
-            border: 1px solid #2a2a2d; border-radius: 6px; padding: 8px 20px; min-width: 80px;
+            background-color: #ffffff; color: #1a2440; font-size: 13px; font-weight: 600;
+            border: 1px solid #d4d8ea; border-radius: 6px; padding: 8px 20px; min-width: 80px;
         }
-        QPushButton:hover { background-color: #2a2a2d; color: #ffffff; border-color: #3a3a3e; }
+        QPushButton:hover { background-color: #eceef5; border-color: #b0bcd8; }
     )");
     if (msgBox.exec() == QMessageBox::Yes) {
         Login *loginPage = new Login();
