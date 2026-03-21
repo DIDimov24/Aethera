@@ -8,8 +8,9 @@ static const char *card = R"(
     QPushButton#examHistoryCard {
         background-color: #ffffff;
         border: 1px solid #d4d8ea;
-        border-radius: 10px;
+        border-radius: 12px;
         text-align: left;
+        padding: 0px;
     }
     QPushButton#examHistoryCard:hover {
         background-color: #f4f5fa;

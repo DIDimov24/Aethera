@@ -1,20 +1,16 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/menu.svg</file>
-        <file>icons/examDark.svg</file>
-        <file>icons/homeDark.svg</file>
-        <file>icons/userDark.svg</file>
-        <file>icons/settingsDark.svg</file>
+        <file>icons/exam.svg</file>
+        <file>icons/home.svg</file>
+        <file>icons/user.svg</file>
+        <file>icons/settings.svg</file>
         <file>icons/play.svg</file>
         <file>icons/retry.svg</file>
-        <file>icons/diagramDark.svg</file>
+        <file>icons/diagram.svg</file>
+        <file>icons/exam-2.svg</file>
+        <file>icons/history.svg</file>
         <file>icons/iconLogo.jpg</file>
         <file>icons/TextLogo.jpg</file>
-        <file>icons/pfp1.png</file>
-        <file>icons/pfp2.png</file>
-        <file>icons/pfp3.png</file>
-        <file>icons/pfp4.png</file>
-        <file>icons/pfp5.png</file>
-        <file>icons/pfp6.png</file>
     </qresource>
 </RCC>

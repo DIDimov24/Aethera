@@ -6,7 +6,6 @@
 #include "database.h"
 #include "statistics.h"
 #include <QMessageBox>
-#include <cmath>
 
 Home::Home(QWidget *parent)
     : QMainWindow(parent)
@@ -60,17 +59,14 @@ Home::Home(QWidget *parent)
     connect(ui->buttonNavStatistics, &QPushButton::clicked, this, [this]() {
         if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
         setNavActive(NavPage::Statistics);
-        statisticsPage->refresh();
         ui->stackedWidget->setCurrentWidget(statisticsPage);
     });
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
         setNavActive(NavPage::Profile);
-        profilePage->refresh();
         ui->stackedWidget->setCurrentWidget(profilePage);
     });
     connect(profilePage, &Profile::editProfileRequested, this, [this]() {
         setNavActive(NavPage::Settings);
-        settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
     connect(ui->buttonLoginRegister, &QPushButton::clicked, this, [this]() {
@@ -80,7 +76,6 @@ Home::Home(QWidget *parent)
     });
     connect(ui->buttonSettings, &QPushButton::clicked, this, [this]() {
         setNavActive(NavPage::Settings);
-        settingsPage->refresh();
         ui->stackedWidget->setCurrentWidget(settingsPage);
     });
     connect(profilePage, &Profile::logoutRequested, this, &Home::onLogoutClicked);
@@ -120,13 +115,11 @@ Home::Home(QWidget *parent)
         sessionPage->startExam(selectedExamSubject, difficultySelected);
     });
     connect(sessionPage, &Session::examCompleted, this, [this](int score, int total) {
-        updateStatsCards();
         resultsPage->displayResults(score, total);
         ui->stackedWidget->setCurrentWidget(resultsPage);
     });
     connect(resultsPage, &Results::backToHomeRequested, this, [this]() {
         setNavActive(NavPage::Home);
-        updateStatsCards();
         ui->stackedWidget->setCurrentIndex(0);
     });
     connect(resultsPage, &Results::viewExamsRequested, this, [this]() {
@@ -148,16 +141,7 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
 
-    // ── Avatar click → go to profile ──
-    // Home top bar avatar (labelTopBarAvatar is a QWidget, make it behave like a button)
-    ui->labelTopBarAvatar->setCursor(Qt::PointingHandCursor);
-    ui->labelTopBarAvatar->installEventFilter(this);
 
-    // Sidebar avatar circle also clickable → go to profile
-    ui->sidebarAvatarCircle->setCursor(Qt::PointingHandCursor);
-    ui->sidebarAvatarCircle->installEventFilter(this);
-
-    updateStatsCards();
     updateSidebarButtons();
     setNavActive(NavPage::Home);
 
@@ -171,21 +155,6 @@ Home::Home(QWidget *parent)
 }
 
 Home::~Home() { delete ui; }
-
-bool Home::eventFilter(QObject *obj, QEvent *event) {
-    if (event->type() == QEvent::MouseButtonPress) {
-        if (obj == ui->labelTopBarAvatar || obj == ui->sidebarAvatarCircle) {
-            if (UserSession::instance().isLoggedIn()) {
-                setNavActive(NavPage::Profile);
-                profilePage->refresh();
-                updateSidebarButtons();
-                ui->stackedWidget->setCurrentWidget(profilePage);
-            }
-            return true;
-        }
-    }
-    return QMainWindow::eventFilter(obj, event);
-}
 
 void Home::updateStatsCards() {
     if (!UserSession::instance().isLoggedIn()) {

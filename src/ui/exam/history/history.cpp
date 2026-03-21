@@ -87,22 +87,7 @@ void History::loadAndPopulate(const QString &username) {
         card->setObjectName("examHistoryCard");
         card->setMinimumHeight(64);
         card->setMaximumHeight(64);
-        card->setStyleSheet(R"(
-            QPushButton#examHistoryCard {
-                background-color: #ffffff;
-                border: 1px solid #d4d8ea;
-                border-radius: 12px;
-                text-align: left;
-                padding: 0px;
-            }
-            QPushButton#examHistoryCard:hover {
-                background-color: #f4f5fa;
-                border-color: #4f6fc4;
-            }
-            QPushButton#examHistoryCard:pressed {
-                background-color: #eef1fb;
-            }
-        )");
+        card->setStyleSheet(Style::card);
 
         QHBoxLayout *cardLayout = new QHBoxLayout(card);
         cardLayout->setContentsMargins(16, 0, 16, 0);
@@ -111,28 +96,34 @@ void History::loadAndPopulate(const QString &username) {
         QWidget *iconBox = new QWidget;
         iconBox->setFixedSize(36, 36);
         iconBox->setStyleSheet(QString("background-color: %1; border-radius: 9px;").arg(iconBg));
+        iconBox->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         QLabel *iconLabel = new QLabel(iconBox);
         iconLabel->setText(QString::number(attempt.score));
         iconLabel->setStyleSheet(QString("color: %1; font-size: 12px; font-weight: 700; background: transparent;").arg(iconText));
         iconLabel->setAlignment(Qt::AlignCenter);
         iconLabel->setGeometry(0, 0, 36, 36);
+        iconLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         QWidget *textBlock = new QWidget;
+        textBlock->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         QVBoxLayout *textLayout = new QVBoxLayout(textBlock);
         textLayout->setContentsMargins(0, 0, 0, 0);
-        textLayout->setSpacing(1); // tight spacing between title and sub
+        textLayout->setSpacing(1);
 
         QLabel *titleLabel = new QLabel(QString("%1  ·  %2").arg(attempt.subject, attempt.difficulty));
         titleLabel->setStyleSheet("color: #1a2440; font-size: 13px; font-weight: 600;");
+        titleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         QLabel *subLabel = new QLabel(QString("%1  ·  %2 / 20  ·  %3%").arg(attempt.completedAt).arg(attempt.score).arg(static_cast<int>(pct)));
         subLabel->setStyleSheet("color: #8898c0; font-size: 11px;");
+        subLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         textLayout->addWidget(titleLabel);
         textLayout->addWidget(subLabel);
 
         QWidget *rightBlock = new QWidget;
+        rightBlock->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         QVBoxLayout *rightLayout = new QVBoxLayout(rightBlock);
         rightLayout->setContentsMargins(0, 0, 0, 0);
         rightLayout->setSpacing(2); // tighter
@@ -141,6 +132,7 @@ void History::loadAndPopulate(const QString &username) {
         QLabel *gradeChip = new QLabel(gradeStr);
         gradeChip->setStyleSheet(QString("color: %1; font-size: 12px; font-weight: 600;").arg(gradeColor));
         gradeChip->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        gradeChip->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         QProgressBar *bar = new QProgressBar;
         bar->setMinimum(0);
@@ -149,6 +141,7 @@ void History::loadAndPopulate(const QString &username) {
         bar->setTextVisible(false);
         bar->setFixedHeight(4);
         bar->setFixedWidth(80);
+        bar->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         bar->setStyleSheet(QString(R"(
             QProgressBar { background-color: #dde3f0; border-radius: 2px; border: none; }
             QProgressBar::chunk { background-color: %1; border-radius: 2px; }
@@ -160,6 +153,7 @@ void History::loadAndPopulate(const QString &username) {
         QLabel *arrowLabel = new QLabel("›");
         arrowLabel->setStyleSheet("color: #c0c8e0; font-size: 18px;");
         arrowLabel->setFixedWidth(16);
+        arrowLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         cardLayout->addWidget(iconBox);
         cardLayout->addWidget(textBlock, 1);
