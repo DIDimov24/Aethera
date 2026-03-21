@@ -12,6 +12,7 @@ Settings::Settings(QWidget *parent)
 
     connect(ui->buttonSaveUsername,  &QPushButton::clicked, this, &Settings::onSaveUsername);
     connect(ui->buttonSavePassword,  &QPushButton::clicked, this, &Settings::onSavePassword);
+    connect(ui->buttonSaveGrade,     &QPushButton::clicked, this, &Settings::onSaveGrade);
     connect(ui->buttonSaveBio,       &QPushButton::clicked, this, &Settings::onSaveBio);
     connect(ui->buttonDeleteAccount, &QPushButton::clicked, this, &Settings::onDeleteAccountClicked);
 
@@ -125,6 +126,39 @@ void Settings::onSavePassword() {
     ui->labelSettingsPasswordStatus->setText("Password updated successfully!");
     ui->labelSettingsPasswordStatus->setStyleSheet("color: #2a6a20; font-size: 12px;");
     ui->labelSettingsPasswordStatus->setVisible(true);
+}
+
+void Settings::onSaveGrade() {
+    if (!UserSession::instance().isLoggedIn()) {
+        ui->labelSettingsGradeStatus->setText("Please log in first.");
+        ui->labelSettingsGradeStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsGradeStatus->setVisible(true);
+        return;
+    }
+
+    QString newGrade = ui->comboSettingsGrade->currentText().trimmed();
+    QString currentGrade = UserSession::instance().getGrade();
+
+    if (newGrade.isEmpty()) {
+        ui->labelSettingsGradeStatus->setText("Please select your grade.");
+        ui->labelSettingsGradeStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsGradeStatus->setVisible(true);
+        return;
+    }
+
+    if (newGrade == currentGrade) {
+        ui->labelSettingsGradeStatus->setText("New grade is the same as current.");
+        ui->labelSettingsGradeStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsGradeStatus->setVisible(true);
+        return;
+    }
+
+    Database::instance().updateGrade(UserSession::instance().getUsername(), newGrade);
+    UserSession::instance().setGrade(newGrade);
+
+    ui->labelSettingsGradeStatus->setText("Grade updated successfully!");
+    ui->labelSettingsGradeStatus->setStyleSheet("color: #2a6a20; font-size: 12px;");
+    ui->labelSettingsGradeStatus->setVisible(true);
 }
 
 void Settings::onSaveBio() {

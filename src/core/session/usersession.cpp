@@ -37,6 +37,10 @@ void UserSession::setUsername(const QString &username) {
     _user.username = username;
 }
 
+void UserSession::setGrade(const QString &grade) {
+    _user.grade = grade;
+}
+
 void UserSession::setBio(const QString &bio) {
     _user.bio = bio;
 }

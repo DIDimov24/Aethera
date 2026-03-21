@@ -23,6 +23,7 @@ private:
 
     void onSaveUsername();
     void onSavePassword();
+    void onSaveGrade();
     void onSaveBio();
     void onDeleteAccountClicked();
 };

@@ -19,7 +19,7 @@ QWidget#pageSettings, QWidget#pageTerms, QWidget#pagePrivacy { background-color:
 QWidget#scrollContentSettings, QWidget#scrollContentTerms, QWidget#scrollContentPrivacy { background: transparent; }
 QLabel#labelTermsPageTitle, QLabel#labelPrivacyPageTitle { color: #1a2440; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
 QLabel#labelSectionDivider { color: #8898c0; font-size: 9px; font-weight: 700; letter-spacing: 2.5px; }
-QFrame#cardUsername, QFrame#cardPassword, QFrame#cardBio,
+QFrame#cardUsername, QFrame#cardPassword, QFrame#cardGrade, QFrame#cardBio,
 QFrame#cardTermsNav, QFrame#cardPrivacyNav, QFrame#cardTermsContent, QFrame#cardPrivacyContent {
     background-color: #ffffff; border-radius: 12px; border: 1px solid #d4d8ea;
 }
@@ -33,16 +33,37 @@ QLineEdit#inputSettingsUsername:focus, QLineEdit#inputSettingsCurrentPassword:fo
 QLineEdit#inputSettingsNewPassword:focus, QLineEdit#inputSettingsConfirmPassword:focus {
     border: 1px solid #4f6fc4; background-color: #ffffff;
 }
+QComboBox#comboSettingsGrade {
+    background-color: #f4f5fa; color: #1a2440; font-size: 14px;
+    border: 1px solid #d4d8ea; border-radius: 8px; padding: 10px 14px;
+}
+QComboBox#comboSettingsGrade:focus {
+    border: 1px solid #4f6fc4; background-color: #ffffff;
+}
+QComboBox#comboSettingsGrade::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 30px;
+    border: none;
+}
+QComboBox#comboSettingsGrade QAbstractItemView {
+    background-color: #ffffff;
+    color: #1a2440;
+    border: 1px solid #d4d8ea;
+    selection-background-color: #eef1fb;
+    selection-color: #1a2440;
+    outline: none;
+}
 QTextEdit#textSettingsBio {
     background-color: #f4f5fa; color: #1a2440; font-size: 14px;
     border: 1px solid #d4d8ea; border-radius: 8px; padding: 10px 14px;
 }
 QTextEdit#textSettingsBio:focus { border: 1px solid #4f6fc4; background-color: #ffffff; }
-QPushButton#buttonSaveUsername, QPushButton#buttonSavePassword, QPushButton#buttonSaveBio {
+QPushButton#buttonSaveUsername, QPushButton#buttonSavePassword, QPushButton#buttonSaveGrade, QPushButton#buttonSaveBio {
     background-color: #4f6fc4; color: #ffffff; font-size: 13px; font-weight: 600;
     border: none; border-radius: 8px; padding: 10px 24px;
 }
-QPushButton#buttonSaveUsername:hover, QPushButton#buttonSavePassword:hover, QPushButton#buttonSaveBio:hover {
+QPushButton#buttonSaveUsername:hover, QPushButton#buttonSavePassword:hover, QPushButton#buttonSaveGrade:hover, QPushButton#buttonSaveBio:hover {
     background-color: #3a5aae;
 }
 QPushButton#buttonViewTerms, QPushButton#buttonViewPrivacy {
@@ -64,14 +85,14 @@ QPushButton#buttonDeleteAccount {
     border: none; border-radius: 8px; padding: 10px 24px;
 }
 QPushButton#buttonDeleteAccount:hover { background-color: #a93226; }
-QLabel#labelSectionUsername, QLabel#labelSectionPassword, QLabel#labelSectionBio,
+QLabel#labelSectionUsername, QLabel#labelSectionPassword, QLabel#labelSectionGrade, QLabel#labelSectionBio,
 QLabel#labelSectionTermsNav, QLabel#labelSectionPrivacyNav { color: #1a2440; font-size: 16px; font-weight: 600; }
 QLabel#labelSectionDelete { color: #c0392b; font-size: 16px; font-weight: 600; }
 QLabel#labelFieldNewUsername, QLabel#labelFieldCurrentPw, QLabel#labelFieldNewPw,
-QLabel#labelFieldConfirmPw, QLabel#labelFieldBioDesc, QLabel#labelFieldTermsDesc,
+QLabel#labelFieldConfirmPw, QLabel#labelFieldGradeDesc, QLabel#labelFieldBioDesc, QLabel#labelFieldTermsDesc,
 QLabel#labelFieldPrivacyDesc { color: #8898c0; font-size: 13px; }
 QLabel#labelSettingsUsernameStatus, QLabel#labelSettingsPasswordStatus,
-QLabel#labelSettingsBioStatus { font-size: 12px; }
+QLabel#labelSettingsGradeStatus, QLabel#labelSettingsBioStatus { font-size: 12px; }
 QLabel#labelTermsBody, QLabel#labelPrivacyBody { color: #3a4a70; font-size: 13px; }
 QLabel#labelDeleteWarning { color: #a93226; font-size: 13px; }
 QScrollArea { background: transparent; border: none; }
@@ -424,6 +445,95 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
              </property>
             </widget>
            </item>
+                    <item>
+                     <widget class="QFrame" name="cardGrade">
+                        <layout class="QVBoxLayout" name="layoutCardGrade">
+                         <property name="spacing">
+                            <number>10</number>
+                         </property>
+                         <property name="leftMargin">
+                            <number>24</number>
+                         </property>
+                         <property name="topMargin">
+                            <number>20</number>
+                         </property>
+                         <property name="rightMargin">
+                            <number>24</number>
+                         </property>
+                         <property name="bottomMargin">
+                            <number>20</number>
+                         </property>
+                         <item>
+                            <widget class="QLabel" name="labelSectionGrade">
+                             <property name="text">
+                                <string>Update Grade</string>
+                             </property>
+                            </widget>
+                         </item>
+                         <item>
+                            <widget class="QLabel" name="labelFieldGradeDesc">
+                             <property name="text">
+                                <string>Select your current grade</string>
+                             </property>
+                            </widget>
+                         </item>
+                         <item>
+                            <widget class="QComboBox" name="comboSettingsGrade">
+                             <property name="maximumSize">
+                                <size>
+                                 <width>400</width>
+                                 <height>16777215</height>
+                                </size>
+                             </property>
+                             <item>
+                                <property name="text">
+                                 <string>VIII</string>
+                                </property>
+                             </item>
+                             <item>
+                                <property name="text">
+                                 <string>IX</string>
+                                </property>
+                             </item>
+                             <item>
+                                <property name="text">
+                                 <string>X</string>
+                                </property>
+                             </item>
+                            </widget>
+                         </item>
+                         <item>
+                            <widget class="QLabel" name="labelSettingsGradeStatus">
+                             <property name="visible">
+                                <bool>false</bool>
+                             </property>
+                             <property name="text">
+                                <string/>
+                             </property>
+                            </widget>
+                         </item>
+                         <item>
+                            <widget class="QPushButton" name="buttonSaveGrade">
+                             <property name="minimumSize">
+                                <size>
+                                 <width>140</width>
+                                 <height>40</height>
+                                </size>
+                             </property>
+                             <property name="maximumSize">
+                                <size>
+                                 <width>140</width>
+                                 <height>40</height>
+                                </size>
+                             </property>
+                             <property name="text">
+                                <string>Save Grade</string>
+                             </property>
+                            </widget>
+                         </item>
+                        </layout>
+                     </widget>
+                    </item>
            <item>
             <widget class="QFrame" name="cardBio">
              <layout class="QVBoxLayout" name="layoutCardBio">

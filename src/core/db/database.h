@@ -41,6 +41,7 @@ public:
     bool getUser(const QString &username, User &out);
     bool updateUsername(const QString &oldUsername, const QString &newUsername);
     bool updatePassword(const QString &username, const QString &newPassword);
+    bool updateGrade(const QString &username, const QString &grade);
     bool updateBio(const QString &username, const QString &bio);
     bool updateAvatar(const QString &username, const QString &avatar);
     bool deleteUser(const QString &username);

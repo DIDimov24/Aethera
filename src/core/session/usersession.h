@@ -16,6 +16,7 @@ public:
     QString getAvatar();
 
     void setUsername(const QString &username);
+    void setGrade(const QString &grade);
     void setBio(const QString &bio);
     void setAvatar(const QString &avatar);
 

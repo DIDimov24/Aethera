@@ -118,6 +118,16 @@ bool Database::updatePassword(const QString &username, const QString &newPasswor
     return query.exec();
 }
 
+bool Database::updateGrade(const QString &username, const QString &grade) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("UPDATE users SET grade = ? WHERE username = ?");
+    query.addBindValue(grade);
+    query.addBindValue(username);
+    return query.exec();
+}
+
 bool Database::updateBio(const QString &username, const QString &bio) {
     if (!openDatabase()) return false;
 
