@@ -112,6 +112,13 @@ void Settings::onSavePassword() {
         return;
     }
 
+    if (newPass.length() < 5) {
+        ui->labelSettingsPasswordStatus->setText("New password must be at least 5 characters.");
+        ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsPasswordStatus->setVisible(true);
+        return;
+    }
+
     if (newPass != confirm) {
         ui->labelSettingsPasswordStatus->setText("New passwords do not match.");
         ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");

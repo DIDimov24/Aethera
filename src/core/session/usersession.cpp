@@ -29,10 +29,6 @@ QString UserSession::getBio() {
     return _user.bio;
 }
 
-QString UserSession::getAvatar() {
-    return _user.avatar;
-}
-
 void UserSession::setUsername(const QString &username) {
     _user.username = username;
 }
@@ -43,8 +39,4 @@ void UserSession::setGrade(const QString &grade) {
 
 void UserSession::setBio(const QString &bio) {
     _user.bio = bio;
-}
-
-void UserSession::setAvatar(const QString &avatar) {
-    _user.avatar = avatar;
 }

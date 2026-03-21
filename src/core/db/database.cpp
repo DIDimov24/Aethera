@@ -23,13 +23,6 @@ Database::Database() {
     if (dbInfo.exists()) {
         database.setDatabaseName(databasePath);
         qDebug() << "Using database at:" << databasePath;
-
-        if (!database.open()) {
-            qDebug() << "Error opening database:" << database.lastError().text();
-        } else {
-            QSqlQuery migration(database);
-            migration.exec("ALTER TABLE users ADD COLUMN avatar TEXT DEFAULT ''");
-        }
     } else {
         qDebug() << "Could not find aethera.db at:" << databasePath;
     }
@@ -50,15 +43,14 @@ bool Database::openDatabase() {
     return true;
 }
 
-bool Database::registerUser(const QString &username, const QString &password, const QString &grade, const QString &avatar) {
+bool Database::registerUser(const QString &username, const QString &password, const QString &grade) {
     if (!openDatabase()) return false;
 
     QSqlQuery query(database);
-    query.prepare("INSERT INTO users (username, password, grade, avatar) VALUES (?, ?, ?, ?)");
+    query.prepare("INSERT INTO users (username, password, grade) VALUES (?, ?, ?)");
     query.addBindValue(username);
     query.addBindValue(PasswordHasher::hash(password));
     query.addBindValue(grade);
-    query.addBindValue(avatar);
     return query.exec();
 }
 
@@ -87,14 +79,13 @@ bool Database::getUser(const QString &username, User &user) {
     if (!openDatabase()) return false;
 
     QSqlQuery query(database);
-    query.prepare("SELECT username, grade, bio, avatar FROM users WHERE username = ?");
+    query.prepare("SELECT username, grade, bio FROM users WHERE username = ?");
     query.addBindValue(username);
     if (!query.exec() || !query.next()) return false;
 
     user.username = query.value(0).toString();
-    user.grade    = query.value(1).toString();
-    user.bio      = query.value(2).toString();
-    user.avatar   = query.value(3).toString();
+    user.grade = query.value(1).toString();
+    user.bio = query.value(2).toString();
     return true;
 }
 
@@ -134,16 +125,6 @@ bool Database::updateBio(const QString &username, const QString &bio) {
     QSqlQuery query(database);
     query.prepare("UPDATE users SET bio = ? WHERE username = ?");
     query.addBindValue(bio);
-    query.addBindValue(username);
-    return query.exec();
-}
-
-bool Database::updateAvatar(const QString &username, const QString &avatar) {
-    if (!openDatabase()) return false;
-
-    QSqlQuery query(database);
-    query.prepare("UPDATE users SET avatar = ? WHERE username = ?");
-    query.addBindValue(avatar);
     query.addBindValue(username);
     return query.exec();
 }

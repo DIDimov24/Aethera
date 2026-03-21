@@ -3,7 +3,6 @@
 #include "database.h"
 #include "login.h"
 #include "home.h"
-#include <QRandomGenerator>
 
 Register::Register(QWidget *parent)
     : QMainWindow(parent)
@@ -45,8 +44,8 @@ void Register::onCreateClicked() {
         return;
     }
 
-    if (password.length() < 8) {
-        ui->labelError->setText("Password must be at least 8 characters.");
+    if (password.length() < 5) {
+        ui->labelError->setText("Password must be at least 5 characters.");
         return;
     }
 
@@ -62,10 +61,7 @@ void Register::onCreateClicked() {
         return;
     }
 
-    int avatarIndex = QRandomGenerator::global()->bounded(1, 7);
-    QString avatar = QString("pfp%1").arg(avatarIndex);
-
-    if (!Database::instance().registerUser(username, password, grade, avatar)) {
+    if (!Database::instance().registerUser(username, password, grade)) {
         ui->labelError->setText("Could not create account. Try a different username.");
         return;
     }
