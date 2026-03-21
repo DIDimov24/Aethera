@@ -135,10 +135,10 @@ void Profile::refresh() {
 
     if (bio.isEmpty()) {
         ui->labelBioText->setText("No bio yet.");
-        ui->labelBioText->setStyleSheet("color: #6b6b76; font-size: 14px;");
+        ui->labelBioText->setStyleSheet("color: #8898c0; font-size: 14px; background: transparent;");
     } else {
         ui->labelBioText->setText(bio);
-        ui->labelBioText->setStyleSheet("color: #ffffff; font-size: 14px;");
+        ui->labelBioText->setStyleSheet("color: #3a4a70; font-size: 14px; background: transparent;");
     }
 
     applyAvatar(avatar);

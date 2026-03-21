@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QEvent>
 #include <QString>
 #include "profile.h"
 #include "session.h"
@@ -30,6 +31,9 @@ class Home : public QMainWindow {
 public:
     Home(QWidget *parent = nullptr);
     ~Home();
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private slots:
     void toggleSidebar(bool hidden = false);

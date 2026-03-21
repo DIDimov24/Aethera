@@ -10,6 +10,30 @@
 #include <QSize>
 #include <QEasingCurve>
 #include <QMessageBox>
+#include <QPainter>
+#include <QPainterPath>
+#include <QLabel>
+
+static QPixmap makeCircularPfp(const QString &avatarName, int size) {
+    QString path = QString(":/icons/%1.png").arg(avatarName);
+    QPixmap src(path);
+    if (src.isNull()) return QPixmap();
+
+    QPixmap scaled = src.scaled(size, size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    int x = (scaled.width()  - size) / 2;
+    int y = (scaled.height() - size) / 2;
+    scaled = scaled.copy(x, y, size, size);
+
+    QPixmap result(size, size);
+    result.fill(Qt::transparent);
+    QPainter p(&result);
+    p.setRenderHint(QPainter::Antialiasing);
+    QPainterPath clipPath;
+    clipPath.addEllipse(0, 0, size, size);
+    p.setClipPath(clipPath);
+    p.drawPixmap(0, 0, scaled);
+    return result;
+}
 
 void Home::onLogoutClicked() {
     QMessageBox msgBox(this);
@@ -88,15 +112,15 @@ void Home::repositionSidebarButtons() {
 }
 
 void Home::updateSidebarButtons() {
-    const char* navNorm    = sidebarExpanded ? Style::navExpanded        : Style::navCollapsed;
-    const char* logoutSS   = sidebarExpanded ? Style::logoutExpanded     : Style::logoutCollapsed;
-    const char* loginSS    = sidebarExpanded ? Style::loginExpanded      : Style::loginCollapsed;
+    const char* navNorm     = sidebarExpanded ? Style::navExpanded         : Style::navCollapsed;
+    const char* logoutSS    = sidebarExpanded ? Style::logoutExpanded      : Style::logoutCollapsed;
+    const char* loginSS     = sidebarExpanded ? Style::loginExpanded       : Style::loginCollapsed;
     const char* navDisabled = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
 
     auto setup = [this](QPushButton *btn, const QString &label, const QString &iconPath, const char *ss) {
+        btn->setStyleSheet(ss);
         btn->setIcon(QIcon(iconPath));
         btn->setIconSize(QSize(18, 18));
-        btn->setStyleSheet(ss);
         if (sidebarExpanded) {
             btn->setText("   " + label);
             btn->setToolTip("");
@@ -106,35 +130,109 @@ void Home::updateSidebarButtons() {
         }
     };
 
-    setup(ui->buttonNavHome, "Home", ":/icons/home.svg", navNorm);
+    setup(ui->buttonNavHome, "Home", ":/icons/homeDark.svg", navNorm);
     if (UserSession::instance().isLoggedIn()) {
-        setup(ui->buttonNavExams,      "Exams",      ":/icons/exam.svg",    navNorm);
-        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navNorm);
+        setup(ui->buttonNavExams,      "Exams",      ":/icons/examDark.svg",    navNorm);
+        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagramDark.svg", navNorm);
     } else {
-        setup(ui->buttonNavExams,      "Exams",      ":/icons/exam.svg",    navDisabled);
-        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navDisabled);
+        setup(ui->buttonNavExams,      "Exams",      ":/icons/examDark.svg",    navDisabled);
+        setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagramDark.svg", navDisabled);
     }
-    setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
+    setup(ui->buttonSettings, "Settings", ":/icons/settingsDark.svg", navNorm);
 
     if (UserSession::instance().isLoggedIn()) {
-        setup(ui->buttonLogOut, "My Profile", ":/icons/user.svg", logoutSS);
+        setup(ui->buttonLogOut, "My Profile", ":/icons/userDark.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
         ui->buttonLoginRegister->setVisible(false);
 
         QString username = UserSession::instance().getUsername();
         QString grade    = UserSession::instance().getGrade();
+        QString avatar   = UserSession::instance().getAvatar();
         QString initial  = username.isEmpty() ? "?" : username.left(1).toUpper();
 
-        ui->labelSidebarAvatarInitial->setText(initial);
-        ui->labelSidebarUsername->setText(username);
-        ui->labelSidebarGrade->setText("Grade " + grade);
-        ui->labelTopBarAvatarText->setText(initial);
+        QPixmap sidebarPfp = makeCircularPfp(avatar, 34);
+        if (!sidebarPfp.isNull()) {
+            ui->sidebarAvatarCircle->setStyleSheet(
+                "QWidget#sidebarAvatarCircle { background-color: transparent; border-radius: 17px; "
+                "min-width: 34px; max-width: 34px; min-height: 34px; max-height: 34px; }"
+            );
+            ui->labelSidebarAvatarInitial->setText("");
+            ui->labelSidebarAvatarInitial->setPixmap(sidebarPfp);
+            ui->labelSidebarAvatarInitial->setScaledContents(false);
+            ui->labelSidebarAvatarInitial->setAlignment(Qt::AlignCenter);
+        } else {
+            ui->sidebarAvatarCircle->setStyleSheet(
+                "QWidget#sidebarAvatarCircle { background-color: #4f6fc4; border-radius: 17px; "
+                "min-width: 34px; max-width: 34px; min-height: 34px; max-height: 34px; }"
+            );
+            ui->labelSidebarAvatarInitial->setPixmap(QPixmap());
+            ui->labelSidebarAvatarInitial->setText(initial);
+            ui->labelSidebarAvatarInitial->setStyleSheet(
+                "color: #ffffff; font-size: 13px; font-weight: 700; background: transparent;"
+            );
+        }
+
+        QPixmap topBarPfp = makeCircularPfp(avatar, 28);
+
+        auto applyTopBarAvatar = [&](QWidget *avatarWidget, QLabel *avatarLabel) {
+            if (!avatarWidget || !avatarLabel) return;
+            if (!topBarPfp.isNull()) {
+                avatarWidget->setStyleSheet(
+                    "QWidget { background-color: transparent; border-radius: 14px; "
+                    "min-width: 28px; max-width: 28px; min-height: 28px; max-height: 28px; }"
+                );
+                avatarLabel->setText("");
+                avatarLabel->setPixmap(topBarPfp);
+                avatarLabel->setScaledContents(false);
+                avatarLabel->setAlignment(Qt::AlignCenter);
+            } else {
+                avatarWidget->setStyleSheet(
+                    "QWidget { background-color: #4f6fc4; border-radius: 14px; "
+                    "min-width: 28px; max-width: 28px; min-height: 28px; max-height: 28px; }"
+                );
+                avatarLabel->setPixmap(QPixmap());
+                avatarLabel->setText(initial);
+                avatarLabel->setStyleSheet(
+                    "color: #ffffff; font-size: 12px; font-weight: 700; background: transparent;"
+                );
+            }
+        };
+
+        applyTopBarAvatar(ui->labelTopBarAvatar, ui->labelTopBarAvatarText);
+
+        QList<QWidget*> subPages = {
+            profilePage,
+            historyPage,
+            settingsPage,
+            statisticsPage,
+            reviewPage,
+            difficultiesPage,
+            subjectsPage
+        };
+        for (QWidget *page : subPages) {
+            if (!page) continue;
+            QWidget *avatarWidget = page->findChild<QWidget*>("labelTopBarAvatar");
+            if (!avatarWidget) continue;
+            QLabel *avatarLabel = avatarWidget->findChild<QLabel*>("labelTopBarAvatarText");
+            applyTopBarAvatar(avatarWidget, avatarLabel);
+            avatarWidget->setVisible(true);
+
+            QLabel *gradeLabel = page->findChild<QLabel*>("labelTopBarGrade");
+            if (gradeLabel) {
+                gradeLabel->setText("Grade " + grade);
+                gradeLabel->setVisible(true);
+            }
+        }
+
         ui->labelTopBarGrade->setText("Grade " + grade);
         ui->labelTopBarGrade->setVisible(true);
         ui->labelTopBarAvatar->setVisible(true);
         ui->sidebarUserPanel->setVisible(true);
+        ui->labelSidebarUsername->setText(username);
+        ui->labelSidebarGrade->setText("Grade " + grade);
+
     } else {
-        setup(ui->buttonLoginRegister, "Login / Register", ":/icons/user.svg", loginSS);
+        setup(ui->buttonLoginRegister, "Login / Register", ":/icons/userDark.svg", loginSS);
         ui->buttonLoginRegister->setVisible(true);
         ui->buttonLogOut->setVisible(false);
         ui->labelTopBarGrade->setVisible(false);
@@ -148,9 +246,9 @@ void Home::updateSidebarButtons() {
 void Home::setNavActive(NavPage index) {
     activeNavIndex = index;
 
-    const char* norm       = sidebarExpanded ? Style::navExpanded       : Style::navCollapsed;
-    const char* act        = sidebarExpanded ? Style::navExpandedActive  : Style::navCollapsedActive;
-    const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded     : Style::logoutCollapsed;
+    const char* norm       = sidebarExpanded ? Style::navExpanded      : Style::navCollapsed;
+    const char* act        = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
+    const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded    : Style::logoutCollapsed;
 
     ui->buttonNavHome->setStyleSheet(index == NavPage::Home ? act : norm);
     if (!UserSession::instance().isLoggedIn()) {

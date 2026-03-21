@@ -45,6 +45,11 @@ void Register::onCreateClicked() {
         return;
     }
 
+    if (password.length() < 8) {
+        ui->labelError->setText("Password must be at least 8 characters.");
+        return;
+    }
+
     if (Database::instance().userExists(username)) {
         ui->labelError->setText("Username already taken. Please choose another.");
         ui->inputUsername->setFocus();

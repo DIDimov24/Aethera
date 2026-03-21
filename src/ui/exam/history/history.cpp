@@ -85,8 +85,8 @@ void History::loadAndPopulate(const QString &username) {
         card->setCursor(Qt::PointingHandCursor);
         card->setFlat(true);
         card->setObjectName("examHistoryCard");
-        card->setMinimumHeight(76);
-        card->setMaximumHeight(76);
+        card->setMinimumHeight(64);
+        card->setMaximumHeight(64);
         card->setStyleSheet(R"(
             QPushButton#examHistoryCard {
                 background-color: #ffffff;
@@ -105,23 +105,23 @@ void History::loadAndPopulate(const QString &username) {
         )");
 
         QHBoxLayout *cardLayout = new QHBoxLayout(card);
-        cardLayout->setContentsMargins(20, 0, 20, 0);
-        cardLayout->setSpacing(16);
+        cardLayout->setContentsMargins(16, 0, 16, 0);
+        cardLayout->setSpacing(14);
 
         QWidget *iconBox = new QWidget;
-        iconBox->setFixedSize(40, 40);
-        iconBox->setStyleSheet(QString("background-color: %1; border-radius: 10px;").arg(iconBg));
+        iconBox->setFixedSize(36, 36);
+        iconBox->setStyleSheet(QString("background-color: %1; border-radius: 9px;").arg(iconBg));
 
         QLabel *iconLabel = new QLabel(iconBox);
         iconLabel->setText(QString::number(attempt.score));
-        iconLabel->setStyleSheet(QString("color: %1; font-size: 13px; font-weight: 700; background: transparent;").arg(iconText));
+        iconLabel->setStyleSheet(QString("color: %1; font-size: 12px; font-weight: 700; background: transparent;").arg(iconText));
         iconLabel->setAlignment(Qt::AlignCenter);
-        iconLabel->setGeometry(0, 0, 40, 40);
+        iconLabel->setGeometry(0, 0, 36, 36);
 
         QWidget *textBlock = new QWidget;
         QVBoxLayout *textLayout = new QVBoxLayout(textBlock);
         textLayout->setContentsMargins(0, 0, 0, 0);
-        textLayout->setSpacing(1);
+        textLayout->setSpacing(1); // tight spacing between title and sub
 
         QLabel *titleLabel = new QLabel(QString("%1  ·  %2").arg(attempt.subject, attempt.difficulty));
         titleLabel->setStyleSheet("color: #1a2440; font-size: 13px; font-weight: 600;");
@@ -135,7 +135,7 @@ void History::loadAndPopulate(const QString &username) {
         QWidget *rightBlock = new QWidget;
         QVBoxLayout *rightLayout = new QVBoxLayout(rightBlock);
         rightLayout->setContentsMargins(0, 0, 0, 0);
-        rightLayout->setSpacing(4);
+        rightLayout->setSpacing(2); // tighter
         rightLayout->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
         QLabel *gradeChip = new QLabel(gradeStr);

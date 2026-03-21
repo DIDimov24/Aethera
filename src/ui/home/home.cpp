@@ -148,6 +148,15 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
 
+    // ── Avatar click → go to profile ──
+    // Home top bar avatar (labelTopBarAvatar is a QWidget, make it behave like a button)
+    ui->labelTopBarAvatar->setCursor(Qt::PointingHandCursor);
+    ui->labelTopBarAvatar->installEventFilter(this);
+
+    // Sidebar avatar circle also clickable → go to profile
+    ui->sidebarAvatarCircle->setCursor(Qt::PointingHandCursor);
+    ui->sidebarAvatarCircle->installEventFilter(this);
+
     updateStatsCards();
     updateSidebarButtons();
     setNavActive(NavPage::Home);
@@ -162,6 +171,21 @@ Home::Home(QWidget *parent)
 }
 
 Home::~Home() { delete ui; }
+
+bool Home::eventFilter(QObject *obj, QEvent *event) {
+    if (event->type() == QEvent::MouseButtonPress) {
+        if (obj == ui->labelTopBarAvatar || obj == ui->sidebarAvatarCircle) {
+            if (UserSession::instance().isLoggedIn()) {
+                setNavActive(NavPage::Profile);
+                profilePage->refresh();
+                updateSidebarButtons();
+                ui->stackedWidget->setCurrentWidget(profilePage);
+            }
+            return true;
+        }
+    }
+    return QMainWindow::eventFilter(obj, event);
+}
 
 void Home::updateStatsCards() {
     if (!UserSession::instance().isLoggedIn()) {

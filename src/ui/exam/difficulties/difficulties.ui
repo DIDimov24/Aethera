@@ -9,6 +9,9 @@ QWidget#Difficulties { background-color: #eceef5; }
 QWidget#topBar { background-color: #2c3e6b; }
 QLabel#labelTopBarPage { color: #c8d4f0; font-size: 13px; font-weight: 600; }
 QLabel#labelTopBarBreadcrumb { color: rgba(200,212,240,0.45); font-size: 13px; }
+QLabel#labelTopBarGrade { color: #a8bce8; font-size: 11px; font-weight: 600; background-color: rgba(79,111,196,0.4); border-radius: 10px; padding: 2px 10px; }
+QWidget#labelTopBarAvatar { background-color: #4f6fc4; border-radius: 14px; min-width: 28px; max-width: 28px; min-height: 28px; max-height: 28px; }
+QLabel#labelTopBarAvatarText { color: #ffffff; font-size: 12px; font-weight: 700; background: transparent; }
 QWidget#topBarLine { background-color: #4f6fc4; }
 QLabel#labelDifficultiesTitle { color: #1a2440; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
 QLabel#labelDifficultiesSubtitle { color: #8898c0; font-size: 14px; }
@@ -37,13 +40,23 @@ QPushButton#buttonHard:hover { background-color: #f5dada; border-color: #c87070;
    <property name="bottomMargin"><number>0</number></property>
    <item>
     <widget class="QWidget" name="topBar" native="true">
-     <property name="minimumSize"><size><width>0</width><height>52</height></size></property>
-     <property name="maximumSize"><size><width>16777215</width><height>52</height></size></property>
+     <property name="minimumSize"><size><width>0</width><height>40</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>40</height></size></property>
      <layout class="QHBoxLayout" name="topBarLayout">
-      <property name="leftMargin"><number>28</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>28</number></property><property name="bottomMargin"><number>0</number></property>
+      <property name="leftMargin"><number>28</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>12</number></property><property name="bottomMargin"><number>0</number></property>
       <item><widget class="QLabel" name="labelTopBarBreadcrumb"><property name="text"><string>Aethera  ›  Exams  ›</string></property></widget></item>
       <item><widget class="QLabel" name="labelTopBarPage"><property name="text"><string>Select Difficulty</string></property></widget></item>
       <item><spacer name="s"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+      <item><widget class="QLabel" name="labelTopBarGrade"><property name="text"><string>Grade IX</string></property></widget></item>
+      <item>
+       <widget class="QWidget" name="labelTopBarAvatar" native="true">
+        <widget class="QLabel" name="labelTopBarAvatarText">
+         <property name="geometry"><rect><x>0</x><y>0</y><width>28</width><height>28</height></rect></property>
+         <property name="text"><string>A</string></property>
+         <property name="alignment"><set>Qt::AlignmentFlag::AlignCenter</set></property>
+        </widget>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

@@ -5,7 +5,7 @@ namespace Style {
 static const char *navExpanded = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         font-weight: 500;
         border: none;
@@ -15,7 +15,7 @@ static const char *navExpanded = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
@@ -35,7 +35,7 @@ static const char *navExpandedActive = R"(
 static const char *navCollapsed = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         border: none;
         border-radius: 8px;
@@ -43,7 +43,7 @@ static const char *navCollapsed = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
@@ -61,7 +61,7 @@ static const char *navCollapsedActive = R"(
 static const char *logoutExpanded = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         font-weight: 500;
         border: none;
@@ -71,14 +71,14 @@ static const char *logoutExpanded = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
 static const char *logoutCollapsed = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         border: none;
         border-radius: 8px;
@@ -86,14 +86,14 @@ static const char *logoutCollapsed = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
 static const char *loginExpanded = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         font-weight: 500;
         border: none;
@@ -103,14 +103,14 @@ static const char *loginExpanded = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
 static const char *loginCollapsed = R"(
     QPushButton {
         background-color: transparent;
-        color: #5a6a90;
+        color: #1a2440;
         font-size: 13px;
         border: none;
         border-radius: 8px;
@@ -118,7 +118,7 @@ static const char *loginCollapsed = R"(
     }
     QPushButton:hover {
         background-color: #eceef5;
-        color: #2c3e6b;
+        color: #1a2440;
     }
 )";
 
