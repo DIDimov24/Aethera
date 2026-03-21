@@ -3,12 +3,10 @@
 #include "database.h"
 #include <QtCharts>
 #include <QVBoxLayout>
-#include <QScrollArea>
 #include <QLabel>
 #include <QColor>
 #include <QPainter>
 #include <QPen>
-#include <QDebug>
 
 Statistics::Statistics(QWidget *parent)
     : QWidget(parent)
@@ -39,11 +37,46 @@ void Statistics::loadAndDisplayStatistics() {
     createDifficultyStatsChart();
 }
 
+static QChart* makeChart(const QString &title) {
+    QChart *chart = new QChart();
+    chart->setTitle(title);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    chart->setBackgroundRoundness(0);
+    chart->setBackgroundBrush(QColor(255, 255, 255));
+    chart->setTitleBrush(QColor(26, 36, 64));
+    chart->setContentsMargins(0, 0, 0, 0);
+    return chart;
+}
+
+static void styleAxes(QChart *chart, QBarSeries *series, const QStringList &cats, const QString &yTitle) {
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append(cats);
+    axisX->setLabelsColor(QColor(90, 106, 144));
+    axisX->setGridLineVisible(false);
+    axisX->setLinePen(QPen(QColor(212, 216, 234)));
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0, 20);
+    axisY->setTitleText(yTitle);
+    axisY->setLabelsColor(QColor(90, 106, 144));
+    axisY->setTitleBrush(QColor(90, 106, 144));
+    axisY->setGridLineVisible(true);
+    axisY->setGridLinePen(QPen(QColor(220, 225, 240)));
+    axisY->setLinePen(QPen(QColor(212, 216, 234)));
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
+
+    chart->legend()->setVisible(false);
+}
+
 void Statistics::createSubjectStatsChart() {
     QList<CategoryStat> subjectStats = Database::instance().getSubjectStats();
 
     QBarSet *barSet = new QBarSet("Average Score");
-    barSet->setColor(QColor(0, 120, 215));
+    barSet->setColor(QColor(79, 111, 196));
+    barSet->setBorderColor(QColor(58, 90, 174));
 
     QStringList categories;
     for (int i = 0; i < subjectStats.size(); i++) {
@@ -54,34 +87,9 @@ void Statistics::createSubjectStatsChart() {
     QBarSeries *barSeries = new QBarSeries();
     barSeries->append(barSet);
 
-    subjectStatsChart = new QChart();
+    subjectStatsChart = makeChart("Average Score by Subject");
     subjectStatsChart->addSeries(barSeries);
-    subjectStatsChart->setTitle("Average Score by Subject");
-    subjectStatsChart->setAnimationOptions(QChart::SeriesAnimations);
-    subjectStatsChart->setBackgroundRoundness(0);
-    subjectStatsChart->setBackgroundBrush(QColor(28, 28, 31));
-    subjectStatsChart->setTitleBrush(QColor(224, 224, 228));
-
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsColor(QColor(224, 224, 228));
-    axisX->setGridLineVisible(false);
-    subjectStatsChart->addAxis(axisX, Qt::AlignBottom);
-    barSeries->attachAxis(axisX);
-
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 100);
-    axisY->setTitleText("Average Score");
-    axisY->setLabelsColor(QColor(224, 224, 228));
-    axisY->setTitleBrush(QColor(224, 224, 228));
-    axisY->setGridLineVisible(true);
-    axisY->setGridLinePen(QPen(QColor(42, 42, 45)));
-    subjectStatsChart->addAxis(axisY, Qt::AlignLeft);
-    barSeries->attachAxis(axisY);
-
-    subjectStatsChart->legend()->setVisible(true);
-    subjectStatsChart->legend()->setAlignment(Qt::AlignBottom);
-    subjectStatsChart->legend()->setLabelColor(QColor(224, 224, 228));
+    styleAxes(subjectStatsChart, barSeries, categories, "Score");
 
     ui->subjectChartView->setChart(subjectStatsChart);
     ui->subjectChartView->setRenderHint(QPainter::Antialiasing);
@@ -91,7 +99,8 @@ void Statistics::createDifficultyStatsChart() {
     QList<CategoryStat> difficultyStats = Database::instance().getDifficultyStats();
 
     QBarSet *barSet = new QBarSet("Average Score");
-    barSet->setColor(QColor(255, 140, 0));
+    barSet->setColor(QColor(138, 180, 204));
+    barSet->setBorderColor(QColor(79, 111, 196));
 
     QStringList categories;
     for (int i = 0; i < difficultyStats.size(); i++) {
@@ -102,34 +111,9 @@ void Statistics::createDifficultyStatsChart() {
     QBarSeries *barSeries = new QBarSeries();
     barSeries->append(barSet);
 
-    difficultyStatsChart = new QChart();
+    difficultyStatsChart = makeChart("Average Score by Difficulty");
     difficultyStatsChart->addSeries(barSeries);
-    difficultyStatsChart->setTitle("Average Score by Difficulty");
-    difficultyStatsChart->setAnimationOptions(QChart::SeriesAnimations);
-    difficultyStatsChart->setBackgroundRoundness(0);
-    difficultyStatsChart->setBackgroundBrush(QColor(28, 28, 31));
-    difficultyStatsChart->setTitleBrush(QColor(224, 224, 228));
-
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsColor(QColor(224, 224, 228));
-    axisX->setGridLineVisible(false);
-    difficultyStatsChart->addAxis(axisX, Qt::AlignBottom);
-    barSeries->attachAxis(axisX);
-
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 100);
-    axisY->setTitleText("Average Score");
-    axisY->setLabelsColor(QColor(224, 224, 228));
-    axisY->setTitleBrush(QColor(224, 224, 228));
-    axisY->setGridLineVisible(true);
-    axisY->setGridLinePen(QPen(QColor(42, 42, 45)));
-    difficultyStatsChart->addAxis(axisY, Qt::AlignLeft);
-    barSeries->attachAxis(axisY);
-
-    difficultyStatsChart->legend()->setVisible(true);
-    difficultyStatsChart->legend()->setAlignment(Qt::AlignBottom);
-    difficultyStatsChart->legend()->setLabelColor(QColor(224, 224, 228));
+    styleAxes(difficultyStatsChart, barSeries, categories, "Score");
 
     ui->difficultyChartView->setChart(difficultyStatsChart);
     ui->difficultyChartView->setRenderHint(QPainter::Antialiasing);
@@ -139,7 +123,8 @@ void Statistics::createHighestScoresChart() {
     QList<StudentScore> topScores = Database::instance().getHighestScores(10);
 
     QBarSet *barSet = new QBarSet("Highest Score");
-    barSet->setColor(QColor(34, 139, 34));
+    barSet->setColor(QColor(42, 106, 32));
+    barSet->setBorderColor(QColor(30, 80, 22));
 
     QStringList categories;
     for (int i = 0; i < topScores.size(); i++) {
@@ -150,34 +135,9 @@ void Statistics::createHighestScoresChart() {
     QBarSeries *barSeries = new QBarSeries();
     barSeries->append(barSet);
 
-    highestScoresChart = new QChart();
+    highestScoresChart = makeChart("Students with Highest Scores");
     highestScoresChart->addSeries(barSeries);
-    highestScoresChart->setTitle("Students with Highest Scores");
-    highestScoresChart->setAnimationOptions(QChart::SeriesAnimations);
-    highestScoresChart->setBackgroundRoundness(0);
-    highestScoresChart->setBackgroundBrush(QColor(28, 28, 31));
-    highestScoresChart->setTitleBrush(QColor(224, 224, 228));
-
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsColor(QColor(224, 224, 228));
-    axisX->setGridLineVisible(false);
-    highestScoresChart->addAxis(axisX, Qt::AlignBottom);
-    barSeries->attachAxis(axisX);
-
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 100);
-    axisY->setTitleText("Score");
-    axisY->setLabelsColor(QColor(224, 224, 228));
-    axisY->setTitleBrush(QColor(224, 224, 228));
-    axisY->setGridLineVisible(true);
-    axisY->setGridLinePen(QPen(QColor(42, 42, 45)));
-    highestScoresChart->addAxis(axisY, Qt::AlignLeft);
-    barSeries->attachAxis(axisY);
-
-    highestScoresChart->legend()->setVisible(true);
-    highestScoresChart->legend()->setAlignment(Qt::AlignBottom);
-    highestScoresChart->legend()->setLabelColor(QColor(224, 224, 228));
+    styleAxes(highestScoresChart, barSeries, categories, "Score");
 
     ui->highestChartView->setChart(highestScoresChart);
     ui->highestChartView->setRenderHint(QPainter::Antialiasing);
@@ -187,7 +147,8 @@ void Statistics::createLowestScoresChart() {
     QList<StudentScore> bottomScores = Database::instance().getLowestScores(10);
 
     QBarSet *barSet = new QBarSet("Lowest Score");
-    barSet->setColor(QColor(220, 20, 60));
+    barSet->setColor(QColor(192, 57, 43));
+    barSet->setBorderColor(QColor(150, 40, 30));
 
     QStringList categories;
     for (int i = 0; i < bottomScores.size(); i++) {
@@ -198,34 +159,9 @@ void Statistics::createLowestScoresChart() {
     QBarSeries *barSeries = new QBarSeries();
     barSeries->append(barSet);
 
-    lowestScoresChart = new QChart();
+    lowestScoresChart = makeChart("Students with Lowest Scores");
     lowestScoresChart->addSeries(barSeries);
-    lowestScoresChart->setTitle("Students with Lowest Scores");
-    lowestScoresChart->setAnimationOptions(QChart::SeriesAnimations);
-    lowestScoresChart->setBackgroundRoundness(0);
-    lowestScoresChart->setBackgroundBrush(QColor(28, 28, 31));
-    lowestScoresChart->setTitleBrush(QColor(224, 224, 228));
-
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
-    axisX->setLabelsColor(QColor(224, 224, 228));
-    axisX->setGridLineVisible(false);
-    lowestScoresChart->addAxis(axisX, Qt::AlignBottom);
-    barSeries->attachAxis(axisX);
-
-    QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 100);
-    axisY->setTitleText("Score");
-    axisY->setLabelsColor(QColor(224, 224, 228));
-    axisY->setTitleBrush(QColor(224, 224, 228));
-    axisY->setGridLineVisible(true);
-    axisY->setGridLinePen(QPen(QColor(42, 42, 45)));
-    lowestScoresChart->addAxis(axisY, Qt::AlignLeft);
-    barSeries->attachAxis(axisY);
-
-    lowestScoresChart->legend()->setVisible(true);
-    lowestScoresChart->legend()->setAlignment(Qt::AlignBottom);
-    lowestScoresChart->legend()->setLabelColor(QColor(224, 224, 228));
+    styleAxes(lowestScoresChart, barSeries, categories, "Score");
 
     ui->lowestChartView->setChart(lowestScoresChart);
     ui->lowestChartView->setRenderHint(QPainter::Antialiasing);

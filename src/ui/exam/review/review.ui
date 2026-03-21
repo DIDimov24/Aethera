@@ -2,109 +2,101 @@
 <ui version="4.0">
  <class>Review</class>
  <widget class="QWidget" name="Review">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>750</height>
-   </rect>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>800</width><height>750</height></rect></property>
+  <property name="windowTitle"><string>Review</string></property>
+  <property name="styleSheet">
+   <string notr="true">
+QWidget#Review { background-color: #eceef5; }
+QWidget#topBar { background-color: #2c3e6b; }
+QLabel#labelTopBarPage { color: #c8d4f0; font-size: 13px; font-weight: 600; }
+QLabel#labelTopBarBreadcrumb { color: rgba(200,212,240,0.45); font-size: 13px; }
+QWidget#topBarLine { background-color: #4f6fc4; }
+QScrollArea#scrollAreaReview { background: transparent; border: none; }
+QWidget#scrollContents { background: transparent; }
+QPushButton#buttonBack {
+    background-color: #4f6fc4; color: #ffffff; font-size: 14px; font-weight: 600;
+    border: none; border-radius: 8px; padding: 10px 18px;
+}
+QPushButton#buttonBack:hover { background-color: #3a5aae; }
+QLabel#labelReviewTitle { color: #1a2440; font-size: 20px; font-weight: 700; }
+   </string>
   </property>
-  <property name="windowTitle">
-   <string>Review</string>
-  </property>
-  <layout class="QVBoxLayout" name="mainLayout">
-   <property name="spacing">
-    <number>16</number>
-   </property>
-   <property name="leftMargin">
-    <number>24</number>
-   </property>
-   <property name="topMargin">
-    <number>24</number>
-   </property>
-   <property name="rightMargin">
-    <number>24</number>
-   </property>
-   <property name="bottomMargin">
-    <number>24</number>
-   </property>
+  <layout class="QVBoxLayout" name="outerLayout">
+   <property name="spacing"><number>0</number></property>
+   <property name="leftMargin"><number>0</number></property>
+   <property name="topMargin"><number>0</number></property>
+   <property name="rightMargin"><number>0</number></property>
+   <property name="bottomMargin"><number>0</number></property>
+
    <item>
-    <layout class="QHBoxLayout" name="topLayout">
-     <property name="spacing">
-      <number>12</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="buttonBack">
-       <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>36</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>← Back</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelReviewTitle">
-       <property name="text">
-        <string>Exam Review</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="topSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QScrollArea" name="scrollAreaReview">
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <widget class="QWidget" name="scrollContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>752</width>
-        <height>680</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="layoutReviewContent">
-       <property name="spacing">
-        <number>10</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-      </layout>
-     </widget>
+    <widget class="QWidget" name="topBar" native="true">
+     <property name="minimumSize"><size><width>0</width><height>52</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>52</height></size></property>
+     <layout class="QHBoxLayout" name="topBarLayout">
+      <property name="leftMargin"><number>28</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>28</number></property><property name="bottomMargin"><number>0</number></property>
+      <item><widget class="QLabel" name="labelTopBarBreadcrumb"><property name="text"><string>Aethera  ›  Exams  ›</string></property></widget></item>
+      <item><widget class="QLabel" name="labelTopBarPage"><property name="text"><string>Review</string></property></widget></item>
+      <item><spacer name="s"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+     </layout>
     </widget>
+   </item>
+
+   <item>
+    <widget class="QWidget" name="topBarLine" native="true">
+     <property name="minimumSize"><size><width>0</width><height>3</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>3</height></size></property>
+    </widget>
+   </item>
+
+   <item>
+    <layout class="QVBoxLayout" name="mainLayout">
+     <property name="spacing"><number>16</number></property>
+     <property name="leftMargin"><number>24</number></property>
+     <property name="topMargin"><number>20</number></property>
+     <property name="rightMargin"><number>24</number></property>
+     <property name="bottomMargin"><number>24</number></property>
+
+     <item>
+      <layout class="QHBoxLayout" name="topLayout">
+       <property name="spacing"><number>12</number></property>
+       <item>
+        <widget class="QPushButton" name="buttonBack">
+         <property name="minimumSize"><size><width>90</width><height>36</height></size></property>
+         <property name="text"><string>← Back</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelReviewTitle">
+         <property name="text"><string>Exam Review</string></property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="topSpacer">
+         <property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+
+     <item>
+      <widget class="QScrollArea" name="scrollAreaReview">
+       <property name="widgetResizable"><bool>true</bool></property>
+       <property name="frameShape"><enum>QFrame::Shape::NoFrame</enum></property>
+       <widget class="QWidget" name="scrollContents">
+        <property name="geometry"><rect><x>0</x><y>0</y><width>752</width><height>600</height></rect></property>
+        <layout class="QVBoxLayout" name="layoutReviewContent">
+         <property name="spacing"><number>10</number></property>
+         <property name="leftMargin"><number>0</number></property>
+         <property name="topMargin"><number>0</number></property>
+         <property name="rightMargin"><number>0</number></property>
+         <property name="bottomMargin"><number>0</number></property>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+
+    </layout>
    </item>
   </layout>
  </widget>

@@ -10,7 +10,7 @@
 #include <QSize>
 #include <QEasingCurve>
 #include <QMessageBox>
- 
+
 void Home::onLogoutClicked() {
     QMessageBox msgBox(this);
     msgBox.setWindowTitle("Log Out");
@@ -19,85 +19,79 @@ void Home::onLogoutClicked() {
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     msgBox.setStyleSheet(R"(
-        QMessageBox {
-            background-color: #161618;
-            color: #e0e0e4;
-        }
-        QMessageBox QLabel {
-            color: #e0e0e4;
-            font-size: 13px;
-        }
+        QMessageBox { background-color: #f4f5fa; color: #1a2440; }
+        QMessageBox QLabel { color: #1a2440; font-size: 13px; }
         QPushButton {
-            background-color: #222224;
-            color: #e0e0e4;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid #2a2a2d;
-            border-radius: 6px;
-            padding: 8px 20px;
-            min-width: 80px;
+            background-color: #ffffff; color: #1a2440; font-size: 13px; font-weight: 600;
+            border: 1px solid #d4d8ea; border-radius: 6px; padding: 8px 20px; min-width: 80px;
         }
-        QPushButton:hover {
-            background-color: #2a2a2d;
-            color: #ffffff;
-            border-color: #3a3a3e;
-        }
+        QPushButton:hover { background-color: #eceef5; border-color: #b0bcd8; }
     )");
- 
+
     if (msgBox.exec() != QMessageBox::Yes) return;
- 
+
     UserSession::instance().clear();
     Login *loginPage = new Login();
     this->hide();
     loginPage->show();
 }
- 
+
 void Home::toggleSidebar(bool hidden) {
     sidebarExpanded = hidden ? false : !sidebarExpanded;
- 
+
     const int expandedW  = 200;
     const int collapsedW = 52;
     const int totalH = 750;
     const int totalW = 1000;
- 
+
     int targetSW = sidebarExpanded ? expandedW : collapsedW;
     int targetCW = totalW - targetSW;
- 
+
     auto *sa = new QPropertyAnimation(ui->sidebar, "geometry", this);
     sa->setDuration(180);
     sa->setEasingCurve(QEasingCurve::InOutQuad);
     sa->setStartValue(ui->sidebar->geometry());
     sa->setEndValue(QRect(0, 0, targetSW, totalH));
     sa->start(QAbstractAnimation::DeleteWhenStopped);
- 
+
     auto *ca = new QPropertyAnimation(ui->stackedWidget, "geometry", this);
     ca->setDuration(180);
     ca->setEasingCurve(QEasingCurve::InOutQuad);
     ca->setStartValue(ui->stackedWidget->geometry());
     ca->setEndValue(QRect(targetSW, 0, targetCW, totalH));
     ca->start(QAbstractAnimation::DeleteWhenStopped);
- 
+
     repositionSidebarButtons();
     updateSidebarButtons();
 }
- 
+
 void Home::repositionSidebarButtons() {
     const int btnW = sidebarExpanded ? 184 : 36;
     const int btnX = 8;
     const int btnH = 40;
- 
-    ui->buttonNavHome ->setGeometry(btnX,  60, btnW, btnH);
-    ui->buttonNavExams->setGeometry(btnX, 108, btnW, btnH);
-    ui->buttonNavStatistics->setGeometry(btnX, 156, btnW, btnH);
-    ui->buttonSettings->setGeometry(btnX, 696, btnW, btnH);
-    ui->buttonLogOut->setGeometry(btnX, 648, btnW, btnH);
+
+    ui->sidebarBrand->setGeometry(0, 0, sidebarExpanded ? 200 : 52, 56);
+    ui->labelBrandName->setVisible(sidebarExpanded);
+    ui->labelBrandSub->setVisible(sidebarExpanded);
+
+    ui->sidebarUserPanel->setGeometry(0, 56, sidebarExpanded ? 200 : 52, 60);
+    ui->labelSidebarUsername->setVisible(sidebarExpanded);
+    ui->labelSidebarGrade->setVisible(sidebarExpanded);
+
+    int navTop = 128;
+    ui->buttonNavHome      ->setGeometry(btnX, navTop,       btnW, btnH);
+    ui->buttonNavExams     ->setGeometry(btnX, navTop + 44,  btnW, btnH);
+    ui->buttonNavStatistics->setGeometry(btnX, navTop + 88,  btnW, btnH);
+    ui->buttonSettings     ->setGeometry(btnX, 696, btnW, btnH);
+    ui->buttonLogOut       ->setGeometry(btnX, 648, btnW, btnH);
     ui->buttonLoginRegister->setGeometry(btnX, 648, btnW, btnH);
 }
- 
+
 void Home::updateSidebarButtons() {
-    const char* navNorm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
-    const char* logoutSS = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
-    const char* loginSS = sidebarExpanded ? Style::loginExpanded : Style::loginCollapsed;
+    const char* navNorm    = sidebarExpanded ? Style::navExpanded        : Style::navCollapsed;
+    const char* logoutSS   = sidebarExpanded ? Style::logoutExpanded     : Style::logoutCollapsed;
+    const char* loginSS    = sidebarExpanded ? Style::loginExpanded      : Style::loginCollapsed;
+    const char* navDisabled = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
 
     auto setup = [this](QPushButton *btn, const QString &label, const QString &iconPath, const char *ss) {
         btn->setIcon(QIcon(iconPath));
@@ -112,14 +106,12 @@ void Home::updateSidebarButtons() {
         }
     };
 
-    const char* navDisabled = sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed;
-
     setup(ui->buttonNavHome, "Home", ":/icons/home.svg", navNorm);
     if (UserSession::instance().isLoggedIn()) {
-        setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navNorm);
+        setup(ui->buttonNavExams,      "Exams",      ":/icons/exam.svg",    navNorm);
         setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navNorm);
     } else {
-        setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navDisabled);
+        setup(ui->buttonNavExams,      "Exams",      ":/icons/exam.svg",    navDisabled);
         setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navDisabled);
     }
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
@@ -128,10 +120,26 @@ void Home::updateSidebarButtons() {
         setup(ui->buttonLogOut, "My Profile", ":/icons/user.svg", logoutSS);
         ui->buttonLogOut->setVisible(true);
         ui->buttonLoginRegister->setVisible(false);
+
+        QString username = UserSession::instance().getUsername();
+        QString grade    = UserSession::instance().getGrade();
+        QString initial  = username.isEmpty() ? "?" : username.left(1).toUpper();
+
+        ui->labelSidebarAvatarInitial->setText(initial);
+        ui->labelSidebarUsername->setText(username);
+        ui->labelSidebarGrade->setText("Grade " + grade);
+        ui->labelTopBarAvatarText->setText(initial);
+        ui->labelTopBarGrade->setText("Grade " + grade);
+        ui->labelTopBarGrade->setVisible(true);
+        ui->labelTopBarAvatar->setVisible(true);
+        ui->sidebarUserPanel->setVisible(true);
     } else {
         setup(ui->buttonLoginRegister, "Login / Register", ":/icons/user.svg", loginSS);
         ui->buttonLoginRegister->setVisible(true);
         ui->buttonLogOut->setVisible(false);
+        ui->labelTopBarGrade->setVisible(false);
+        ui->labelTopBarAvatar->setVisible(false);
+        ui->sidebarUserPanel->setVisible(false);
     }
 
     setNavActive(activeNavIndex);
@@ -139,18 +147,17 @@ void Home::updateSidebarButtons() {
 
 void Home::setNavActive(NavPage index) {
     activeNavIndex = index;
- 
-    const char* norm = sidebarExpanded ? Style::navExpanded : Style::navCollapsed;
-    const char* act = sidebarExpanded ? Style::navExpandedActive : Style::navCollapsedActive;
 
-    const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded : Style::logoutCollapsed;
+    const char* norm       = sidebarExpanded ? Style::navExpanded       : Style::navCollapsed;
+    const char* act        = sidebarExpanded ? Style::navExpandedActive  : Style::navCollapsedActive;
+    const char* logoutNorm = sidebarExpanded ? Style::logoutExpanded     : Style::logoutCollapsed;
 
-    ui->buttonNavHome ->setStyleSheet(index == NavPage::Home ? act : norm);
+    ui->buttonNavHome->setStyleSheet(index == NavPage::Home ? act : norm);
     if (!UserSession::instance().isLoggedIn()) {
-        ui->buttonNavExams->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
+        ui->buttonNavExams     ->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
         ui->buttonNavStatistics->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
     } else {
-        ui->buttonNavExams->setStyleSheet(index == NavPage::Exams ? act : norm);
+        ui->buttonNavExams     ->setStyleSheet(index == NavPage::Exams      ? act : norm);
         ui->buttonNavStatistics->setStyleSheet(index == NavPage::Statistics ? act : norm);
     }
     ui->buttonSettings->setStyleSheet(index == NavPage::Settings ? act : norm);

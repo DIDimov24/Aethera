@@ -2,319 +2,79 @@
 <ui version="4.0">
  <class>Session</class>
  <widget class="QWidget" name="Session">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>750</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>800</width><height>750</height></rect></property>
   <property name="styleSheet">
    <string notr="true">
-QWidget#Session {
-    background-color: #161618;
+QWidget#Session { background-color: #eceef5; }
+QPushButton#buttonA, QPushButton#buttonB, QPushButton#buttonC, QPushButton#buttonD {
+    background-color: #ffffff; color: #3a4a70; font-size: 12px; font-weight: 400;
+    border: 1px solid #d4d8ea; border-radius: 8px; padding: 16px 20px;
 }
-QPushButton#buttonA,
-QPushButton#buttonB,
-QPushButton#buttonC,
-QPushButton#buttonD {
-    background-color: #1c1c1f;
-    color: #e0e0e4;
-    font-size: 12px;
-    font-weight: 400;
-    border: 1px solid #2a2a2d;
-    border-radius: 8px;
-    padding: 16px 20px;
-}
-QPushButton#buttonA:hover,
-QPushButton#buttonB:hover,
-QPushButton#buttonC:hover,
-QPushButton#buttonD:hover {
-    background-color: #202023;
-    border-color: #3a3a3e;
-}
-QPushButton#buttonA:pressed,
-QPushButton#buttonB:pressed,
-QPushButton#buttonC:pressed,
-QPushButton#buttonD:pressed {
-    background-color: #1a1a1d;
-    border-color: #4a4a52;
+QPushButton#buttonA:hover, QPushButton#buttonB:hover, QPushButton#buttonC:hover, QPushButton#buttonD:hover {
+    background-color: #f4f5fa; border-color: #4f6fc4;
 }
 QPushButton#buttonNext {
-    background-color: #ffffff;
-    color: #111113;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 28px;
+    background-color: #4f6fc4; color: #ffffff; font-size: 14px; font-weight: 600;
+    border: none; border-radius: 8px; padding: 12px 28px;
 }
-QPushButton#buttonNext:hover {
-    background-color: #e8e8e8;
-}
-QPushButton#buttonNext:disabled {
-    background-color: #1c1c1f;
-    color: #3a3a3e;
-    border: 1px solid #2a2a2d;
-}
-QProgressBar#progressBar {
-    background-color: #222224;
-    border: none;
-    border-radius: 2px;
-    max-height: 3px;
-}
-QProgressBar#progressBar::chunk {
-    background-color: #ffffff;
-    border-radius: 2px;
-}
-QLabel#labelExamTitle {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-QLabel#labelTimer {
-    color: #6b6b76;
-    font-size: 17px;
-    font-weight: 600;
-}
-QLabel#labelQuestion {
-    color: #e0e0e4;
-    font-size: 16px;
-}
-QLabel#labelProgress {
-    color: #3a3a3e;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
+QPushButton#buttonNext:hover { background-color: #3a5aae; }
+QPushButton#buttonNext:disabled { background-color: #dde3f0; color: #a0aac8; border: none; }
+QProgressBar#progressBar { background-color: #dde3f0; border: none; border-radius: 2px; max-height: 3px; }
+QProgressBar#progressBar::chunk { background-color: #4f6fc4; border-radius: 2px; }
+QLabel#labelExamTitle { color: #1a2440; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+QLabel#labelTimer { color: #8898c0; font-size: 17px; font-weight: 600; }
+QLabel#labelQuestion { color: #1a2440; font-size: 16px; }
+QLabel#labelProgress { color: #a0aac8; font-size: 11px; font-weight: 600; letter-spacing: 1px; }
    </string>
   </property>
   <layout class="QVBoxLayout" name="sessionLayout">
-   <property name="spacing">
-    <number>12</number>
-   </property>
-   <property name="leftMargin">
-    <number>50</number>
-   </property>
-   <property name="topMargin">
-    <number>30</number>
-   </property>
-   <property name="rightMargin">
-    <number>50</number>
-   </property>
-   <property name="bottomMargin">
-    <number>40</number>
-   </property>
+   <property name="spacing"><number>12</number></property>
+   <property name="leftMargin"><number>50</number></property>
+   <property name="topMargin"><number>30</number></property>
+   <property name="rightMargin"><number>50</number></property>
+   <property name="bottomMargin"><number>40</number></property>
    <item>
     <layout class="QHBoxLayout" name="examHeaderLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="labelExamTitle">
-       <property name="text">
-        <string>Exam</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="examHeaderSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelTimer">
-       <property name="text">
-        <string>⏱ 10:00</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
+     <item><widget class="QLabel" name="labelExamTitle"><property name="text"><string>Exam</string></property></widget></item>
+     <item><spacer name="examHeaderSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+     <item><widget class="QLabel" name="labelTimer"><property name="text"><string>⏱ 10:00</string></property><property name="alignment"><set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignVCenter</set></property></widget></item>
     </layout>
    </item>
    <item>
     <widget class="QProgressBar" name="progressBar">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>3</height>
-      </size>
-     </property>
-     <property name="maximum">
-      <number>20</number>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-     <property name="textVisible">
-      <bool>false</bool>
-     </property>
+     <property name="maximumSize"><size><width>16777215</width><height>3</height></size></property>
+     <property name="maximum"><number>20</number></property>
+     <property name="value"><number>0</number></property>
+     <property name="textVisible"><bool>false</bool></property>
     </widget>
    </item>
-   <item>
-    <widget class="QLabel" name="labelProgress">
-     <property name="text">
-      <string>1 / 20</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
+   <item><widget class="QLabel" name="labelProgress"><property name="text"><string>1 / 20</string></property><property name="alignment"><set>Qt::AlignmentFlag::AlignCenter</set></property></widget></item>
    <item>
     <widget class="QLabel" name="labelQuestion">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>80</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>In which year did World War II end?</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
+     <property name="minimumSize"><size><width>0</width><height>80</height></size></property>
+     <property name="text"><string>In which year did World War II end?</string></property>
+     <property name="wordWrap"><bool>true</bool></property>
     </widget>
    </item>
-   <item>
-    <widget class="QPushButton" name="buttonA">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>54</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>A)  1943</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonB">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>54</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>B)  1945</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonC">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>54</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>C)  1947</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="buttonD">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>54</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>D)  1950</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Policy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
+   <item><widget class="QPushButton" name="buttonA"><property name="minimumSize"><size><width>0</width><height>54</height></size></property><property name="text"><string>A)  1943</string></property></widget></item>
+   <item><widget class="QPushButton" name="buttonB"><property name="minimumSize"><size><width>0</width><height>54</height></size></property><property name="text"><string>B)  1945</string></property></widget></item>
+   <item><widget class="QPushButton" name="buttonC"><property name="minimumSize"><size><width>0</width><height>54</height></size></property><property name="text"><string>C)  1947</string></property></widget></item>
+   <item><widget class="QPushButton" name="buttonD"><property name="minimumSize"><size><width>0</width><height>54</height></size></property><property name="text"><string>D)  1950</string></property></widget></item>
+   <item><spacer name="verticalSpacer_2"><property name="orientation"><enum>Qt::Orientation::Vertical</enum></property><property name="sizeType"><enum>QSizePolicy::Policy::Fixed</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>20</height></size></property></spacer></item>
    <item>
     <layout class="QHBoxLayout" name="examFooterLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <item>
-      <spacer name="examFooterSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
+     <item><spacer name="examFooterSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
      <item>
       <widget class="QPushButton" name="buttonNext">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>190</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>190</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Next →</string>
-       </property>
+       <property name="enabled"><bool>false</bool></property>
+       <property name="minimumSize"><size><width>190</width><height>48</height></size></property>
+       <property name="maximumSize"><size><width>190</width><height>48</height></size></property>
+       <property name="text"><string>Next →</string></property>
       </widget>
      </item>
     </layout>
    </item>
-   <item>
-    <spacer name="examStretchSpacer">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
+   <item><spacer name="examStretchSpacer"><property name="orientation"><enum>Qt::Orientation::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>20</height></size></property></spacer></item>
   </layout>
  </widget>
  <resources/>

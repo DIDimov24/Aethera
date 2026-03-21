@@ -36,20 +36,20 @@ void History::loadAndPopulate(const QString &username) {
         emptyLayout->setSpacing(12);
 
         QLabel *emptyLabel = new QLabel("No exams taken yet.");
-        emptyLabel->setStyleSheet("color: #6b6b76; font-size: 15px; font-weight: 500;");
+        emptyLabel->setStyleSheet("color: #8898c0; font-size: 15px; font-weight: 500;");
         emptyLabel->setAlignment(Qt::AlignCenter);
 
         QLabel *emptyHint = new QLabel("Take your first exam to start tracking your progress.");
-        emptyHint->setStyleSheet("color: #3a3a3e; font-size: 13px;");
+        emptyHint->setStyleSheet("color: #a0aac8; font-size: 13px;");
         emptyHint->setAlignment(Qt::AlignCenter);
 
         QPushButton *startBtn = new QPushButton("Take First Exam");
         startBtn->setStyleSheet(R"(
             QPushButton {
-                background-color: #1c1c1f; color: #e0e0e4; font-size: 13px; font-weight: 600;
-                border: 1px solid #2a2a2d; border-radius: 8px; padding: 10px 24px;
+                background-color: #4f6fc4; color: #ffffff; font-size: 13px; font-weight: 600;
+                border: none; border-radius: 8px; padding: 10px 24px;
             }
-            QPushButton:hover { background-color: #202023; border-color: #3a3a3e; color: #ffffff; }
+            QPushButton:hover { background-color: #3a5aae; }
         )");
         startBtn->setFixedWidth(180);
         startBtn->setCursor(Qt::PointingHandCursor);
@@ -73,12 +73,13 @@ void History::loadAndPopulate(const QString &username) {
         QString gradeStr;
         QString gradeColor;
         QString iconBg;
-        if (pct >= 90)      { gradeStr = "Excellent (6)";  gradeColor = "#00D4AA"; iconBg = "#0a2e26"; }
-        else if (pct >= 75) { gradeStr = "Very Good (5)";  gradeColor = "#00D4AA"; iconBg = "#0a2e26"; }
-        else if (pct >= 60) { gradeStr = "Good (4)";       gradeColor = "#F5C518"; iconBg = "#2a2410"; }
-        else if (pct >= 45) { gradeStr = "Average (3)";    gradeColor = "#F5C518"; iconBg = "#2a2410"; }
-        else if (pct >= 30) { gradeStr = "Poor (2)";       gradeColor = "#FF6B6B"; iconBg = "#2a0f0f"; }
-        else                { gradeStr = "Very Poor (2-)";  gradeColor = "#FF6B6B"; iconBg = "#2a0f0f"; }
+        QString iconText;
+        if (pct >= 90)      { gradeStr = "Excellent (6)"; gradeColor = "#2a6a20"; iconBg = "#e8f5e3"; iconText = "#2a6a20"; }
+        else if (pct >= 75) { gradeStr = "Very Good (5)"; gradeColor = "#2a6a20"; iconBg = "#e8f5e3"; iconText = "#2a6a20"; }
+        else if (pct >= 60) { gradeStr = "Good (4)";      gradeColor = "#7a5010"; iconBg = "#fef6e4"; iconText = "#7a5010"; }
+        else if (pct >= 45) { gradeStr = "Average (3)";   gradeColor = "#7a5010"; iconBg = "#fef6e4"; iconText = "#7a5010"; }
+        else if (pct >= 30) { gradeStr = "Poor (2)";      gradeColor = "#7a2020"; iconBg = "#fbeaea"; iconText = "#7a2020"; }
+        else                { gradeStr = "Very Poor (2-)";gradeColor = "#7a2020"; iconBg = "#fbeaea"; iconText = "#7a2020"; }
 
         QPushButton *card = new QPushButton;
         card->setCursor(Qt::PointingHandCursor);
@@ -88,18 +89,18 @@ void History::loadAndPopulate(const QString &username) {
         card->setMaximumHeight(76);
         card->setStyleSheet(R"(
             QPushButton#examHistoryCard {
-                background-color: #1c1c1f;
-                border: 1px solid #2a2a2d;
+                background-color: #ffffff;
+                border: 1px solid #d4d8ea;
                 border-radius: 12px;
                 text-align: left;
                 padding: 0px;
             }
             QPushButton#examHistoryCard:hover {
-                background-color: #202023;
-                border-color: #3a3a3e;
+                background-color: #f4f5fa;
+                border-color: #4f6fc4;
             }
             QPushButton#examHistoryCard:pressed {
-                background-color: #252528;
+                background-color: #eef1fb;
             }
         )");
 
@@ -113,7 +114,7 @@ void History::loadAndPopulate(const QString &username) {
 
         QLabel *iconLabel = new QLabel(iconBox);
         iconLabel->setText(QString::number(attempt.score));
-        iconLabel->setStyleSheet(QString("color: %1; font-size: 13px; font-weight: 700; background: transparent;").arg(gradeColor));
+        iconLabel->setStyleSheet(QString("color: %1; font-size: 13px; font-weight: 700; background: transparent;").arg(iconText));
         iconLabel->setAlignment(Qt::AlignCenter);
         iconLabel->setGeometry(0, 0, 40, 40);
 
@@ -122,11 +123,11 @@ void History::loadAndPopulate(const QString &username) {
         textLayout->setContentsMargins(0, 0, 0, 0);
         textLayout->setSpacing(1);
 
-        QLabel *titleLabel = new QLabel(QString("%1  •  %2").arg(attempt.subject, attempt.difficulty));
-        titleLabel->setStyleSheet("color: #e0e0e4; font-size: 13px; font-weight: 600;");
+        QLabel *titleLabel = new QLabel(QString("%1  ·  %2").arg(attempt.subject, attempt.difficulty));
+        titleLabel->setStyleSheet("color: #1a2440; font-size: 13px; font-weight: 600;");
 
-        QLabel *subLabel = new QLabel(QString("%1  •  %2 / 20  •  %3%").arg(attempt.completedAt).arg(attempt.score).arg(static_cast<int>(pct)));
-        subLabel->setStyleSheet("color: #6b6b76; font-size: 11px;");
+        QLabel *subLabel = new QLabel(QString("%1  ·  %2 / 20  ·  %3%").arg(attempt.completedAt).arg(attempt.score).arg(static_cast<int>(pct)));
+        subLabel->setStyleSheet("color: #8898c0; font-size: 11px;");
 
         textLayout->addWidget(titleLabel);
         textLayout->addWidget(subLabel);
@@ -149,7 +150,7 @@ void History::loadAndPopulate(const QString &username) {
         bar->setFixedHeight(4);
         bar->setFixedWidth(80);
         bar->setStyleSheet(QString(R"(
-            QProgressBar { background-color: #2a2a2d; border-radius: 2px; border: none; }
+            QProgressBar { background-color: #dde3f0; border-radius: 2px; border: none; }
             QProgressBar::chunk { background-color: %1; border-radius: 2px; }
         )").arg(gradeColor));
 
@@ -157,7 +158,7 @@ void History::loadAndPopulate(const QString &username) {
         rightLayout->addWidget(bar, 0, Qt::AlignRight);
 
         QLabel *arrowLabel = new QLabel("›");
-        arrowLabel->setStyleSheet("color: #3a3a3e; font-size: 18px;");
+        arrowLabel->setStyleSheet("color: #c0c8e0; font-size: 18px;");
         arrowLabel->setFixedWidth(16);
 
         cardLayout->addWidget(iconBox);
