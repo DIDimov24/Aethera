@@ -5,6 +5,30 @@
 #include <QMessageBox>
 #include <QPushButton>
 
+static QString validatePassword(const QString &password) {
+    if (password.length() < 8)
+        return "Password must be at least 8 characters.";
+
+    bool hasUpper = false;
+    bool hasLower = false;
+    bool hasDigit = false;
+    bool hasSpecial = false;
+
+    for (const QChar &c : password) {
+        if (c.isUpper())  hasUpper = true;
+        if (c.isLower())  hasLower = true;
+        if (c.isDigit())  hasDigit = true;
+        if (!c.isLetterOrNumber()) hasSpecial = true;
+    }
+
+    if (!hasUpper)   return "Password must contain at least one uppercase letter.";
+    if (!hasLower)   return "Password must contain at least one lowercase letter.";
+    if (!hasDigit)   return "Password must contain at least one number.";
+    if (!hasSpecial) return "Password must contain at least one special character.";
+
+    return "";
+}
+
 Settings::Settings(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Settings) {
@@ -112,8 +136,9 @@ void Settings::onSavePassword() {
         return;
     }
 
-    if (newPass.length() < 5) {
-        ui->labelSettingsPasswordStatus->setText("New password must be at least 5 characters.");
+    QString passwordError = validatePassword(newPass);
+    if (!passwordError.isEmpty()) {
+        ui->labelSettingsPasswordStatus->setText(passwordError);
         ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
         ui->labelSettingsPasswordStatus->setVisible(true);
         return;

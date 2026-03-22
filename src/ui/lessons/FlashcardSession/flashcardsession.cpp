@@ -63,6 +63,7 @@ void FlashcardSession::startSession(const QString &subject) {
     ui->stackedWidgetSession->setCurrentIndex(0);
     ui->recallButtons->setVisible(false);
     ui->labelFlipHint->setVisible(true);
+    ui->cardFace->setCurrentIndex(0);
 
     loadCard();
     updateProgress();
@@ -80,6 +81,7 @@ void FlashcardSession::loadCard() {
     ui->cardFace->setCurrentIndex(0);
     ui->recallButtons->setVisible(false);
     ui->labelFlipHint->setVisible(true);
+
     updateProgress();
 }
 
@@ -99,20 +101,9 @@ void FlashcardSession::onFlip() {
     ui->labelFlipHint->setVisible(false);
 }
 
-void FlashcardSession::onAgain() {
-    againCount++;
-    nextCard();
-}
-
-void FlashcardSession::onGood() {
-    goodCount++;
-    nextCard();
-}
-
-void FlashcardSession::onEasy() {
-    easyCount++;
-    nextCard();
-}
+void FlashcardSession::onAgain() { againCount++; nextCard(); }
+void FlashcardSession::onGood()  { goodCount++;  nextCard(); }
+void FlashcardSession::onEasy()  { easyCount++;  nextCard(); }
 
 void FlashcardSession::nextCard() {
     currentIndex++;
