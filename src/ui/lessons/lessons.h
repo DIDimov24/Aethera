@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Lessons; }
@@ -13,6 +14,10 @@ public:
     explicit Lessons(QWidget *parent = nullptr);
     ~Lessons();
 
+    void refresh();
+
 private:
     Ui::Lessons *ui;
+
+    void populateDecks();
 };
