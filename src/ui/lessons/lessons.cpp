@@ -190,6 +190,10 @@ void Lessons::populateDecks() {
         cardLayout->addWidget(metaLabel);
         cardLayout->addWidget(footer);
 
+        connect(card, &QPushButton::clicked, this, [this, subject = deck.subject]() {
+            emit deckSelected(subject);
+        });
+
         gridLayout->addWidget(card);
     }
 

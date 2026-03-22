@@ -24,6 +24,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/inbox
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardDeck
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -37,7 +38,6 @@ set(PROJECT_SOURCES
     assets/icons.qrc
     assets/aethera.db
 
-
     core/db/database.cpp
     core/db/database.h
 
@@ -46,7 +46,6 @@ set(PROJECT_SOURCES
 
     core/utils/utils.h
     core/utils/utils.cpp
-
 
     ui/login/login.cpp
     ui/login/login.h
@@ -114,6 +113,10 @@ set(PROJECT_SOURCES
     ui/lessons/lessons.cpp
     ui/lessons/lessons.h
     ui/lessons/lessons.ui
+
+    ui/lessons/FlashcardDeck/flashcarddeck.cpp
+    ui/lessons/FlashcardDeck/flashcarddeck.h
+    ui/lessons/FlashcardDeck/flashcarddeck.ui
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
@@ -141,4 +144,5 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/inbox
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardDeck
 )

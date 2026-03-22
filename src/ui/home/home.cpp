@@ -50,6 +50,9 @@ Home::Home(QWidget *parent)
     lessonsPage = new Lessons(this);
     ui->stackedWidget->addWidget(lessonsPage);
 
+    flashcardDeckPage = new FlashcardDeck(this);
+    ui->stackedWidget->addWidget(flashcardDeckPage);
+
     sidebarExpanded = true;
     activeNavIndex = NavPage::Home;
     selectedExamSubject = "History";
@@ -157,7 +160,6 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
     connect(sessionPage, &Session::sidebarToggleRequested, this, &Home::toggleSidebar);
-
     connect(ui->buttonQuickExam, &QPushButton::clicked, this, [this]() {
         if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
         setNavActive(NavPage::Exams);
@@ -169,7 +171,15 @@ Home::Home(QWidget *parent)
         historyPage->loadAndPopulate(UserSession::instance().getUsername());
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
-
+    connect(lessonsPage, &Lessons::deckSelected, this, [this](const QString &subject) {
+        setNavActive(NavPage::Lessons);
+        flashcardDeckPage->loadDeck(subject);
+        ui->stackedWidget->setCurrentWidget(flashcardDeckPage);
+    });
+    connect(flashcardDeckPage, &FlashcardDeck::backRequested, this, [this]() {
+        setNavActive(NavPage::Lessons);
+        ui->stackedWidget->setCurrentWidget(lessonsPage);
+    });
 
     updateSidebarButtons();
     setNavActive(NavPage::Home);

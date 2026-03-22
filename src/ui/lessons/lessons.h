@@ -16,6 +16,9 @@ public:
 
     void refresh();
 
+signals:
+    void deckSelected(const QString &subject);
+
 private:
     Ui::Lessons *ui;
 

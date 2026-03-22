@@ -15,6 +15,7 @@
 #include "inbox.h"
 #include "schedule.h"
 #include "lessons.h"
+#include "flashcarddeck.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
@@ -57,6 +58,7 @@ private:
     Inbox *inboxPage;
     Schedule *schedulePage;
     Lessons *lessonsPage;
+    FlashcardDeck *flashcardDeckPage;
 
     bool sidebarExpanded;
     NavPage activeNavIndex;
