@@ -25,6 +25,7 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardDeck
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardSession
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -117,6 +118,10 @@ set(PROJECT_SOURCES
     ui/lessons/FlashcardDeck/flashcarddeck.cpp
     ui/lessons/FlashcardDeck/flashcarddeck.h
     ui/lessons/FlashcardDeck/flashcarddeck.ui
+
+    ui/lessons/FlashcardSession/flashcardsession.cpp
+    ui/lessons/FlashcardSession/flashcardsession.h
+    ui/lessons/FlashcardSession/flashcardsession.ui
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
@@ -145,4 +150,5 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardDeck
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons/FlashcardSession
 )

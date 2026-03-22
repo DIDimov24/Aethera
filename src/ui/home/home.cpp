@@ -53,6 +53,9 @@ Home::Home(QWidget *parent)
     flashcardDeckPage = new FlashcardDeck(this);
     ui->stackedWidget->addWidget(flashcardDeckPage);
 
+    flashcardSessionPage = new FlashcardSession(this);
+    ui->stackedWidget->addWidget(flashcardSessionPage);
+
     sidebarExpanded = true;
     activeNavIndex = NavPage::Home;
     selectedExamSubject = "History";
@@ -133,8 +136,13 @@ Home::Home(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(historyPage);
     });
     connect(subjectsPage, &Subjects::subjectSelected, this, [this](const QString &subject) {
-        selectedExamSubject = subject;
-        ui->stackedWidget->setCurrentWidget(difficultiesPage);
+        if (activeNavIndex == NavPage::Lessons) {
+            flashcardSessionPage->startSession(subject);
+            ui->stackedWidget->setCurrentWidget(flashcardSessionPage);
+        } else {
+            selectedExamSubject = subject;
+            ui->stackedWidget->setCurrentWidget(difficultiesPage);
+        }
     });
     connect(difficultiesPage, &Difficulties::difficultySelected, this, [this](int difficulty) {
         QString difficultySelected = "Beginner";
@@ -176,7 +184,15 @@ Home::Home(QWidget *parent)
         flashcardDeckPage->loadDeck(subject);
         ui->stackedWidget->setCurrentWidget(flashcardDeckPage);
     });
+    connect(lessonsPage, &Lessons::studyRequested, this, [this]() {
+        setNavActive(NavPage::Lessons);
+        ui->stackedWidget->setCurrentWidget(subjectsPage);
+    });
     connect(flashcardDeckPage, &FlashcardDeck::backRequested, this, [this]() {
+        setNavActive(NavPage::Lessons);
+        ui->stackedWidget->setCurrentWidget(lessonsPage);
+    });
+    connect(flashcardSessionPage, &FlashcardSession::sessionFinished, this, [this]() {
         setNavActive(NavPage::Lessons);
         ui->stackedWidget->setCurrentWidget(lessonsPage);
     });

@@ -18,6 +18,7 @@ public:
 
 signals:
     void deckSelected(const QString &subject);
+    void studyRequested();
 
 private:
     Ui::Lessons *ui;

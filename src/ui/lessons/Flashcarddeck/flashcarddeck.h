@@ -17,7 +17,6 @@ public:
 
 signals:
     void backRequested();
-    void studyRequested(const QString &subject);
 
 private slots:
     void onAddCard();

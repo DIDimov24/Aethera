@@ -16,6 +16,7 @@
 #include "schedule.h"
 #include "lessons.h"
 #include "flashcarddeck.h"
+#include "flashcardsession.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
@@ -59,6 +60,7 @@ private:
     Schedule *schedulePage;
     Lessons *lessonsPage;
     FlashcardDeck *flashcardDeckPage;
+    FlashcardSession *flashcardSessionPage;
 
     bool sidebarExpanded;
     NavPage activeNavIndex;

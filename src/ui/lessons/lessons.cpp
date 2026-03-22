@@ -35,9 +35,10 @@ void Lessons::populateDecks() {
         delete item;
     }
 
-    QWidget *studyBanner = new QWidget;
+    QPushButton *studyBanner = new QPushButton;
     studyBanner->setObjectName("studyBanner");
     studyBanner->setCursor(Qt::PointingHandCursor);
+    studyBanner->setFlat(true);
     studyBanner->setMinimumHeight(64);
     studyBanner->setMaximumHeight(64);
     studyBanner->setStyleSheet(R"(
@@ -52,6 +53,8 @@ void Lessons::populateDecks() {
         }
     )");
 
+    connect(studyBanner, &QPushButton::clicked, this, &Lessons::studyRequested);
+
     QHBoxLayout *bannerLayout = new QHBoxLayout(studyBanner);
     bannerLayout->setContentsMargins(16, 0, 16, 0);
     bannerLayout->setSpacing(14);
@@ -59,21 +62,25 @@ void Lessons::populateDecks() {
     QWidget *bannerIcon = new QWidget;
     bannerIcon->setFixedSize(40, 40);
     bannerIcon->setStyleSheet("background-color: #eef1fb; border-radius: 10px;");
+    bannerIcon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     QLabel *bannerIconLabel = new QLabel(bannerIcon);
     bannerIconLabel->setPixmap(QPixmap(":/icons/lessons.svg").scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     bannerIconLabel->setGeometry(10, 10, 20, 20);
 
     QWidget *bannerText = new QWidget;
+    bannerText->setAttribute(Qt::WA_TransparentForMouseEvents, true);
     QVBoxLayout *bannerTextLayout = new QVBoxLayout(bannerText);
     bannerTextLayout->setContentsMargins(0, 0, 0, 0);
     bannerTextLayout->setSpacing(1);
 
-    QLabel *bannerTitle = new QLabel("Study due cards");
+    QLabel *bannerTitle = new QLabel("Study flashcards");
     bannerTitle->setStyleSheet("color: #1a2440; font-size: 14px; font-weight: 600;");
+    bannerTitle->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
-    QLabel *bannerSub = new QLabel("14 cards across 3 decks are ready for review");
+    QLabel *bannerSub = new QLabel("Pick a subject and start a session");
     bannerSub->setStyleSheet("color: #8898c0; font-size: 11px;");
+    bannerSub->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     bannerTextLayout->addWidget(bannerTitle);
     bannerTextLayout->addWidget(bannerSub);
@@ -81,6 +88,7 @@ void Lessons::populateDecks() {
     QLabel *bannerArrow = new QLabel("›");
     bannerArrow->setStyleSheet("color: #c0c8e0; font-size: 20px;");
     bannerArrow->setFixedWidth(16);
+    bannerArrow->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     bannerLayout->addWidget(bannerIcon);
     bannerLayout->addWidget(bannerText, 1);

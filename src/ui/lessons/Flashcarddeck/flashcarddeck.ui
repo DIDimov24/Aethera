@@ -14,12 +14,6 @@ QPushButton#buttonBack {
     border: 1px solid #d4d8ea; border-radius: 8px; padding: 8px 18px;
 }
 QPushButton#buttonBack:hover { background-color: #f4f5fa; color: #1a2440; border-color: #b0bcd8; }
-QPushButton#buttonStudy {
-    background-color: #4f6fc4; color: #ffffff; font-size: 13px; font-weight: 600;
-    border: none; border-radius: 8px; padding: 8px 18px;
-}
-QPushButton#buttonStudy:hover { background-color: #3a5aae; }
-QPushButton#buttonStudy:pressed { background-color: #2c4890; }
 QLabel#labelSectionCards { color: #8898c0; font-size: 9px; font-weight: 700; letter-spacing: 2.5px; }
 QScrollArea { background-color: #eceef5; border: none; }
 QScrollBar:vertical { background: #eceef5; width: 8px; border-radius: 4px; }
@@ -79,13 +73,6 @@ QLabel#labelAddError { color: #c0392b; font-size: 12px; }
        </widget>
       </item>
       <item><spacer name="deckHeaderSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
-      <item>
-       <widget class="QPushButton" name="buttonStudy">
-        <property name="minimumSize"><size><width>100</width><height>36</height></size></property>
-        <property name="maximumSize"><size><width>100</width><height>36</height></size></property>
-        <property name="text"><string>Study now</string></property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>

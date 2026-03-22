@@ -43,9 +43,6 @@ FlashcardDeck::FlashcardDeck(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->buttonBack, &QPushButton::clicked, this, &FlashcardDeck::backRequested);
-    connect(ui->buttonStudy, &QPushButton::clicked, this, [this]() {
-        emit studyRequested(currentSubject);
-    });
     connect(ui->buttonAddCard, &QPushButton::clicked, this, &FlashcardDeck::onAddCard);
 }
 
