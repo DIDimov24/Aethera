@@ -21,14 +21,14 @@ namespace Ui { class Home; }
 QT_END_NAMESPACE
 
 enum class NavPage {
-    Home = 0,
-    Exams = 1,
-    Statistics = 2,
-    Lessons = 3,
-    Schedule = 4,
-    Inbox = 5,
-    Settings = 6,
-    Profile = 7
+    Home,
+    Exams,
+    Statistics,
+    Lessons,
+    Schedule,
+    Inbox,
+    Settings,
+    Profile
 };
 
 class Home : public QMainWindow {

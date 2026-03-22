@@ -15,5 +15,8 @@
         <file>icons/inbox.svg</file>
         <file>icons/schedule.svg</file>
         <file>icons/lessons.svg</file>
+        <file>icons/clock.svg</file>
+        <file>icons/glasses.svg</file>
+        <file>icons/key-round.svg</file>
     </qresource>
 </RCC>
