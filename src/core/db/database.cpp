@@ -292,3 +292,31 @@ QList<CategoryStat> Database::getDifficultyStats() {
 
     return stats;
 }
+
+bool Database::saveFlashcard(const QString &subject, const QString &front, const QString &back) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("INSERT INTO flashcards (subject, front, back) VALUES (?, ?, ?)");
+    query.addBindValue(subject);
+    query.addBindValue(front);
+    query.addBindValue(back);
+    return query.exec();
+}
+
+QList<QPair<QString, QString>> Database::loadFlashcardsForSubject(const QString &subject) {
+    QList<QPair<QString, QString>> results;
+    if (!openDatabase()) return results;
+
+    QSqlQuery query(database);
+    query.prepare("SELECT front, back FROM flashcards WHERE subject = ? ORDER BY id ASC");
+    query.addBindValue(subject);
+
+    if (!query.exec()) return results;
+
+    while (query.next()) {
+        results.append({ query.value(0).toString(), query.value(1).toString() });
+    }
+
+    return results;
+}

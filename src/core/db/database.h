@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include <QList>
 #include <QMap>
+#include <QPair>
 
 struct User {
     QString username;
@@ -61,6 +62,9 @@ public:
     int getTotalEvaluatedStudents();
     QList<CategoryStat> getSubjectStats();
     QList<CategoryStat> getDifficultyStats();
+
+    bool saveFlashcard(const QString &subject, const QString &front, const QString &back);
+    QList<QPair<QString, QString>> loadFlashcardsForSubject(const QString &subject);
 
 private:
     Database();

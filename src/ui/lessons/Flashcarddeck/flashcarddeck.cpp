@@ -6,36 +6,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QFrame>
+#include "database.h"
 
 struct CardEntry {
     QString front;
     QString back;
 };
-
-static QList<CardEntry> cardsForSubject(const QString &subject) {
-    if (subject == "English") {
-        return {
-            { "Ephemeral",   "Lasting for a very short time" },
-            { "Laconic",     "Using very few words" },
-            { "Perfidious",  "Deceitful and untrustworthy" },
-            { "Sanguine",    "Optimistic, especially in a difficult situation" }
-        };
-    }
-    if (subject == "Math") {
-        return {
-            { "Derivative",  "Rate of change of a function" },
-            { "Integral",    "Area under a curve" },
-            { "Prime",       "Divisible only by 1 and itself" },
-            { "Hypotenuse",  "Longest side of a right triangle" }
-        };
-    }
-    return {
-        { "Renaissance",  "Cultural rebirth in 14th-17th century Europe" },
-        { "Imperialism",  "Policy of extending power over other nations" },
-        { "Revolution",   "Fundamental change in power or structure" },
-        { "Monarchy",     "Government ruled by a king or queen" }
-    };
-}
 
 FlashcardDeck::FlashcardDeck(QWidget *parent)
     : QWidget(parent)
@@ -62,7 +38,11 @@ void FlashcardDeck::populateCards() {
         delete item;
     }
 
-    QList<CardEntry> cards = cardsForSubject(currentSubject);
+    QList<CardEntry> cards;
+    QList<QPair<QString, QString>> fromDb = Database::instance().loadFlashcardsForSubject(currentSubject);
+    for (int i = 0; i < fromDb.size(); i++) {
+        cards.append({ fromDb[i].first, fromDb[i].second });
+    }
 
     for (int i = 0; i < cards.size(); i++) {
         const CardEntry &entry = cards[i];
@@ -105,7 +85,7 @@ void FlashcardDeck::populateCards() {
 
 void FlashcardDeck::onAddCard() {
     QString front = ui->inputFront->text().trimmed();
-    QString back  = ui->inputBack->text().trimmed();
+    QString back = ui->inputBack->text().trimmed();
 
     if (front.isEmpty() || back.isEmpty()) {
         ui->labelAddError->setText("Please fill in both fields.");
@@ -114,6 +94,12 @@ void FlashcardDeck::onAddCard() {
     }
 
     ui->labelAddError->setVisible(false);
+    if (!Database::instance().saveFlashcard(currentSubject, front, back)) {
+        ui->labelAddError->setText("Failed to save card.");
+        ui->labelAddError->setVisible(true);
+        return;
+    }
+
     ui->inputFront->clear();
     ui->inputBack->clear();
     ui->inputFront->setFocus();

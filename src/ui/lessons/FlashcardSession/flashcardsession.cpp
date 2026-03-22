@@ -1,41 +1,18 @@
 #include "flashcardsession.h"
 #include "ui_flashcardsession.h"
 #include <QPushButton>
+#include "database.h"
 
-static QList<QPair<QString, QString>> cardsForSubject(const QString &subject) {
-    if (subject == "English") {
-        return {
-            { "Ephemeral",   "Lasting for a very short time" },
-            { "Laconic",     "Using very few words" },
-            { "Perfidious",  "Deceitful and untrustworthy" },
-            { "Sanguine",    "Optimistic, especially in a difficult situation" }
-        };
-    }
-    if (subject == "Math") {
-        return {
-            { "Derivative",  "Rate of change of a function" },
-            { "Integral",    "Area under a curve" },
-            { "Prime",       "Divisible only by 1 and itself" },
-            { "Hypotenuse",  "Longest side of a right triangle" }
-        };
-    }
-    return {
-        { "Renaissance",  "Cultural rebirth in 14th-17th century Europe" },
-        { "Imperialism",  "Policy of extending power over other nations" },
-        { "Revolution",   "Fundamental change in power or structure" },
-        { "Monarchy",     "Government ruled by a king or queen" }
-    };
-}
 
 FlashcardSession::FlashcardSession(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::FlashcardSession)
-    , currentIndex(0)
-    , flipped(false)
-    , againCount(0)
-    , goodCount(0)
-    , easyCount(0) {
+    , ui(new Ui::FlashcardSession) {
     ui->setupUi(this);
+    currentIndex = 0;
+    flipped = false;
+    againCount = 0;
+    goodCount = 0;
+    easyCount = 0;
 
     connect(ui->buttonFlip,  &QPushButton::clicked, this, &FlashcardSession::onFlip);
     connect(ui->buttonAgain, &QPushButton::clicked, this, &FlashcardSession::onAgain);
@@ -52,7 +29,7 @@ FlashcardSession::~FlashcardSession() {
 }
 
 void FlashcardSession::startSession(const QString &subject) {
-    cards = cardsForSubject(subject);
+    cards = Database::instance().loadFlashcardsForSubject(subject);
     currentIndex = 0;
     flipped = false;
     againCount = 0;
@@ -102,8 +79,8 @@ void FlashcardSession::onFlip() {
 }
 
 void FlashcardSession::onAgain() { againCount++; nextCard(); }
-void FlashcardSession::onGood()  { goodCount++;  nextCard(); }
-void FlashcardSession::onEasy()  { easyCount++;  nextCard(); }
+void FlashcardSession::onGood() { goodCount++; nextCard(); }
+void FlashcardSession::onEasy() { easyCount++; nextCard(); }
 
 void FlashcardSession::nextCard() {
     currentIndex++;

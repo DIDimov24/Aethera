@@ -8,7 +8,6 @@
 QWidget#FlashcardDeck { background-color: #eceef5; }
 QWidget#deckHeader { background-color: #eceef5; border-bottom: 1px solid #d4d8ea; }
 QLabel#labelDeckTitle { color: #1a2440; font-size: 20px; font-weight: 700; }
-QLabel#labelDeckMeta { color: #8898c0; font-size: 12px; }
 QPushButton#buttonBack {
     background-color: transparent; color: #8898c0; font-size: 13px; font-weight: 500;
     border: 1px solid #d4d8ea; border-radius: 8px; padding: 8px 18px;
@@ -63,16 +62,20 @@ QLabel#labelAddError { color: #c0392b; font-size: 12px; }
        <widget class="QWidget" name="headerTextBlock" native="true">
         <layout class="QVBoxLayout" name="headerTextLayout">
          <property name="spacing"><number>1</number></property>
-         <property name="leftMargin"><number>8</number></property>
+         <property name="leftMargin"><number>0</number></property>
          <property name="topMargin"><number>0</number></property>
          <property name="rightMargin"><number>0</number></property>
          <property name="bottomMargin"><number>0</number></property>
-         <item><widget class="QLabel" name="labelDeckTitle"><property name="text"><string>English</string></property></widget></item>
-         <item><widget class="QLabel" name="labelDeckMeta"><property name="text"><string>10 cards · 8 due today</string></property></widget></item>
+                 <item>
+                    <widget class="QLabel" name="labelDeckTitle">
+                     <property name="text"><string>English</string></property>
+                     <property name="alignment"><set>Qt::AlignCenter</set></property>
+                    </widget>
+                 </item>
         </layout>
        </widget>
       </item>
-      <item><spacer name="deckHeaderSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+            <item><spacer name="deckHeaderSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>80</width><height>20</height></size></property></spacer></item>
      </layout>
     </widget>
    </item>

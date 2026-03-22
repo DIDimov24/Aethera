@@ -1,5 +1,6 @@
 #include "lessons.h"
 #include "ui_lessons.h"
+#include "database.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -10,8 +11,6 @@ struct DeckInfo {
     QString subject;
     QString iconBg;
     QString iconPath;
-    int totalCards;
-    int dueCards;
 };
 
 Lessons::Lessons(QWidget *parent)
@@ -55,12 +54,8 @@ void Lessons::populateDecks() {
 
     connect(studyBanner, &QPushButton::clicked, this, &Lessons::studyRequested);
 
-    QHBoxLayout *bannerLayout = new QHBoxLayout(studyBanner);
-    bannerLayout->setContentsMargins(16, 0, 16, 0);
-    bannerLayout->setSpacing(14);
-
-    QWidget *bannerIcon = new QWidget;
-    bannerIcon->setFixedSize(40, 40);
+    QWidget *bannerIcon = new QWidget(studyBanner);
+    bannerIcon->setGeometry(16, 12, 40, 40);
     bannerIcon->setStyleSheet("background-color: #eef1fb; border-radius: 10px;");
     bannerIcon->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
@@ -68,31 +63,15 @@ void Lessons::populateDecks() {
     bannerIconLabel->setPixmap(QPixmap(":/icons/lessons.svg").scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     bannerIconLabel->setGeometry(10, 10, 20, 20);
 
-    QWidget *bannerText = new QWidget;
-    bannerText->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-    QVBoxLayout *bannerTextLayout = new QVBoxLayout(bannerText);
-    bannerTextLayout->setContentsMargins(0, 0, 0, 0);
-    bannerTextLayout->setSpacing(1);
-
-    QLabel *bannerTitle = new QLabel("Study flashcards");
+    QLabel *bannerTitle = new QLabel("Study flashcards", studyBanner);
+    bannerTitle->setGeometry(88, 10, 260, 22);
     bannerTitle->setStyleSheet("color: #1a2440; font-size: 14px; font-weight: 600;");
     bannerTitle->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
-    QLabel *bannerSub = new QLabel("Pick a subject and start a session");
+    QLabel *bannerSub = new QLabel("Pick a subject and start a session", studyBanner);
+    bannerSub->setGeometry(88, 33, 320, 18);
     bannerSub->setStyleSheet("color: #8898c0; font-size: 11px;");
     bannerSub->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-
-    bannerTextLayout->addWidget(bannerTitle);
-    bannerTextLayout->addWidget(bannerSub);
-
-    QLabel *bannerArrow = new QLabel("›");
-    bannerArrow->setStyleSheet("color: #c0c8e0; font-size: 20px;");
-    bannerArrow->setFixedWidth(16);
-    bannerArrow->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-
-    bannerLayout->addWidget(bannerIcon);
-    bannerLayout->addWidget(bannerText, 1);
-    bannerLayout->addWidget(bannerArrow);
 
     ui->layoutDecksContent->addWidget(studyBanner);
 
@@ -101,9 +80,9 @@ void Lessons::populateDecks() {
     ui->layoutDecksContent->addWidget(sectionLabel);
 
     const QList<DeckInfo> decks = {
-        { "English", "#eef1fb", ":/icons/exam-2.svg",  10, 8 },
-        { "Math",    "#fef6e4", ":/icons/diagram.svg",  10, 4 },
-        { "History", "#f0f8ec", ":/icons/history.svg",  10, 0 }
+        { "English", "#eef1fb", ":/icons/exam-2.svg" },
+        { "Math", "#fef6e4", ":/icons/diagram.svg" },
+        { "History", "#f0f8ec", ":/icons/history.svg" }
     };
 
     QWidget *gridRow = new QWidget;
@@ -151,8 +130,10 @@ void Lessons::populateDecks() {
         titleLabel->setStyleSheet("color: #1a2440; font-size: 14px; font-weight: 600;");
         titleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
-        QLabel *metaLabel = new QLabel(QString("%1 cards").arg(deck.totalCards));
-        metaLabel->setStyleSheet("color: #8898c0; font-size: 11px;");
+        int cardCount = Database::instance().loadFlashcardsForSubject(deck.subject).size();
+        QString cardsText = QString("%1 cards").arg(cardCount);
+        QLabel *metaLabel = new QLabel(cardsText);
+        metaLabel->setStyleSheet("color: #8898c0; font-size: 13px;");
         metaLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
         QWidget *footer = new QWidget;
@@ -161,39 +142,14 @@ void Lessons::populateDecks() {
         footerLayout->setContentsMargins(0, 6, 0, 0);
         footerLayout->setSpacing(0);
 
-        QLabel *badgeLabel = new QLabel;
-        if (deck.dueCards > 0) {
-            badgeLabel->setText(QString("%1 due").arg(deck.dueCards));
-            badgeLabel->setStyleSheet(R"(
-                color: #7a5010;
-                background-color: #fef6e4;
-                border: 1px solid #e8c870;
-                border-radius: 10px;
-                padding: 2px 8px;
-                font-size: 11px;
-                font-weight: 600;
-            )");
-        } else {
-            badgeLabel->setText("Up to date");
-            badgeLabel->setStyleSheet(R"(
-                color: #2a6a20;
-                background-color: #f0f8ec;
-                border: 1px solid #a0cc80;
-                border-radius: 10px;
-                padding: 2px 8px;
-                font-size: 11px;
-                font-weight: 600;
-            )");
-        }
-
         QLabel *arrowLabel = new QLabel("›");
         arrowLabel->setStyleSheet("color: #c0c8e0; font-size: 16px;");
 
-        footerLayout->addWidget(badgeLabel);
         footerLayout->addStretch();
         footerLayout->addWidget(arrowLabel);
 
         cardLayout->addWidget(iconBox);
+        cardLayout->addSpacing(6);
         cardLayout->addWidget(titleLabel);
         cardLayout->addWidget(metaLabel);
         cardLayout->addWidget(footer);
