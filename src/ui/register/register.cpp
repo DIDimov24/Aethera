@@ -21,30 +21,6 @@ Register::~Register() {
     delete ui;
 }
 
-static QString validatePassword(const QString &password) {
-    if (password.length() < 8)
-        return "Password must be at least 8 characters.";
-
-    bool hasUpper = false;
-    bool hasLower = false;
-    bool hasDigit = false;
-    bool hasSpecial = false;
-
-    for (const QChar &c : password) {
-        if (c.isUpper())  hasUpper = true;
-        if (c.isLower())  hasLower = true;
-        if (c.isDigit())  hasDigit = true;
-        if (!c.isLetterOrNumber()) hasSpecial = true;
-    }
-
-    if (!hasUpper)   return "Password must contain at least one uppercase letter.";
-    if (!hasLower)   return "Password must contain at least one lowercase letter.";
-    if (!hasDigit)   return "Password must contain at least one number.";
-    if (!hasSpecial) return "Password must contain at least one special character.";
-
-    return "";
-}
-
 void Register::onCreateClicked() {
     QString username = ui->inputUsername->text().trimmed();
     QString password = ui->inputPassword->text().trimmed();
@@ -68,9 +44,8 @@ void Register::onCreateClicked() {
         return;
     }
 
-    QString passwordError = validatePassword(password);
-    if (!passwordError.isEmpty()) {
-        ui->labelError->setText(passwordError);
+    if (password.length() < 5) {
+        ui->labelError->setText("Password must be at least 5 characters.");
         return;
     }
 
