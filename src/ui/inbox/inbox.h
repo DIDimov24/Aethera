@@ -1,6 +1,16 @@
 #pragma once
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QVector>
+
+struct InboxMessage {
+    QString author;
+    QString subject;
+    QString participants;
+    QString data;
+    bool read = false;
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Inbox; }
@@ -15,4 +25,7 @@ public:
 
 private:
     Ui::Inbox *ui;
+
+    QString buildMessageHtml(const InboxMessage &message);
+    void addInboxMessages(QVBoxLayout *layout, const QVector<InboxMessage> &messages);
 };

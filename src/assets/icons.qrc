@@ -18,5 +18,6 @@
         <file>icons/clock.svg</file>
         <file>icons/glasses.svg</file>
         <file>icons/key-round.svg</file>
+        <file>icons/check.svg</file>
     </qresource>
 </RCC>

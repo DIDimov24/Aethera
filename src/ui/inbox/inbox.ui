@@ -13,6 +13,9 @@
   <property name="styleSheet">
    <string notr="true">QWidget#Inbox { background-color: #eceef5; }
 QWidget#inboxHeader { background-color: #eceef5; border-bottom: 1px solid #d4d8ea; }
+QScrollArea#inboxScrollArea { background-color: #eceef5; }
+QWidget#inboxBody { background-color: #eceef5; }
+QScrollArea#inboxScrollArea &gt; QWidget#qt_scrollarea_viewport { background-color: #eceef5; }
 QLabel#labelInboxTitle { color: #1a2440; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
 QLabel#labelInboxPlaceholder { color: #8898c0; font-size: 14px; }</string>
   </property>
@@ -82,44 +85,56 @@ QLabel#labelInboxPlaceholder { color: #8898c0; font-size: 14px; }</string>
      </layout>
     </widget>
    </item>
-   <item>
-    <widget class="QWidget" name="inboxBody" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="leftMargin">
-       <number>50</number>
+  <item>
+   <widget class="QScrollArea" name="inboxScrollArea">
+    <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+    </property>
+    <property name="widgetResizable">
+    <bool>true</bool>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+    </property>
+    <widget class="QWidget" name="inboxBody">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>678</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="leftMargin">
+      <number>50</number>
+     </property>
+     <property name="topMargin">
+      <number>32</number>
+     </property>
+     <property name="rightMargin">
+      <number>50</number>
+     </property>
+     <property name="bottomMargin">
+      <number>40</number>
+     </property>
+     <item>
+      <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
       </property>
-      <property name="topMargin">
-       <number>32</number>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
       </property>
-      <property name="rightMargin">
-       <number>50</number>
-      </property>
-      <property name="bottomMargin">
-       <number>40</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="labelInboxPlaceholder">
-        <property name="text">
-         <string>Inbox page placeholder</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+      </spacer>
+     </item>
+    </layout>
     </widget>
-   </item>
+   </widget>
+  </item>
   </layout>
  </widget>
  <resources/>
