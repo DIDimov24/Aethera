@@ -24,6 +24,8 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="40" alt="cplusplus logo"  />
   <img width="5">
   <img src="https://skillicons.dev/icons?i=cmake" height="40" alt="cmake logo"  />
+  <img width="5">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" height="40" alt="sqlite logo"  />
 </div>
 
 ## Table of Contents
@@ -98,10 +100,19 @@ src/
 Make sure you have the following installed:
 
 - **Qt Framework** (v6.9 or higher)
+- **DB Browser for SQLite** (desktop app)
 
 ### Installation
 
 Download and install [Qt Creator](https://www.qt.io/development/download-qt-installer-oss) from the official website.
+
+To open the project database `Aethera.db` with SQLite:
+
+1. Install DB Browser for SQLite from: [https://sqlitebrowser.org/dl/](https://sqlitebrowser.org/dl/)
+2. Open **DB Browser for SQLite**
+3. Click **Open Database**
+4. Select the `Aethera.db` file
+5. Use the **Browse Data** tab to view tables (for example, `users`)
 
 ### Building
 
