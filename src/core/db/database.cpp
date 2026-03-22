@@ -92,11 +92,23 @@ bool Database::getUser(const QString &username, User &user) {
 bool Database::updateUsername(const QString &oldUsername, const QString &newUsername) {
     if (!openDatabase()) return false;
 
-    QSqlQuery query(database);
-    query.prepare("UPDATE users SET username = ? WHERE username = ?");
-    query.addBindValue(newUsername);
-    query.addBindValue(oldUsername);
-    return query.exec();
+    QSqlQuery queryUsers(database);
+    queryUsers.prepare("UPDATE users SET username = ? WHERE username = ?");
+    queryUsers.addBindValue(newUsername);
+    queryUsers.addBindValue(oldUsername);
+    if (!queryUsers.exec()) {
+        return false;
+    }
+
+    QSqlQuery queryExamAttempts(database);
+    queryExamAttempts.prepare("UPDATE exam_attempts SET username = ? WHERE username = ?");
+    queryExamAttempts.addBindValue(newUsername);
+    queryExamAttempts.addBindValue(oldUsername);
+    if (!queryExamAttempts.exec()) {
+        return false;
+    }
+
+    return true;
 }
 
 bool Database::updatePassword(const QString &username, const QString &newPassword) {
