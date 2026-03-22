@@ -41,6 +41,15 @@ Home::Home(QWidget *parent)
     statisticsPage = new Statistics(this);
     ui->stackedWidget->addWidget(statisticsPage);
 
+    inboxPage = new Inbox(this);
+    ui->stackedWidget->addWidget(inboxPage);
+
+    schedulePage = new Schedule(this);
+    ui->stackedWidget->addWidget(schedulePage);
+
+    lessonsPage = new Lessons(this);
+    ui->stackedWidget->addWidget(lessonsPage);
+
     sidebarExpanded = true;
     activeNavIndex = NavPage::Home;
     selectedExamSubject = "History";
@@ -62,6 +71,21 @@ Home::Home(QWidget *parent)
         setNavActive(NavPage::Statistics);
         statisticsPage->refresh();
         ui->stackedWidget->setCurrentWidget(statisticsPage);
+    });
+    connect(ui->buttonNavInbox, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
+        setNavActive(NavPage::Inbox);
+        ui->stackedWidget->setCurrentWidget(inboxPage);
+    });
+    connect(ui->buttonNavSchedule, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
+        setNavActive(NavPage::Schedule);
+        ui->stackedWidget->setCurrentWidget(schedulePage);
+    });
+    connect(ui->buttonNavLessons, &QPushButton::clicked, this, [this]() {
+        if (!UserSession::instance().isLoggedIn()) { showAccountRequired(); return; }
+        setNavActive(NavPage::Lessons);
+        ui->stackedWidget->setCurrentWidget(lessonsPage);
     });
     connect(ui->buttonLogOut, &QPushButton::clicked, this, [this]() {
         setNavActive(NavPage::Profile);

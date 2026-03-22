@@ -12,5 +12,8 @@
         <file>icons/history.svg</file>
         <file>icons/iconLogo.jpg</file>
         <file>icons/TextLogo.jpg</file>
+        <file>icons/inbox.svg</file>
+        <file>icons/schedule.svg</file>
+        <file>icons/lessons.svg</file>
     </qresource>
 </RCC>

@@ -21,6 +21,9 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/statistics
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/inbox
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -99,6 +102,18 @@ set(PROJECT_SOURCES
     ui/statistics/statistics.cpp
     ui/statistics/statistics.h
     ui/statistics/statistics.ui
+
+    ui/inbox/inbox.cpp
+    ui/inbox/inbox.h
+    ui/inbox/inbox.ui
+
+    ui/schedule/schedule.cpp
+    ui/schedule/schedule.h
+    ui/schedule/schedule.ui
+
+    ui/lessons/lessons.cpp
+    ui/lessons/lessons.h
+    ui/lessons/lessons.ui
 )
 
 qt_add_executable(Aethera ${PROJECT_SOURCES})
@@ -123,4 +138,7 @@ target_include_directories(Aethera PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/history
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/exam/review
     ${CMAKE_CURRENT_SOURCE_DIR}/ui/statistics
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/inbox
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/schedule
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui/lessons
 )

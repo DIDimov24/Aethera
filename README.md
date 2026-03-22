@@ -72,9 +72,12 @@ src/
 ├── ui/
 │   ├── exam/
 │   ├── home/
+│   ├── inbox/
+│   ├── lessons/
 │   ├── login/
 │   ├── profile/
 │   ├── register/
+│   ├── schedule/
 │   ├── settings/
 │   ├── sidebar/
 │   └── statistics/

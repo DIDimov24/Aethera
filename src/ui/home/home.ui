@@ -110,6 +110,24 @@ QToolTip { background-color: #2c3e6b; color: #c8d4f0; border: 1px solid #4f6fc4;
     <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/diagram.svg</normaloff>:/icons/diagram.svg</iconset></property>
      <property name="iconSize"><size><width>18</width><height>18</height></size></property>
     </widget>
+    <widget class="QPushButton" name="buttonNavInbox">
+      <property name="geometry"><rect><x>8</x><y>348</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Inbox</string></property>
+    <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/inbox.svg</normaloff>:/icons/inbox.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+    </widget>
+    <widget class="QPushButton" name="buttonNavSchedule">
+     <property name="geometry"><rect><x>8</x><y>304</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Schedule</string></property>
+    <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/schedule.svg</normaloff>:/icons/schedule.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+    </widget>
+    <widget class="QPushButton" name="buttonNavLessons">
+      <property name="geometry"><rect><x>8</x><y>260</y><width>184</width><height>40</height></rect></property>
+     <property name="text"><string>   Lessons</string></property>
+    <property name="icon"><iconset resource="../../assets/icons.qrc"><normaloff>:/icons/lessons.svg</normaloff>:/icons/lessons.svg</iconset></property>
+     <property name="iconSize"><size><width>18</width><height>18</height></size></property>
+    </widget>
 
     <widget class="QPushButton" name="buttonLogOut">
      <property name="geometry"><rect><x>8</x><y>648</y><width>184</width><height>40</height></rect></property>

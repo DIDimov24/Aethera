@@ -12,6 +12,9 @@
 #include "review.h"
 #include "settings.h"
 #include "statistics.h"
+#include "inbox.h"
+#include "schedule.h"
+#include "lessons.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Home; }
@@ -20,9 +23,12 @@ QT_END_NAMESPACE
 enum class NavPage {
     Home = 0,
     Exams = 1,
-    Settings = 2,
-    Profile = 3,
-    Statistics = 4
+    Statistics = 2,
+    Lessons = 3,
+    Schedule = 4,
+    Inbox = 5,
+    Settings = 6,
+    Profile = 7
 };
 
 class Home : public QMainWindow {
@@ -48,6 +54,9 @@ private:
     History *historyPage;
     Review *reviewPage;
     Statistics *statisticsPage;
+    Inbox *inboxPage;
+    Schedule *schedulePage;
+    Lessons *lessonsPage;
 
     bool sidebarExpanded;
     NavPage activeNavIndex;

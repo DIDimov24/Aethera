@@ -84,6 +84,9 @@ void Home::repositionSidebarButtons() {
     ui->buttonNavHome      ->setGeometry(btnX, navTop,       btnW, btnH);
     ui->buttonNavExams     ->setGeometry(btnX, navTop + 44,  btnW, btnH);
     ui->buttonNavStatistics->setGeometry(btnX, navTop + 88,  btnW, btnH);
+    ui->buttonNavLessons   ->setGeometry(btnX, navTop + 132, btnW, btnH);
+    ui->buttonNavSchedule  ->setGeometry(btnX, navTop + 176, btnW, btnH);
+    ui->buttonNavInbox     ->setGeometry(btnX, navTop + 220, btnW, btnH);
     ui->buttonSettings     ->setGeometry(btnX, 696, btnW, btnH);
     ui->buttonLogOut       ->setGeometry(btnX, 648, btnW, btnH);
     ui->buttonLoginRegister->setGeometry(btnX, 648, btnW, btnH);
@@ -115,6 +118,15 @@ void Home::updateSidebarButtons() {
     } else {
         setup(ui->buttonNavExams, "Exams", ":/icons/exam.svg", navDisabled);
         setup(ui->buttonNavStatistics, "Statistics", ":/icons/diagram.svg", navDisabled);
+    }
+    if (UserSession::instance().isLoggedIn()) {
+        setup(ui->buttonNavLessons, "Lessons", ":/icons/lessons.svg", navNorm);
+        setup(ui->buttonNavSchedule, "Schedule", ":/icons/schedule.svg", navNorm);
+        setup(ui->buttonNavInbox, "Inbox", ":/icons/inbox.svg", navNorm);
+    } else {
+        setup(ui->buttonNavLessons, "Lessons", ":/icons/lessons.svg", navDisabled);
+        setup(ui->buttonNavSchedule, "Schedule", ":/icons/schedule.svg", navDisabled);
+        setup(ui->buttonNavInbox, "Inbox", ":/icons/inbox.svg", navDisabled);
     }
     setup(ui->buttonSettings, "Settings", ":/icons/settings.svg", navNorm);
 
@@ -171,9 +183,15 @@ void Home::setNavActive(NavPage index) {
     if (!UserSession::instance().isLoggedIn()) {
         ui->buttonNavExams     ->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
         ui->buttonNavStatistics->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
+        ui->buttonNavLessons   ->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
+        ui->buttonNavSchedule  ->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
+        ui->buttonNavInbox     ->setStyleSheet(sidebarExpanded ? Style::navDisabledExpanded : Style::navDisabledCollapsed);
     } else {
         ui->buttonNavExams     ->setStyleSheet(index == NavPage::Exams      ? act : norm);
         ui->buttonNavStatistics->setStyleSheet(index == NavPage::Statistics ? act : norm);
+        ui->buttonNavLessons   ->setStyleSheet(index == NavPage::Lessons    ? act : norm);
+        ui->buttonNavSchedule  ->setStyleSheet(index == NavPage::Schedule   ? act : norm);
+        ui->buttonNavInbox     ->setStyleSheet(index == NavPage::Inbox      ? act : norm);
     }
     ui->buttonSettings->setStyleSheet(index == NavPage::Settings ? act : norm);
 
