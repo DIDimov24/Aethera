@@ -83,6 +83,7 @@ void Settings::onSaveUsername() {
     ui->labelSettingsUsernameStatus->setText("Username updated successfully!");
     ui->labelSettingsUsernameStatus->setStyleSheet("color: #2a6a20; font-size: 12px;");
     ui->labelSettingsUsernameStatus->setVisible(true);
+    emit usernameChanged();
 }
 
 void Settings::onSavePassword() {
@@ -114,6 +115,25 @@ void Settings::onSavePassword() {
 
     if (newPass.length() < 5) {
         ui->labelSettingsPasswordStatus->setText("Password must be at least 5 characters.");
+        ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsPasswordStatus->setVisible(true);
+        return;
+    }
+
+    bool hasUpper = false;
+    bool hasDigit = false;
+    for (int i = 0; i < newPass.length(); i++) {
+        if (newPass[i].isUpper()) hasUpper = true;
+        if (newPass[i].isDigit()) hasDigit = true;
+    }
+    if (!hasUpper) {
+        ui->labelSettingsPasswordStatus->setText("Password must contain at least one uppercase letter.");
+        ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
+        ui->labelSettingsPasswordStatus->setVisible(true);
+        return;
+    }
+    if (!hasDigit) {
+        ui->labelSettingsPasswordStatus->setText("Password must contain at least one digit.");
         ui->labelSettingsPasswordStatus->setStyleSheet("color: #c0392b; font-size: 12px;");
         ui->labelSettingsPasswordStatus->setVisible(true);
         return;
@@ -166,6 +186,7 @@ void Settings::onSaveGrade() {
     ui->labelSettingsGradeStatus->setText("Grade updated successfully!");
     ui->labelSettingsGradeStatus->setStyleSheet("color: #2a6a20; font-size: 12px;");
     ui->labelSettingsGradeStatus->setVisible(true);
+    emit gradeChanged();
 }
 
 void Settings::onSaveBio() {
@@ -183,6 +204,7 @@ void Settings::onSaveBio() {
     ui->labelSettingsBioStatus->setText("Bio updated successfully!");
     ui->labelSettingsBioStatus->setStyleSheet("color: #2a6a20; font-size: 12px;");
     ui->labelSettingsBioStatus->setVisible(true);
+    emit bioChanged();
 }
 
 void Settings::onDeleteAccountClicked() {

@@ -116,6 +116,18 @@ Home::Home(QWidget *parent)
         this->hide();
         loginPage->show();
     });
+    connect(settingsPage, &Settings::usernameChanged, this, [this]() {
+        updateSidebarButtons();
+        profilePage->refresh();
+        updateStatsCards();
+    });
+    connect(settingsPage, &Settings::gradeChanged, this, [this]() {
+        updateSidebarButtons();
+        profilePage->refresh();
+    });
+    connect(settingsPage, &Settings::bioChanged, this, [this]() {
+        profilePage->refresh();
+    });
     connect(historyPage, &History::newExamRequested, this, [this]() {
         setNavActive(NavPage::Exams);
         ui->stackedWidget->setCurrentWidget(subjectsPage);

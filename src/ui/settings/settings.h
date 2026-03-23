@@ -17,6 +17,9 @@ public:
 
 signals:
     void accountDeleted();
+    void usernameChanged();
+    void gradeChanged();
+    void bioChanged();
 
 private:
     Ui::Settings *ui;

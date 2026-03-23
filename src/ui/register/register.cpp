@@ -49,6 +49,21 @@ void Register::onCreateClicked() {
         return;
     }
 
+    bool hasUpper = false;
+    bool hasDigit = false;
+    for (int i = 0; i < password.length(); i++) {
+        if (password[i].isUpper()) hasUpper = true;
+        if (password[i].isDigit()) hasDigit = true;
+    }
+    if (!hasUpper) {
+        ui->labelError->setText("Password must contain at least one uppercase letter.");
+        return;
+    }
+    if (!hasDigit) {
+        ui->labelError->setText("Password must contain at least one digit.");
+        return;
+    }
+
     if (Database::instance().userExists(username)) {
         ui->labelError->setText("Username already taken. Please choose another.");
         ui->inputUsername->setFocus();
