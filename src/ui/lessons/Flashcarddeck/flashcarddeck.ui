@@ -52,30 +52,23 @@ QLabel#labelAddError { color: #c0392b; font-size: 12px; }
       <property name="rightMargin"><number>50</number></property>
       <property name="bottomMargin"><number>0</number></property>
       <item>
+       <widget class="QLabel" name="labelDeckTitle">
+        <property name="text"><string>English</string></property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="deckHeaderSpacer">
+        <property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QPushButton" name="buttonBack">
         <property name="minimumSize"><size><width>80</width><height>36</height></size></property>
         <property name="maximumSize"><size><width>80</width><height>36</height></size></property>
         <property name="text"><string>← Back</string></property>
        </widget>
       </item>
-      <item>
-       <widget class="QWidget" name="headerTextBlock" native="true">
-        <layout class="QVBoxLayout" name="headerTextLayout">
-         <property name="spacing"><number>1</number></property>
-         <property name="leftMargin"><number>0</number></property>
-         <property name="topMargin"><number>0</number></property>
-         <property name="rightMargin"><number>0</number></property>
-         <property name="bottomMargin"><number>0</number></property>
-                 <item>
-                    <widget class="QLabel" name="labelDeckTitle">
-                     <property name="text"><string>English</string></property>
-                     <property name="alignment"><set>Qt::AlignCenter</set></property>
-                    </widget>
-                 </item>
-        </layout>
-       </widget>
-      </item>
-            <item><spacer name="deckHeaderSpacer"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>80</width><height>20</height></size></property></spacer></item>
      </layout>
     </widget>
    </item>
