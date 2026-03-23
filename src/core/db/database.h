@@ -64,6 +64,7 @@ public:
     QList<CategoryStat> getDifficultyStats();
 
     bool saveFlashcard(const QString &subject, const QString &front, const QString &back);
+    bool deleteFlashcard(const QString &subject, const QString &front);
     QList<QPair<QString, QString>> loadFlashcardsForSubject(const QString &subject);
 
 private:

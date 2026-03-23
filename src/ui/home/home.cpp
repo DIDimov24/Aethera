@@ -204,6 +204,9 @@ Home::Home(QWidget *parent)
         setNavActive(NavPage::Lessons);
         ui->stackedWidget->setCurrentWidget(lessonsPage);
     });
+    connect(flashcardDeckPage, &FlashcardDeck::deckChanged, this, [this]() {
+        lessonsPage->refresh();
+    });
     connect(flashcardSessionPage, &FlashcardSession::sessionFinished, this, [this]() {
         setNavActive(NavPage::Lessons);
         ui->stackedWidget->setCurrentWidget(lessonsPage);

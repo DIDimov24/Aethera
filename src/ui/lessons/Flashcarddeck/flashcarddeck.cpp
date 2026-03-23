@@ -69,13 +69,33 @@ void FlashcardDeck::populateCards() {
         QLabel *backLabel = new QLabel(entry.back);
         backLabel->setStyleSheet("color: #8898c0; font-size: 12px;");
 
-        QLabel *arrowLabel = new QLabel("›");
-        arrowLabel->setStyleSheet("color: #c0c8e0; font-size: 18px;");
-        arrowLabel->setFixedWidth(16);
+        QPushButton *deleteBtn = new QPushButton("✕");
+        deleteBtn->setFixedSize(28, 28);
+        deleteBtn->setCursor(Qt::PointingHandCursor);
+        deleteBtn->setStyleSheet(R"(
+            QPushButton {
+                background-color: transparent;
+                color: #c0392b;
+                font-size: 13px;
+                font-weight: 600;
+                border: 1px solid #e0a0a0;
+                border-radius: 6px;
+            }
+            QPushButton:hover {
+                background-color: #fbeaea;
+                border-color: #c0392b;
+            }
+        )");
+
+        connect(deleteBtn, &QPushButton::clicked, this, [this, front = entry.front]() {
+            Database::instance().deleteFlashcard(currentSubject, front);
+            populateCards();
+            emit deckChanged();
+        });
 
         rowLayout->addWidget(frontLabel, 1);
         rowLayout->addWidget(backLabel, 2);
-        rowLayout->addWidget(arrowLabel);
+        rowLayout->addWidget(deleteBtn);
 
         ui->layoutCardsContent->addWidget(row);
     }
@@ -105,4 +125,5 @@ void FlashcardDeck::onAddCard() {
     ui->inputFront->setFocus();
 
     populateCards();
+    emit deckChanged();
 }

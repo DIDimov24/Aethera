@@ -316,6 +316,16 @@ bool Database::saveFlashcard(const QString &subject, const QString &front, const
     return query.exec();
 }
 
+bool Database::deleteFlashcard(const QString &subject, const QString &front) {
+    if (!openDatabase()) return false;
+
+    QSqlQuery query(database);
+    query.prepare("DELETE FROM flashcards WHERE subject = ? AND front = ?");
+    query.addBindValue(subject);
+    query.addBindValue(front);
+    return query.exec();
+}
+
 QList<QPair<QString, QString>> Database::loadFlashcardsForSubject(const QString &subject) {
     QList<QPair<QString, QString>> results;
     if (!openDatabase()) return results;

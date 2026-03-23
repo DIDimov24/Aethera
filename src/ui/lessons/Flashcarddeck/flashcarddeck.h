@@ -17,6 +17,7 @@ public:
 
 signals:
     void backRequested();
+    void deckChanged();
 
 private slots:
     void onAddCard();
